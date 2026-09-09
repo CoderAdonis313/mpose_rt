@@ -1,0 +1,39 @@
+{
+    "camera": "ZED camera",
+    "platform": "Linux-6.8.0-107-generic-x86_64-with-glibc2.35",
+    "avg_reprojection_error": null,
+    "camera_matrix": [
+        [
+            1376.2667236328125,
+            0.0,
+            963.1828002929688
+        ],
+        [
+            0.0,
+            1376.2667236328125,
+            605.0263671875
+        ],
+        [
+            0.0,
+            0.0,
+            1.0
+        ]
+    ],
+    "distortion_coefficients": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+    ],
+    "distortion_model": "rectilinear",
+    "img_size": [
+        1920,
+        1080
+    ],
+    "calibration_time": "Wed, 24 Jun 2026 18:10:13 GMT",
+    "caveats": [
+        "zed_sdk_self_calibrated_or_rectified",
+        "export_time_not_factory_calibration_time"
+    ]
+}
