@@ -2,6 +2,7 @@ from pathlib import Path
 import numpy as np
 import cv2
 import json
+import torch
 
 from megapose.datasets.object_dataset import RigidObject, RigidObjectDataset
 from megapose.datasets.scene_dataset import ObjectData, CameraData
@@ -27,11 +28,9 @@ class MegaPoseRunner:
         obj = RigidObject(label=label, mesh_path=mesh_path, mesh_units="m")
         self.object_dataset = RigidObjectDataset([obj])
 
-        # K_data = open(K_path, 'r', encoding='utf-8').read()
-        # Read calibdb format
         if not K_path.exists():
             raise Exception('Camera calibration file missing')
-        
+
         K_json = json.loads(K_path.read_text(encoding='utf-8'))
         img_res = K_json['img_size']
         assert img_res == list(OUT_RES)
@@ -47,12 +46,21 @@ class MegaPoseRunner:
         self.resolution = cam_data.resolution
         self.camera_data = cam_data
 
-        # heavy model loaded once
-        self.pose_estimator = load_named_model(model_name, self.object_dataset, n_workers=12).cuda()
+        # Heavy model loaded once.
+        self.pose_estimator = load_named_model(
+            model_name, self.object_dataset, n_workers=12
+        ).cuda()
+        self.pose_estimator.eval()
         self.scene_renderer = Panda3dSceneRenderer(self.object_dataset)
 
+        # Tracking variables
+        self.poses = None
+        self.detection = None
 
-######################### PRIVATE FUNCTIONS ##########################
+        # Stage II: keep the full GPU collection separately from display poses.
+        self.reset_tracking()
+
+    ######################### PRIVATE FUNCTIONS ##########################
     def _make_observation(self):
         return ObservationTensor.from_numpy(
             rgb=self.img,
@@ -66,18 +74,16 @@ class MegaPoseRunner:
         object_data = [
             ObjectData(
                 label=self.label,
-                bbox_modal=np.ndarray([0, 0, width, height], dtype=float),
+                bbox_modal=np.array([0, 0, width, height], dtype=float),
             )
         ]
-
         return make_detections_from_object_data(object_data).cuda()
 
-
     def _current_pose_transform(self):
-        if not hasattr(self, "poses") or not self.poses:
+        if not self.poses:
             raise RuntimeError("No pose prediction available. Run estimate() first.")
 
-        quat, trans = self.poses[0]["TWO"]  # type: ignore[index]
+        quat, trans = self.poses[0]["TWO"] #type: ignore
         quat = np.array(quat, dtype=float)
         trans = np.array(trans, dtype=float)
         return Transform(quat, trans)
@@ -116,35 +122,46 @@ class MegaPoseRunner:
         return renderings.rgb
 
 
-############################# PUBLIC METHODS #########################
+    ############################# PUBLIC METHODS #########################
+    def reset_tracking(self):
+        """Call before loading a fresh detection to restart initialization."""
+        self.previous_pose_estimates = None
+        self.tracking_active = False
+        self.detection = None
+        self.poses = []
+
+
     def load_detection(self, detection):
+        """Load one current-frame box: left, top, right, bottom."""
         if detection is None or len(detection) == 0:
-            raise RuntimeError('No bbox detection here')
+            return
 
-        object_data = [
-            ObjectData(
-                label=self.label,
-                bbox_modal=np.array(detection, dtype=float),
-            )
-        ]
+        bbox = np.asarray(detection, dtype=float)
+        if (
+            bbox.shape != (4,)
+            or not np.isfinite(bbox).all()
+            or bbox[2] <= bbox[0]
+            or bbox[3] <= bbox[1]
+        ):
+            raise ValueError('Expected a valid [left, top, right, bottom] bbox')
 
+        object_data = [ObjectData(label=self.label, bbox_modal=bbox)]
         self.detection = make_detections_from_object_data(object_data).cuda()
-
 
     def save_predictions(self, pose_estimates):
         labels = pose_estimates.infos["label"]
-        poses = pose_estimates.poses.cpu().numpy()
+        poses = pose_estimates.poses.detach().cpu().numpy()
 
+        # These are TCO transforms. TWO is equivalent here because the
+        # visualization camera's TWC is identity.
         object_data = [
-            ObjectData(label=label, TWO=Transform(pose)) for label, pose in zip(labels, poses)
+            ObjectData(label=label, TWO=Transform(pose))
+            for label, pose in zip(labels, poses)
         ]
-
-        json_data = [x.to_json() for x in object_data]
-        self.poses = json_data
+        self.poses = [x.to_json() for x in object_data]
 
         T = object_data[0].TWO
-        H = T.toHomogeneousMatrix() #type: ignore
-
+        H = T.toHomogeneousMatrix()
         R = H[:3, :3].astype(float)
         t = H[:3, 3].astype(float)
 
@@ -167,9 +184,7 @@ class MegaPoseRunner:
         roll = float(np.degrees(roll))
         pitch = float(np.degrees(pitch))
         yaw = float(np.degrees(yaw))
-
         return x, y, z, roll, pitch, yaw
-
 
     def draw_mesh_overlay(self):
         if not hasattr(self, "img"):
@@ -182,37 +197,75 @@ class MegaPoseRunner:
         rgb_overlay[~mask] = self.img[~mask] * 0.6 + 255 * 0.4
         rgb_overlay[mask] = rgb_rendered[mask] * 0.8 + 255 * 0.2
         rgb_overlay = rgb_overlay.astype(np.uint8)
-
         return cv2.cvtColor(rgb_overlay, cv2.COLOR_RGB2BGR)
 
-
+    @torch.no_grad()
     def estimate(self, img: np.ndarray):
+        """Accept calibrated-size uint8 RGB; return pose tuple or None.
+
+        Initialization needs a detection from this frame. Tracking uses the
+        previous GPU pose and one refinement iteration, without fresh scoring.
+        Basic validity checks do not establish that tracking is accurate.
+        """
+        # Consume once so a box cannot accidentally initialize a later frame.
+        detections = self.detection
+        self.detection = None
+        self.poses = []
+
+        if (
+            not isinstance(img, np.ndarray)
+            or img.ndim != 3
+            or img.shape[2] != 3
+            or img.dtype != np.uint8
+        ):
+            raise ValueError('Expected a uint8 RGB image with three channels')
+        if img.shape[:2] != tuple(self.resolution):
+            raise ValueError(
+                f'Image dimensions {img.shape[:2]} must match '
+                f'calibration {tuple(self.resolution)} (height, width)'
+            )
+
         self.img = img
+        if not self.tracking_active and detections is None:
+            return None
 
         observation = self._make_observation()
-        detections = self.detection
+        if self.tracking_active:
+            predictions, _ = self.pose_estimator.forward_refiner(
+                observation,
+                data_TCO_input=self.previous_pose_estimates,
+                n_iterations=1,
+                keep_all_outputs=False,
+            )
+            output = predictions["iteration=1"]
+        else:
+            parameters = dict(self.model_info["inference_parameters"])
+            parameters["run_depth_refiner"] = False  # Monocular RGB only.
+            output, _ = self.pose_estimator.run_inference_pipeline(
+                observation, detections=detections, **parameters
+            )
 
-        output, _ = self.pose_estimator.run_inference_pipeline(
-            observation, detections=detections, **self.model_info["inference_parameters"]
-        )
+        # This runner supports exactly one object and one retained pose.
+        if output is None or output.poses.shape != (1, 4, 4):
+            self.reset_tracking()
+            return None
+        valid = torch.isfinite(output.poses).all() & (output.poses[:, 2, 3] > 0).all()
+        if not valid.item():
+            self.reset_tracking()
+            return None
+
+        self.previous_pose_estimates = output
+        self.tracking_active = True
         return self.save_predictions(output)
 
-
     def draw_triaxis(self):
-        pose = self.poses[0]["TWO"]
-        quat, trans = pose #type: ignore
-        quat = np.array(quat, dtype=float)
-        trans = np.array(trans, dtype=float)
-
-        T = Transform(quat, trans)
+        T = self._current_pose_transform()
         H = T.toHomogeneousMatrix()
         R = H[:3, :3].astype(float)
         t = H[:3, 3].astype(float)
-        # print('INFO: RHS OR LHS', np.linalg.det(R))
 
         rvec, _ = cv2.Rodrigues(R)
         tvec = t.reshape(3, 1)
-
         dist = np.zeros((5, 1), dtype=float)
         axis_length = 0.1
 

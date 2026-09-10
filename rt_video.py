@@ -46,19 +46,29 @@ def main():
     while True:
         start_time = perf_counter()
         isWorking, frame = cap.read()
+        res_img = frame
 
         if isWorking == True:
             try:
                 img = cv2.resize(frame, OUT_RES, interpolation=cv2.INTER_LINEAR)
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-                _, bboxs = detector.estimate(img)
-                mpose.load_detection(bboxs[0])
+
+
+                if mpose.tracking_active == False:
+                    _, bboxs = detector.estimate(img)
+                    mpose.load_detection(bboxs[0])
+                    if bboxs is None or len(bboxs) == 0:
+                        mpose.reset_tracking()
+
                 pose = mpose.estimate(img)
-                print('Pose: ', pose)
+
+                if pose is not None:
+                    res_img = mpose.draw_triaxis()
+                
             except Exception as e:
                 print(e)
             finally:
-                cv2.imshow(win_name, frame)
+                cv2.imshow(win_name, res_img)
         else:
             print('Video finished')
             break
