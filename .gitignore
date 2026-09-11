@@ -1,4 +1,7 @@
+# Folders
 __pycache__/
 .vscode/
 models/
-vids/
+
+# Files
+*.mp4
