@@ -24,8 +24,6 @@ def calculate_iou(A, B):
 
     if B is None or len(B) == 0:
         return 0.0
-
-    print('DEBUG: ', A, B)
     
     AreaA = (A[0] - A[2] + 1) * (A[1] - A[3] + 1)
     AreaB = (B[0] - B[2] + 1) * (B[1] - B[3] + 1)
@@ -52,6 +50,7 @@ def main():
     cap = cv2.VideoCapture(f'vids/{args.video_file}')
     VID_FPS = int(cap.get(cv2.CAP_PROP_FPS))
     FRAME_COUNT = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    IOU_OVERLAP = 0.5
 
     win_name = 'OUTPUT'
     cv2.namedWindow(win_name, cv2.WINDOW_NORMAL)
@@ -72,6 +71,7 @@ def main():
     codec = cv2.VideoWriter_fourcc(*'mp4v')
     tstamp = int(time())
     vid = cv2.VideoWriter(f'outputs/pose_track_{tstamp}.mp4', codec, FPS, OUT_RES)
+    s_time = perf_counter()
 
     for i in range(FRAME_COUNT):
         start_time = perf_counter()
@@ -85,16 +85,16 @@ def main():
 
                 _, bboxs = detector.estimate(img)
                 pred_bboxs = mpose.mpose_bboxes()
-                print('DEBUG: ', pred_bboxs)
                 iou = calculate_iou(bboxs[0], pred_bboxs)
 
-                if iou < 0.5:
+                if iou < IOU_OVERLAP:
                     mpose.reset_tracking()
 
                 if bboxs is None or len(bboxs) == 0:
                     mpose.reset_tracking()
 
                 if mpose.tracking_active == False:
+                    print('Reset Tracking')
                     mpose.load_detection(bboxs[0])
                     
                 pose = mpose.estimate(img)
@@ -121,6 +121,13 @@ def main():
         end_time = perf_counter()
         print('Time taken: ', end_time - start_time)
 
+    e_time = perf_counter()
+    print('Stats: \n' \
+        f'FPS: {FPS}\n'\
+        f'IOU: {IOU_OVERLAP}\n'\
+        f'No. of frames: {FRAME_COUNT}\n'\
+        f'Total time: {e_time - s_time}\n'\
+    )
     cap.release()
     vid.release()
     cv2.destroyAllWindows()
