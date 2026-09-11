@@ -5,7 +5,7 @@ from pathlib import Path
 from configs.config import FPS, COLOR_RANGES, OUT_RES
 from mpose_runner import MegaPoseRunner
 from contour_runner import ContourRunner
-from time import perf_counter
+from time import perf_counter, time
 
 
 def parse_args():
@@ -30,7 +30,8 @@ def main():
     FRAME_COUNT = cap.get(cv2.CAP_PROP_FRAME_COUNT)
 
     win_name = 'OUTPUT'
-    cv2.namedWindow(win_name)
+    cv2.namedWindow(win_name, cv2.WINDOW_NORMAL)
+    cv2.resizeWindow(win_name, (1280, 720))
 
     if cap.isOpened():
         print(f'Video has been opened successfully')
@@ -43,9 +44,14 @@ def main():
     assert VID_FPS >= FPS
     wait_time = int(1000 / FPS) if FPS > 0 else 1
 
+    codec = cv2.VideoWriter_fourcc(*'mp4v')
+    tstamp = int(time())
+    vid = cv2.VideoWriter(f'outputs/o_track_{tstamp}.mp4', codec, FPS, OUT_RES)
+
     while True:
         start_time = perf_counter()
         isWorking, frame = cap.read()
+        res_img = frame
 
         if isWorking == True:
             try:
@@ -54,11 +60,14 @@ def main():
                 _, bboxs = detector.estimate(img)
                 mpose.load_detection(bboxs[0])
                 pose = mpose.estimate(img)
+
+                res_img = mpose.draw_triaxis()
                 print('Pose: ', pose)
             except Exception as e:
                 print(e)
             finally:
-                cv2.imshow(win_name, frame)
+                vid.write(res_img)
+                cv2.imshow(win_name, res_img)
         else:
             print('Video finished')
             break
@@ -70,6 +79,7 @@ def main():
         print('Time taken: ', end_time - start_time)
 
     cap.release()
+    vid.release()
     cv2.destroyAllWindows()
 
 
