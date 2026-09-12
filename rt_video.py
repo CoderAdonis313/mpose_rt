@@ -51,6 +51,8 @@ def main():
     s_time = perf_counter()
 
     with open(f'outputs/pose_track_{tstamp}.txt', 'w') as f:
+        f.write("timestamp x_robot y_robot z_robot roll_robot pitch_robot yaw_robot runtime\n")
+
         for i in range(FRAME_COUNT):
             isWorking, frame = cap.read()
             res_img = frame
@@ -77,7 +79,7 @@ def main():
                     )
                     f.flush()
                 except Exception as e:
-                    f.write(f"{i:04d} ERROR {e}\n {type(e).__name__}\n, {e}\n, {format_exc()}")
+                    f.write(f"{i:04d} ERROR {e}\n {type(e).__name__}\n, {e}\n, {format_exc()}\n")
                     f.flush()
                     print_exc()
                 finally:
