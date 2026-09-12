@@ -6,7 +6,7 @@ from configs.config import FPS, COLOR_RANGES, OUT_RES
 from mpose_runner import MegaPoseRunner
 from contour_runner import ContourRunner
 from time import perf_counter, time
-from traceback import print_exc
+from traceback import print_exc, format_exc
 
 
 def parse_args():
@@ -47,16 +47,16 @@ def main():
     mpose = MegaPoseRunner(mesh_path, 'fiducial', args.model, cam_file_path)
     detector = ContourRunner(COLOR_RANGES)
 
-    cap = cv2.VideoCapture(f'vids/{args.video_file}')
-    VID_FPS = int(cap.get(cv2.CAP_PROP_FPS))
-    FRAME_COUNT = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    in_vid = cv2.VideoCapture(f'vids/{args.video_file}')
+    VID_FPS = int(in_vid.get(cv2.CAP_PROP_FPS))
+    FRAME_COUNT = int(in_vid.get(cv2.CAP_PROP_FRAME_COUNT))
     IOU_OVERLAP = 0.5
 
     win_name = 'OUTPUT'
     cv2.namedWindow(win_name, cv2.WINDOW_NORMAL)
     cv2.resizeWindow(win_name, 1280, 720)
 
-    if cap.isOpened():
+    if in_vid.isOpened():
         print(f'Video has been opened successfully')
     else:
         print('Video could not be opened successfully')
@@ -70,56 +70,70 @@ def main():
     #Write video
     codec = cv2.VideoWriter_fourcc(*'mp4v')
     tstamp = int(time())
-    vid = cv2.VideoWriter(f'outputs/pose_track_{tstamp}.mp4', codec, FPS, OUT_RES)
+    out_path = f'outputs/pose_track_{tstamp}.mp4'
+    out_vid = cv2.VideoWriter(out_path, codec, FPS, OUT_RES)
     s_time = perf_counter()
 
-    for i in range(FRAME_COUNT):
-        start_time = perf_counter()
-        isWorking, frame = cap.read()
-        res_img = frame
+    txt_path = f'outputs/pose_track_{tstamp}.txt'
+    with open(txt_path, "w", encoding="utf-8") as f:
+        f.write("timestamp x_robot y_robot z_robot roll_robot pitch_robot yaw_robot runtime\n")
 
-        if isWorking == True:
-            try:
-                img = cv2.resize(frame, OUT_RES, interpolation=cv2.INTER_LINEAR)
-                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        for i in range(FRAME_COUNT):
+            isWorking, frame = in_vid.read()
+            res_img = frame
 
-                _, bboxs = detector.estimate(img)
-                pred_bboxs = mpose.mpose_bboxes()
-                iou = calculate_iou(bboxs[0], pred_bboxs)
+            if isWorking == True:
+                try:
+                    start_time = perf_counter()
+                    img = cv2.resize(frame, OUT_RES, interpolation=cv2.INTER_LINEAR)
+                    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-                if iou < IOU_OVERLAP:
-                    mpose.reset_tracking()
+                    _, bboxs = detector.estimate(img)
+                    pred_bboxs = mpose.mpose_bboxes()
+                    iou = calculate_iou(bboxs[0], pred_bboxs)
 
-                if bboxs is None or len(bboxs) == 0:
-                    mpose.reset_tracking()
+                    if iou < IOU_OVERLAP:
+                        mpose.reset_tracking()
 
-                if mpose.tracking_active == False:
-                    print('Reset Tracking')
-                    mpose.load_detection(bboxs[0])
+                    if bboxs is None or len(bboxs) == 0:
+                        mpose.reset_tracking()
+
+                    if mpose.tracking_active == False:
+                        print('Reset Tracking')
+                        mpose.load_detection(bboxs[0])
+                        
+                    pose = mpose.estimate(img)
+                    x, y, z, roll, pitch, yaw = pose    #type: ignore
+
+                    if pose is not None:
+                        res_img = mpose.draw_triaxis()
+
+                    # if i % 10 == 0:
+                    #     mpose.reset_tracking()
                     
-                pose = mpose.estimate(img)
+                    end_time = perf_counter()
+                    print('Time taken: ', end_time - start_time)
+                    f.write(
+                        f"{i:04d} "
+                        f"{x} {y} {z} "
+                        f"{roll} {pitch} {yaw} {end_time - start_time}\n"
+                    )
+                    f.flush()
+                    
+                except Exception as e:
+                    f.write(f"{i:04d} ERROR {e}\n {type(e).__name__}\n, {e}\n, {format_exc()}")
+                    f.flush()
+                    print_exc()
+                finally:
+                    out_vid.write(res_img)
+                    cv2.imshow(win_name, res_img)
+            else:
+                print('Video finished')
+                break
 
-                if pose is not None:
-                    res_img = mpose.draw_triaxis()
+            if cv2.waitKey(wait_time) == ord('q'):
+                break
 
-                # if i % 10 == 0:
-                #     mpose.reset_tracking()
-                
-            except Exception as e:
-                # print(e)
-                print_exc()
-            finally:
-                vid.write(res_img)
-                cv2.imshow(win_name, res_img)
-        else:
-            print('Video finished')
-            break
-
-        if cv2.waitKey(wait_time) == ord('q'):
-            break
-
-        end_time = perf_counter()
-        print('Time taken: ', end_time - start_time)
 
     e_time = perf_counter()
     print('Stats: \n' \
@@ -128,8 +142,8 @@ def main():
         f'No. of frames: {FRAME_COUNT}\n'\
         f'Total time: {e_time - s_time}\n'\
     )
-    cap.release()
-    vid.release()
+    in_vid.release()
+    out_vid.release()
     cv2.destroyAllWindows()
 
 
