@@ -6,7 +6,7 @@ from configs.config import FPS, COLOR_RANGES, OUT_RES
 from mpose_runner import MegaPoseRunner
 from contour_runner import ContourRunner
 from time import perf_counter, time
-from traceback import format_exc, print_exc
+from traceback import print_exc, format_exc
 
 
 def parse_args():
@@ -26,13 +26,13 @@ def main():
     mpose = MegaPoseRunner(mesh_path, 'fiducial', args.model, cam_file_path)
     detector = ContourRunner(COLOR_RANGES)
 
-    in_vid = cv2.VideoCapture(f'vids/{args.video_file}')
+    in_vid = cv2.VideoCapture(f'inputs/{args.video_file}')
     VID_FPS = int(in_vid.get(cv2.CAP_PROP_FPS))
     FRAME_COUNT = int(in_vid.get(cv2.CAP_PROP_FRAME_COUNT))
 
     win_name = 'OUTPUT'
     cv2.namedWindow(win_name, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(win_name, (1280, 720))
+    cv2.resizeWindow(win_name, 1280, 720)
 
     if in_vid.isOpened():
         print(f'Video has been opened successfully')
@@ -45,14 +45,15 @@ def main():
     assert VID_FPS >= FPS
     wait_time = int(1000 / FPS) if FPS > 0 else 1
 
-    codec = cv2.VideoWriter_fourcc(*'mp4v')
+    #Write video
+    codec = cv2.VideoWriter_fourcc(*'mp4v') #type: ignore
     tstamp = int(time())
     out_path = f'outputs/no_track_{tstamp}.mp4'
     out_vid = cv2.VideoWriter(out_path, codec, FPS, OUT_RES)
     s_time = perf_counter()
 
-    txt_path = f'outputs/no_track_{tstamp}.txt' 
-    with open(txt_path, 'w') as f:
+    txt_path = f'outputs/no_track_{tstamp}.txt'
+    with open(txt_path, "w", encoding="utf-8") as f:
         f.write("timestamp x_robot y_robot z_robot roll_robot pitch_robot yaw_robot runtime\n")
 
         for i in range(FRAME_COUNT):
@@ -73,7 +74,7 @@ def main():
 
                     end_time = perf_counter()
                     print('Time taken: ', end_time - start_time)
-                    x, y, z, roll, pitch, yaw = pose
+                    x, y, z, roll, pitch, yaw = pose    #type: ignore
                     f.write(
                         f"{i:04d} "
                         f"{x} {y} {z} "
@@ -97,6 +98,8 @@ def main():
 
     e_time = perf_counter()
     print('Stats: \n' \
+        f'Video name: {out_path}\n'\
+        f'Pose file: {txt_path}\n'\
         f'FPS: {FPS}\n'\
         f'No. of frames: {FRAME_COUNT}\n'\
         f'Total time: {e_time - s_time}\n'\

@@ -2,6 +2,7 @@
 __pycache__/
 .vscode/
 models/
+images/
 
 # Files
 *.mp4

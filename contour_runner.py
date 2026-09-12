@@ -141,7 +141,7 @@ class ContourRunner:
         self.detections = detections
 
         if self.debug_mask:
-            mask_bgr = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
+            mask_bgr = cv2.cvtColor(mask, cv2.COLOR_GRAY2RGB)
             vis = np.hstack([vis, mask_bgr])
 
         return vis, detections
