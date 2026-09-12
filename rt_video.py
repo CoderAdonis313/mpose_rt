@@ -46,7 +46,8 @@ def main():
 
     codec = cv2.VideoWriter_fourcc(*'mp4v')
     tstamp = int(time())
-    vid = cv2.VideoWriter(f'outputs/o_track_{tstamp}.mp4', codec, FPS, OUT_RES)
+    vid = cv2.VideoWriter(f'outputs/no_track_{tstamp}.mp4', codec, FPS, OUT_RES)
+    s_time = perf_counter()
 
     while True:
         start_time = perf_counter()
@@ -78,6 +79,13 @@ def main():
         end_time = perf_counter()
         print('Time taken: ', end_time - start_time)
 
+
+    e_time = perf_counter()
+    print('Stats: \n' \
+        f'FPS: {FPS}\n'\
+        f'No. of frames: {FRAME_COUNT}\n'\
+        f'Total time: {e_time - s_time}\n'\
+    )
     cap.release()
     vid.release()
     cv2.destroyAllWindows()
