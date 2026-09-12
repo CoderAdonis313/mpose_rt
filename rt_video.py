@@ -6,6 +6,7 @@ from configs.config import FPS, COLOR_RANGES, OUT_RES
 from mpose_runner import MegaPoseRunner
 from contour_runner import ContourRunner
 from time import perf_counter, time
+from traceback import format_exc, print_exc
 
 
 def parse_args():
@@ -26,8 +27,8 @@ def main():
     detector = ContourRunner(COLOR_RANGES)
 
     cap = cv2.VideoCapture(f'vids/{args.video_file}')
-    VID_FPS = cap.get(cv2.CAP_PROP_FPS)
-    FRAME_COUNT = cap.get(cv2.CAP_PROP_FRAME_COUNT)
+    VID_FPS = int(cap.get(cv2.CAP_PROP_FPS))
+    FRAME_COUNT = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
     win_name = 'OUTPUT'
     cv2.namedWindow(win_name, cv2.WINDOW_NORMAL)
@@ -49,35 +50,45 @@ def main():
     vid = cv2.VideoWriter(f'outputs/no_track_{tstamp}.mp4', codec, FPS, OUT_RES)
     s_time = perf_counter()
 
-    while True:
-        start_time = perf_counter()
-        isWorking, frame = cap.read()
-        res_img = frame
+    with open(f'outputs/pose_track_{tstamp}.txt', 'w') as f:
+        for i in range(FRAME_COUNT):
+            isWorking, frame = cap.read()
+            res_img = frame
 
-        if isWorking == True:
-            try:
-                img = cv2.resize(frame, OUT_RES, interpolation=cv2.INTER_LINEAR)
-                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-                _, bboxs = detector.estimate(img)
-                mpose.load_detection(bboxs[0])
-                pose = mpose.estimate(img)
+            if isWorking == True:
+                try:
+                    start_time = perf_counter()
+                    img = cv2.resize(frame, OUT_RES, interpolation=cv2.INTER_LINEAR)
+                    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+                    _, bboxs = detector.estimate(img)
+                    mpose.load_detection(bboxs[0])
+                    pose = mpose.estimate(img)
 
-                res_img = mpose.draw_triaxis()
-                print('Pose: ', pose)
-            except Exception as e:
-                print(e)
-            finally:
-                vid.write(res_img)
-                cv2.imshow(win_name, res_img)
-        else:
-            print('Video finished')
-            break
+                    res_img = mpose.draw_triaxis()
+                    print('Pose: ', pose)
 
-        if cv2.waitKey(1) == ord('q'):
-            break
+                    end_time = perf_counter()
+                    print('Time taken: ', end_time - start_time)
+                    x, y, z, roll, pitch, yaw = pose
+                    f.write(
+                        f"{i:04d} "
+                        f"{x} {y} {z} "
+                        f"{roll} {pitch} {yaw} {end_time - start_time}\n"
+                    )
+                    f.flush()
+                except Exception as e:
+                    f.write(f"{i:04d} ERROR {e}\n {type(e).__name__}\n, {e}\n, {format_exc()}")
+                    f.flush()
+                    print_exc()
+                finally:
+                    vid.write(res_img)
+                    cv2.imshow(win_name, res_img)
+            else:
+                print('Video finished')
+                break
 
-        end_time = perf_counter()
-        print('Time taken: ', end_time - start_time)
+            if cv2.waitKey(wait_time) == ord('q'):
+                break
 
 
     e_time = perf_counter()
