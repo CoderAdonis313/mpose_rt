@@ -26,15 +26,15 @@ def main():
     mpose = MegaPoseRunner(mesh_path, 'fiducial', args.model, cam_file_path)
     detector = ContourRunner(COLOR_RANGES)
 
-    cap = cv2.VideoCapture(f'vids/{args.video_file}')
-    VID_FPS = int(cap.get(cv2.CAP_PROP_FPS))
-    FRAME_COUNT = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    in_vid = cv2.VideoCapture(f'vids/{args.video_file}')
+    VID_FPS = int(in_vid.get(cv2.CAP_PROP_FPS))
+    FRAME_COUNT = int(in_vid.get(cv2.CAP_PROP_FRAME_COUNT))
 
     win_name = 'OUTPUT'
     cv2.namedWindow(win_name, cv2.WINDOW_NORMAL)
     cv2.resizeWindow(win_name, (1280, 720))
 
-    if cap.isOpened():
+    if in_vid.isOpened():
         print(f'Video has been opened successfully')
     else:
         print('Video could not be opened successfully')
@@ -47,14 +47,16 @@ def main():
 
     codec = cv2.VideoWriter_fourcc(*'mp4v')
     tstamp = int(time())
-    vid = cv2.VideoWriter(f'outputs/no_track_{tstamp}.mp4', codec, FPS, OUT_RES)
+    out_path = f'outputs/no_track_{tstamp}.mp4'
+    out_vid = cv2.VideoWriter(out_path, codec, FPS, OUT_RES)
     s_time = perf_counter()
 
-    with open(f'outputs/pose_track_{tstamp}.txt', 'w') as f:
+    txt_path = f'outputs/no_track_{tstamp}.txt' 
+    with open(txt_path, 'w') as f:
         f.write("timestamp x_robot y_robot z_robot roll_robot pitch_robot yaw_robot runtime\n")
 
         for i in range(FRAME_COUNT):
-            isWorking, frame = cap.read()
+            isWorking, frame = in_vid.read()
             res_img = frame
 
             if isWorking == True:
@@ -83,7 +85,7 @@ def main():
                     f.flush()
                     print_exc()
                 finally:
-                    vid.write(res_img)
+                    out_vid.write(res_img)
                     cv2.imshow(win_name, res_img)
             else:
                 print('Video finished')
@@ -99,8 +101,8 @@ def main():
         f'No. of frames: {FRAME_COUNT}\n'\
         f'Total time: {e_time - s_time}\n'\
     )
-    cap.release()
-    vid.release()
+    in_vid.release()
+    out_vid.release()
     cv2.destroyAllWindows()
 
 
