@@ -52,9 +52,9 @@ def main():
     FRAME_COUNT = int(in_vid.get(cv2.CAP_PROP_FRAME_COUNT))
     IOU_OVERLAP = 0.5
 
-    win_name = 'OUTPUT'
-    cv2.namedWindow(win_name, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(win_name, 1280, 720)
+    # win_name = 'OUTPUT'
+    # cv2.namedWindow(win_name, cv2.WINDOW_NORMAL)
+    # cv2.resizeWindow(win_name, 1280, 720)
 
     if in_vid.isOpened():
         print(f'Video has been opened successfully')
@@ -126,7 +126,7 @@ def main():
                     print_exc()
                 finally:
                     out_vid.write(res_img)
-                    cv2.imshow(win_name, res_img)
+                    # cv2.imshow(win_name, res_img)
             else:
                 print('Video finished')
                 break
@@ -144,7 +144,7 @@ def main():
     )
     in_vid.release()
     out_vid.release()
-    cv2.destroyAllWindows()
+    # cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
