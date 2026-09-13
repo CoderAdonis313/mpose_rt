@@ -10,11 +10,11 @@ python rt_video.py \
 
 
 echo "INFO: Calculating inference metrics"
-gt_file=(inputs/*.txt)
-est_file=(outputs/*.txt)
+GT_FILE="inputs/gt_poses_19_07_04.txt"
+EST_FILE="outputs/pose_track_1789260645.txt"
 python metrics_postprocess.py \
-  --gt_file "$gt_file" \
-  --est_file "$est_file" \
+  --gt_file "$GT_FILE" \
+  --est_file "$EST_FILE" \
   --output-dir error_outputs \
   --beta 0.1 \
   --angle-unit "deg" \

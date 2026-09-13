@@ -340,44 +340,107 @@ def pose_fields(prefix, pose):
     }
 
 
-def compute_frame_metrics(gt_rows, est_rows_by_frame, beta, normal_axis, angle_unit):
+def compute_frame_metrics(
+    gt_rows,
+    est_rows_by_frame,
+    beta,
+    normal_axis,
+    angle_unit,
+):
     rows = []
     marker_normal_local = NORMAL_AXES[normal_axis]
 
-    for gt in gt_rows:
-        frame_id = gt["timestamp"]
-        T_gt_camera_marker = compute_relative_transform(gt, angle_unit=angle_unit)
+    gt_frame_ids = {gt["timestamp"] for gt in gt_rows}
+    est_frame_ids = set(est_rows_by_frame)
+
+    # Use frame IDs when they overlap. Otherwise, compare rows by position
+    # because one file uses timestamps and the other uses frame indices.
+    match_method = (
+        "frame_id"
+        if gt_frame_ids & est_frame_ids
+        else "row_index"
+    )
+
+    est_rows_in_order = list(est_rows_by_frame.values())
+
+    for row_index, gt in enumerate(gt_rows):
+        gt_frame_id = gt["timestamp"]
+
+        T_gt_camera_marker = compute_relative_transform(
+            gt,
+            angle_unit=angle_unit,
+        )
         gt_t = T_gt_camera_marker[:3, 3].astype(float)
         gt_R = T_gt_camera_marker[:3, :3].astype(float)
         gt_q = rot_to_quat(gt_R)
         gt_pose = pose_from_transform(T_gt_camera_marker)
         _, _, _, gt_roll, gt_pitch, gt_yaw = gt_pose
 
-        est = est_rows_by_frame.get(frame_id)
+        if match_method == "frame_id":
+            est = est_rows_by_frame.get(gt_frame_id)
+        else:
+            est = (
+                est_rows_in_order[row_index]
+                if row_index < len(est_rows_in_order)
+                else None
+            )
+
+        est_frame_id = (
+            est["timestamp"]
+            if est is not None
+            else ""
+        )
+
         valid_prediction, invalid_reason = prediction_validity(est)
+
         runtime = float("nan")
         if est is not None:
             runtime = est.get("runtime", float("nan"))
 
         row = {
-            "frame_id": frame_id,
+            "frame_id": gt_frame_id,
+            "row_index": row_index,
+            "gt_frame_id": gt_frame_id,
+            "est_frame_id": est_frame_id,
+            "match_method": match_method,
             "valid_prediction": valid_prediction,
             "error_msg": invalid_reason,
             "beta": beta,
             "inference_runtime_seconds": runtime,
-            "viewing_angle_deg": viewing_angle_deg(T_gt_camera_marker, marker_normal_local),
+            "viewing_angle_deg": viewing_angle_deg(
+                T_gt_camera_marker,
+                marker_normal_local,
+            ),
             "world_marker_x": gt["x_robot"],
             "world_marker_y": gt["y_robot"],
             "world_marker_z": gt["z_robot"],
-            "world_marker_roll_deg": angle_to_deg(gt["roll_robot"], angle_unit),
-            "world_marker_pitch_deg": angle_to_deg(gt["pitch_robot"], angle_unit),
-            "world_marker_yaw_deg": angle_to_deg(gt["yaw_robot"], angle_unit),
+            "world_marker_roll_deg": angle_to_deg(
+                gt["roll_robot"],
+                angle_unit,
+            ),
+            "world_marker_pitch_deg": angle_to_deg(
+                gt["pitch_robot"],
+                angle_unit,
+            ),
+            "world_marker_yaw_deg": angle_to_deg(
+                gt["yaw_robot"],
+                angle_unit,
+            ),
             "world_camera_x": gt["x_rgbd"],
             "world_camera_y": gt["y_rgbd"],
             "world_camera_z": gt["z_rgbd"],
-            "world_camera_roll_deg": angle_to_deg(gt["roll_rgbd"], angle_unit),
-            "world_camera_pitch_deg": angle_to_deg(gt["pitch_rgbd"], angle_unit),
-            "world_camera_yaw_deg": angle_to_deg(gt["yaw_rgbd"], angle_unit),
+            "world_camera_roll_deg": angle_to_deg(
+                gt["roll_rgbd"],
+                angle_unit,
+            ),
+            "world_camera_pitch_deg": angle_to_deg(
+                gt["pitch_rgbd"],
+                angle_unit,
+            ),
+            "world_camera_yaw_deg": angle_to_deg(
+                gt["yaw_rgbd"],
+                angle_unit,
+            ),
             **pose_fields("gt", gt_pose),
             **nan_pose_fields("est"),
             "dx_m": float("nan"),
@@ -405,45 +468,77 @@ def compute_frame_metrics(gt_rows, est_rows_by_frame, beta, normal_axis, angle_u
             row.update(pose_fields("est", est_pose))
 
         if valid_prediction:
-            est_t = np.array([est["x_robot"], est["y_robot"], est["z_robot"]], dtype=float) #type: ignore
+            est_t = np.array(
+                [
+                    est["x_robot"],
+                    est["y_robot"],
+                    est["z_robot"],
+                ],
+                dtype=float,
+            )
+
             est_R = euler_to_rot(
-                est["roll_robot"],  #type: ignore
-                est["pitch_robot"], #type: ignore
-                est["yaw_robot"],   #type: ignore
-                angle_unit="deg",   
+                est["roll_robot"],
+                est["pitch_robot"],
+                est["yaw_robot"],
+                angle_unit="deg",
             )
             est_q = rot_to_quat(est_R)
 
             dt = est_t - gt_t
             dx, dy, dz = dt.tolist()
+
             translation_loss = float(dt @ dt)
             r_loss = rotation_loss(gt_q, est_q)
-            geodesic_error_deg = quaternion_geodesic_error_deg(gt_q, est_q)
-            roll_error_deg = abs(wrap_angle_deg(est["roll_robot"] - gt_roll)) #type: ignore
-            pitch_error_deg = abs(wrap_angle_deg(est["pitch_robot"] - gt_pitch))    #type: ignore
-            yaw_error_deg = abs(wrap_angle_deg(est["yaw_robot"] - gt_yaw))  #type: ignore
+            geodesic_error_deg = quaternion_geodesic_error_deg(
+                gt_q,
+                est_q,
+            )
+
+            roll_error_deg = abs(
+                wrap_angle_deg(
+                    est["roll_robot"] - gt_roll
+                )
+            )
+            pitch_error_deg = abs(
+                wrap_angle_deg(
+                    est["pitch_robot"] - gt_pitch
+                )
+            )
+            yaw_error_deg = abs(
+                wrap_angle_deg(
+                    est["yaw_robot"] - gt_yaw
+                )
+            )
 
             row.update({
                 "dx_m": dx,
                 "dy_m": dy,
                 "dz_m": dz,
-                "translation_error_m": math.sqrt(translation_loss),
-                "geodesic_rotation_error_deg": geodesic_error_deg,
+                "translation_error_m": math.sqrt(
+                    translation_loss
+                ),
+                "geodesic_rotation_error_deg":
+                    geodesic_error_deg,
                 "roll_error_deg": roll_error_deg,
                 "pitch_error_deg": pitch_error_deg,
                 "yaw_error_deg": yaw_error_deg,
                 "translation_loss": translation_loss,
                 "rotation_loss": r_loss,
-                "weighted_pose_loss": translation_loss + beta * r_loss,
+                "weighted_pose_loss":
+                    translation_loss + beta * r_loss,
             })
 
         rows.append(row)
-
     return rows
 
 
 PER_FRAME_FIELDS = [
     "frame_id",
+    "row_index",
+    "gt_frame_id",
+    "est_frame_id",
+    "match_method",
     "valid_prediction", "error_msg",
     "translation_error_m", "geodesic_rotation_error_deg",
     "roll_error_deg", "pitch_error_deg", "yaw_error_deg",
