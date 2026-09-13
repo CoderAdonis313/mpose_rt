@@ -47,7 +47,7 @@ def main():
     mpose = MegaPoseRunner(mesh_path, 'fiducial', args.model, cam_file_path)
     detector = ContourRunner(COLOR_RANGES)
 
-    in_vid = cv2.VideoCapture(f'vids/{args.video_file}')
+    in_vid = cv2.VideoCapture(f'inputs/{args.video_file}')
     VID_FPS = int(in_vid.get(cv2.CAP_PROP_FPS))
     FRAME_COUNT = int(in_vid.get(cv2.CAP_PROP_FRAME_COUNT))
     IOU_OVERLAP = 0.5
@@ -68,7 +68,7 @@ def main():
     wait_time = int(1000 / FPS) if FPS > 0 else 1
 
     #Write video
-    codec = cv2.VideoWriter_fourcc(*'mp4v')
+    codec = cv2.VideoWriter_fourcc(*'mp4v') #type: ignore
     tstamp = int(time())
     out_path = f'outputs/pose_track_{tstamp}.mp4'
     out_vid = cv2.VideoWriter(out_path, codec, FPS, OUT_RES)
@@ -137,6 +137,8 @@ def main():
 
     e_time = perf_counter()
     print('Stats: \n' \
+        f'Video name: {out_path}\n'\
+        f'Pose file: {txt_path}\n'\
         f'FPS: {FPS}\n'\
         f'IOU: {IOU_OVERLAP}\n'\
         f'No. of frames: {FRAME_COUNT}\n'\
