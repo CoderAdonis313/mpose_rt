@@ -1,0 +1,165 @@
+{
+  "total_expected_frames": 900,
+  "valid_predictions": 0,
+  "failed_predictions": 900,
+  "pose_estimation_rate_percent": 0.0,
+  "metrics": {
+    "translation_error_m": {
+      "count": 0,
+      "mean": null,
+      "median": null,
+      "variance": null,
+      "std_dev": null,
+      "min": null,
+      "max": null,
+      "p90": null
+    },
+    "geodesic_rotation_error_deg": {
+      "count": 0,
+      "mean": null,
+      "median": null,
+      "variance": null,
+      "std_dev": null,
+      "min": null,
+      "max": null,
+      "p90": null
+    },
+    "roll_error_deg": {
+      "count": 0,
+      "mean": null,
+      "median": null,
+      "variance": null,
+      "std_dev": null,
+      "min": null,
+      "max": null,
+      "p90": null
+    },
+    "pitch_error_deg": {
+      "count": 0,
+      "mean": null,
+      "median": null,
+      "variance": null,
+      "std_dev": null,
+      "min": null,
+      "max": null,
+      "p90": null
+    },
+    "yaw_error_deg": {
+      "count": 0,
+      "mean": null,
+      "median": null,
+      "variance": null,
+      "std_dev": null,
+      "min": null,
+      "max": null,
+      "p90": null
+    },
+    "translation_loss": {
+      "count": 0,
+      "mean": null,
+      "median": null,
+      "variance": null,
+      "std_dev": null,
+      "min": null,
+      "max": null,
+      "p90": null
+    },
+    "rotation_loss": {
+      "count": 0,
+      "mean": null,
+      "median": null,
+      "variance": null,
+      "std_dev": null,
+      "min": null,
+      "max": null,
+      "p90": null
+    },
+    "weighted_pose_loss": {
+      "count": 0,
+      "mean": null,
+      "median": null,
+      "variance": null,
+      "std_dev": null,
+      "min": null,
+      "max": null,
+      "p90": null
+    },
+    "inference_runtime_seconds": {
+      "count": 0,
+      "mean": null,
+      "median": null,
+      "variance": null,
+      "std_dev": null,
+      "min": null,
+      "max": null,
+      "p90": null
+    },
+    "viewing_angle_deg": {
+      "count": 900,
+      "mean": 68.74913741452028,
+      "median": 71.76509596845682,
+      "variance": 526.5001444742588,
+      "std_dev": 22.9455909593599,
+      "min": 26.17723757560528,
+      "max": 103.78720079140979,
+      "p90": 96.99816538517724
+    }
+  },
+  "threshold_success_rates": {
+    "translation_error_m": {
+      "le_0_01_m": {
+        "threshold_m": 0.01,
+        "count": 0,
+        "percent": null
+      },
+      "le_0_1_m": {
+        "threshold_m": 0.1,
+        "count": 0,
+        "percent": null
+      },
+      "le_0_25_m": {
+        "threshold_m": 0.25,
+        "count": 0,
+        "percent": null
+      },
+      "le_0_5_m": {
+        "threshold_m": 0.5,
+        "count": 0,
+        "percent": null
+      }
+    },
+    "geodesic_rotation_error_deg": {
+      "le_1_deg": {
+        "threshold_deg": 1.0,
+        "count": 0,
+        "percent": null
+      },
+      "le_10_deg": {
+        "threshold_deg": 10.0,
+        "count": 0,
+        "percent": null
+      },
+      "le_30_deg": {
+        "threshold_deg": 30.0,
+        "count": 0,
+        "percent": null
+      },
+      "le_60_deg": {
+        "threshold_deg": 60.0,
+        "count": 0,
+        "percent": null
+      }
+    }
+  },
+  "run_name": "Pointer on simulation video",
+  "beta": 0.1,
+  "normal_axis": "z",
+  "marker_normal_local": [
+    0.0,
+    0.0,
+    1.0
+  ],
+  "angle_unit": "deg",
+  "gt_file": "inputs/gt_poses_19_07_04.txt",
+  "est_file": "outputs/pose_track_1789260645.txt"
+}

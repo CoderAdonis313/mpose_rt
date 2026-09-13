@@ -1,6 +1,8 @@
 import cv2
 import os
 import glob
+from time import time
+
 
 def create_video_with_repeated_frames(image_folder, output_filename, target_duration=30.0, fps=30.0):
     # Retrieve all .jpg images from the specified directory
@@ -35,7 +37,7 @@ def create_video_with_repeated_frames(image_folder, output_filename, target_dura
     resolution = (width, height)
 
     # Initialize the VideoWriter
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v') 
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')    #type: ignore
     video_writer = cv2.VideoWriter(output_filename, fourcc, fps, resolution)
 
     print("Stitching and duplicating images into video...")
@@ -65,7 +67,8 @@ def create_video_with_repeated_frames(image_folder, output_filename, target_dura
 # --- Execution ---
 if __name__ == "__main__":
     DIRECTORY = 'images/' 
-    OUTPUT_FILE = 'inputs/output_30s_30fps.mp4'
+    tstamp = int(time())
+    OUTPUT_FILE = f'inputs/output_{tstamp}.mp4'
     
     # You can now control BOTH duration and FPS independently
     DURATION = 30.0
