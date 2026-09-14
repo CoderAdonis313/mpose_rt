@@ -2,11 +2,18 @@
 TAG="Pointer on simulation video"
 
 
-echo "INFO: Running pose tracking megapose"
-python rt_video.py \
---video_file output_1789260512.mp4 \
---mesh BaselinePointer.obj \
---cam_file zed_1080p_calib.json
+# echo "INFO: Running pose tracking on Video"
+# python rt_video.py \
+#   --mesh BaselinePointer.obj \
+#   --cam_file zed_1080p_calib.json \
+#   --video_file output_1789260512.mp4 \
+
+
+echo "INFO: Running pose tracking on camera"
+python rt_cam.py \
+  --mesh BaselinePointer.obj \
+  --cam_source "http://192.168.1.107:8080/video" \
+  --cam_file samsung1920_calib.json \
 
 
 echo "INFO: Calculating inference metrics"

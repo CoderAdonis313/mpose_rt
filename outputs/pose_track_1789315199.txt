@@ -1,0 +1,1107 @@
+timestamp x_robot y_robot z_robot roll_robot pitch_robot yaw_robot runtime
+0000 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0001 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0002 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0003 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0004 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0005 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0006 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0007 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0008 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0009 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0010 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0011 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0012 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0013 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0014 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0015 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0016 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0017 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0018 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0019 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0020 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0021 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0022 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0023 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0024 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0025 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0026 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0027 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0028 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0029 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0030 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0031 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0032 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0033 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0034 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0035 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0036 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0037 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0038 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0039 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0040 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0041 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0042 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0043 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0044 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0045 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0046 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0047 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0048 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0049 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0050 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0051 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0052 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0053 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0054 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0055 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0056 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0057 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0058 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0059 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0060 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0061 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0062 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0063 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0064 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0065 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0066 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0067 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0068 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0069 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0070 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0071 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0072 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0073 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0074 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0075 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0076 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0077 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0078 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0079 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0080 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0081 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0082 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0083 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0084 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0085 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0086 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0087 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0088 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0089 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0090 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0091 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0092 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0093 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0094 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0095 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0096 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0097 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0098 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0099 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0100 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0101 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0102 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0103 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0104 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0105 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0106 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0107 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0108 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0109 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0110 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0111 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0112 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0113 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0114 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0115 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0116 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0117 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0118 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0119 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0120 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0121 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0122 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0123 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0124 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0125 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0126 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0127 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0128 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0129 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0130 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0131 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0132 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0133 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0134 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0135 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0136 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0137 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0138 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0139 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0140 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0141 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0142 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0143 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0144 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0145 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0146 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0147 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0148 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0149 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0150 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0151 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0152 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0153 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0154 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0155 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0156 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
+0157 ERROR list index out of range
+ IndexError
+, list index out of range
+, Traceback (most recent call last):
+  File "/home/abhinav/Dev/mpose_rt/rt_cam.py", line 92, in main
+    iou = calculate_iou(bboxs[0], pred_bboxs)
+IndexError: list index out of range
