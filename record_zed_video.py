@@ -88,6 +88,12 @@ def main():
     cv2.namedWindow("ZED recording", cv2.WINDOW_NORMAL)
     cv2.resizeWindow('ZED recording', 640, 480)
 
+    zed.set_camera_settings(sl.VIDEO_SETTINGS.AEC_AGC, 0)
+    zed.set_camera_settings(sl.VIDEO_SETTINGS.EXPOSURE, 20)
+    zed.set_camera_settings(sl.VIDEO_SETTINGS.GAIN, 5)
+    zed.set_camera_settings(sl.VIDEO_SETTINGS.BRIGHTNESS, 4)
+    zed.set_camera_settings(sl.VIDEO_SETTINGS.CONTRAST, 4)
+
     print(f"Recording {args.view} ZED view for {args.duration:.1f}s")
     print(f"Resolution: {args.resolution}, FPS: {args.fps}")
     print(f"Output: {output_path}")
