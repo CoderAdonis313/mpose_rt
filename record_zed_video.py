@@ -36,7 +36,7 @@ def parse_args():
     parser.add_argument(
         "--fps",
         type=int,
-        default=30,
+        default=15,
         help="Camera FPS and output video FPS.",
     )
     parser.add_argument(
@@ -61,10 +61,17 @@ def default_output_path():
 
 
 def zed_frame_to_bgr(image):
-    frame = image.get_data()
+    frame = image.get_data().copy()
+    if frame.dtype != "uint8":
+        raise RuntimeError(f"Unexpected dtype: {frame.dtype}")
     if frame.ndim == 3 and frame.shape[2] == 4:
         return cv2.cvtColor(frame, cv2.COLOR_BGRA2BGR)
     return frame
+
+
+def get_opened_resolution(zed):
+    res = zed.get_camera_information().camera_configuration.resolution
+    return (res.width, res.height)
 
 
 def main():
@@ -89,10 +96,21 @@ def main():
     cv2.resizeWindow('ZED recording', 640, 480)
 
     zed.set_camera_settings(sl.VIDEO_SETTINGS.AEC_AGC, 0)
-    zed.set_camera_settings(sl.VIDEO_SETTINGS.EXPOSURE, 20)
+    zed.set_camera_settings(sl.VIDEO_SETTINGS.EXPOSURE, 40)
     zed.set_camera_settings(sl.VIDEO_SETTINGS.GAIN, 5)
     zed.set_camera_settings(sl.VIDEO_SETTINGS.BRIGHTNESS, 4)
     zed.set_camera_settings(sl.VIDEO_SETTINGS.CONTRAST, 4)
+
+    width, height = get_opened_resolution(zed)
+    fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+    writer = cv2.VideoWriter(
+        str(output_path),
+        fourcc,
+        float(args.fps),
+        (width, height),
+    )
+    if not writer.isOpened():
+        raise RuntimeError(f"Failed to open video writer: {output_path}")
 
     print(f"Recording {args.view} ZED view for {args.duration:.1f}s")
     print(f"Resolution: {args.resolution}, FPS: {args.fps}")
@@ -100,41 +118,16 @@ def main():
     print("Press 'q' to stop early.")
 
     try:
-        print('Keeping camera on for 10 seconds to finish loading')
-        cam_load_start = time()
-
-        while time() - cam_load_start < 10:
-            err = zed.grab(runtime_params)
-            if err != sl.ERROR_CODE.SUCCESS:
-                print(f"Grab failed: {err}")
-                continue
-
-            zed.retrieve_image(image, VIEW_MAP[args.view])
-            frame_bgr = zed_frame_to_bgr(image)
-
-            if writer is None:
-                height, width = frame_bgr.shape[:2]
-                fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-                writer = cv2.VideoWriter(
-                    str(output_path),
-                    fourcc,
-                    float(args.fps),
-                    (width, height),
-                )
-                if not writer.isOpened():
-                    raise RuntimeError(f"Failed to open video writer: {output_path}")
-
-            cv2.imshow("ZED recording", frame_bgr)
-            if cv2.waitKey(1) & 0xFF == ord("q"):
-                print("Stopped early.")
-                break
-
         start_time = time()
         frame_count = 0
         print('Starting recording now !')
 
         while time() - start_time < args.duration:
+            grab_start = time()
             err = zed.grab(runtime_params)
+            grab_end = time()
+            print('Time taken for 1 frame', grab_end - grab_start)
+            
             if err != sl.ERROR_CODE.SUCCESS:
                 print(f"Grab failed: {err}")
                 continue
@@ -151,8 +144,7 @@ def main():
                 break
 
     finally:
-        if writer is not None:
-            writer.release()
+        writer.release()
         cv2.destroyAllWindows()
         zed.close()
 
