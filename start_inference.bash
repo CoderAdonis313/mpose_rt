@@ -10,10 +10,9 @@ TAG="Pointer on simulation video"
 
 
 echo "INFO: Running pose tracking on camera"
-python rt_cam.py \
+python rt_zed_cam.py \
   --mesh BaselinePointer.obj \
-  --cam_source "http://192.168.1.107:8080/video" \
-  --cam_file samsung1920_calib.json \
+  --cam_file zed_1080p_calib.json \
 
 
 echo "INFO: Calculating inference metrics"
