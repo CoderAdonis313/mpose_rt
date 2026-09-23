@@ -1,19 +1,20 @@
 #! /bin/usr/env bash
-TAG="Pointer on simulation video"
+TAG="Pointer on real video"
 
 
-# echo "INFO: Running pose tracking on Video"
-# python rt_video.py \
-#   --mesh BaselinePointer.obj \
-#   --cam_file zed_1080p_calib.json \
-#   --video_file output_1789260512.mp4 \
-
-
-echo "INFO: Running pose tracking on camera"
-python rt_zed_cam.py \
+echo "INFO: Running pose tracking on Video"
+python rt_video.py \
   --mesh BaselinePointer.obj \
   --cam_file zed_1080p_calib.json \
+  --video_file zed_capture_20260923_180917.mp4 \
 
+
+# echo "INFO: Running pose tracking on camera"
+# python rt_zed_cam.py \
+#   --mesh BaselinePointer.obj \
+#   --cam_file zed_1080p_calib.json \
+
+exit 0
 
 echo "INFO: Calculating inference metrics"
 GT_FILE="inputs/gt_poses_19_07_04.txt"
