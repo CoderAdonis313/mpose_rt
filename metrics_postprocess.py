@@ -152,10 +152,22 @@ def invert_transform(T):
     return Tinv
 
 
-def convert_to_cvframe(T_frame):
-    T = np.eye(4, dtype=float)
-    T[:3, :3] = np.diag([1.0, -1.0, -1.0])
-    return T_frame @ T
+def convert_to_cvframe(T_world_camera_body):
+   """Convert the tracked camera-body pose to the OpenCV optical frame.
+
+    Transform convention: T_A_B maps coordinates from frame B into frame A.
+    The calibrated axis relationship is:
+      optical X = body -X
+      optical Y = body -Z
+      optical Z = body -Y
+    """
+   T_camera_body_camera_optical = np.array([
+        [-1.0,  0.0,  0.0, 0.0],
+        [ 0.0,  0.0, -1.0, 0.0],
+        [ 0.0, -1.0,  0.0, 0.0],
+        [ 0.0,  0.0,  0.0, 1.0],
+    ], dtype=float)
+   return T_world_camera_body @ T_camera_body_camera_optical
 
 
 def pose_from_transform(T):
@@ -166,17 +178,33 @@ def pose_from_transform(T):
 
 def compute_relative_transform(gt_row, angle_unit="deg"):
     T_world_robot = make_transform(
-        gt_row["x_robot"], gt_row["y_robot"], gt_row["z_robot"],
-        gt_row["roll_robot"], gt_row["pitch_robot"], gt_row["yaw_robot"],
+        gt_row["x_robot"],
+        gt_row["y_robot"],
+        gt_row["z_robot"],
+        gt_row["roll_robot"],
+        gt_row["pitch_robot"],
+        gt_row["yaw_robot"],
         angle_unit=angle_unit,
     )
-    T_world_rgbd_blender = make_transform(
-        gt_row["x_rgbd"], gt_row["y_rgbd"], gt_row["z_rgbd"],
-        gt_row["roll_rgbd"], gt_row["pitch_rgbd"], gt_row["yaw_rgbd"],
+
+    T_world_camera_body = make_transform(
+        gt_row["x_rgbd"],
+        gt_row["y_rgbd"],
+        gt_row["z_rgbd"],
+        gt_row["roll_rgbd"],
+        gt_row["pitch_rgbd"],
+        gt_row["yaw_rgbd"],
         angle_unit=angle_unit,
     )
-    T_world_rgbd = convert_to_cvframe(T_world_rgbd_blender)
-    return invert_transform(T_world_rgbd) @ T_world_robot
+
+    T_world_camera_optical = convert_to_cvframe(
+        T_world_camera_body
+    )
+
+    return (
+        invert_transform(T_world_camera_optical)
+        @ T_world_robot
+    )
 
 
 def normalize_frame_id(token):
