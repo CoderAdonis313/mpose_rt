@@ -1,0 +1,1408 @@
+timestamp x_robot y_robot z_robot roll_robot pitch_robot yaw_robot runtime
+0000 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0001 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0002 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0003 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0004 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0005 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0006 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0007 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0008 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0009 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0010 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0011 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0012 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0013 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0014 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0015 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0016 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0017 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0018 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0019 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0020 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0021 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0022 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0023 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0024 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0025 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0026 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0027 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0028 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0029 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0030 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0031 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0032 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0033 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0034 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0035 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0036 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0037 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0038 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0039 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0040 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0041 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0042 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0043 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0044 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0045 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0046 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0047 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0048 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0049 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0050 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0051 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0052 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0053 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0054 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0055 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0056 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0057 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0058 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0059 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0060 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0061 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0062 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0063 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0064 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0065 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+0066 ERROR CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+ OutOfMemoryError
+, CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+, Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 105, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 311, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 671, in forward_coarse
+    images = images[:, self.input_rgb_dims]
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.97 GiB (GPU 0; 5.67 GiB total capacity; 3.16 GiB already allocated; 2.22 GiB free; 3.25 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF

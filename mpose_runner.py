@@ -18,10 +18,11 @@ import trimesh
 
 
 class MegaPoseRunner:
-    def __init__(self, mesh_path: Path, label: str, model_name: str, K_path: Path):
+    def __init__(self, mesh_path: Path, label: str, model_name: str, K_path: Path, batch_size=16):
         self.label = label
         self.model_name = model_name
         self.model_info = NAMED_MODELS[model_name]
+        self.megapose_batch_size = batch_size
 
         if not mesh_path.exists():
             raise Exception('Input mesh file missing')
@@ -49,7 +50,7 @@ class MegaPoseRunner:
 
         # Heavy model loaded once.
         self.pose_estimator = load_named_model(
-            model_name, self.object_dataset, n_workers=12
+            model_name, self.object_dataset, n_workers=6, bsz_images=self.megapose_batch_size
         ).cuda()
         self.pose_estimator.eval()
         self.scene_renderer = Panda3dSceneRenderer(self.object_dataset)
@@ -308,6 +309,7 @@ class MegaPoseRunner:
         else:
             parameters = dict(self.model_info["inference_parameters"])
             parameters["run_depth_refiner"] = False  # Monocular RGB only.
+            parameters['bsz_images'] = self.megapose_batch_size
             output, _ = self.pose_estimator.run_inference_pipeline(
                 observation, detections=detections, **parameters
             )

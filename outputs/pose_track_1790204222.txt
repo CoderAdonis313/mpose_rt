@@ -1,0 +1,391 @@
+timestamp x_robot y_robot z_robot roll_robot pitch_robot yaw_robot runtime
+0000 ERROR 
+AssertionError
+Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 140, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 313, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 680, in forward_coarse
+    images_crop, K_crop, boxes_rend, boxes_crop = self.crop_inputs(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 216, in crop_inputs
+    points = meshes.sample_points(2000, deterministic=True)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/rigid_mesh_database.py", line 169, in sample_points
+    return sample_points(self.points, n_points, deterministic=deterministic)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/mesh_ops.py", line 79, in sample_points
+    assert n_points <= points.shape[1]
+AssertionError
+0001 ERROR 
+AssertionError
+Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 140, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 313, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 680, in forward_coarse
+    images_crop, K_crop, boxes_rend, boxes_crop = self.crop_inputs(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 216, in crop_inputs
+    points = meshes.sample_points(2000, deterministic=True)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/rigid_mesh_database.py", line 169, in sample_points
+    return sample_points(self.points, n_points, deterministic=deterministic)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/mesh_ops.py", line 79, in sample_points
+    assert n_points <= points.shape[1]
+AssertionError
+0002 ERROR 
+AssertionError
+Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 140, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 313, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 680, in forward_coarse
+    images_crop, K_crop, boxes_rend, boxes_crop = self.crop_inputs(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 216, in crop_inputs
+    points = meshes.sample_points(2000, deterministic=True)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/rigid_mesh_database.py", line 169, in sample_points
+    return sample_points(self.points, n_points, deterministic=deterministic)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/mesh_ops.py", line 79, in sample_points
+    assert n_points <= points.shape[1]
+AssertionError
+0003 ERROR 
+AssertionError
+Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 140, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 313, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 680, in forward_coarse
+    images_crop, K_crop, boxes_rend, boxes_crop = self.crop_inputs(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 216, in crop_inputs
+    points = meshes.sample_points(2000, deterministic=True)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/rigid_mesh_database.py", line 169, in sample_points
+    return sample_points(self.points, n_points, deterministic=deterministic)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/mesh_ops.py", line 79, in sample_points
+    assert n_points <= points.shape[1]
+AssertionError
+0004 ERROR 
+AssertionError
+Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 140, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 313, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 680, in forward_coarse
+    images_crop, K_crop, boxes_rend, boxes_crop = self.crop_inputs(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 216, in crop_inputs
+    points = meshes.sample_points(2000, deterministic=True)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/rigid_mesh_database.py", line 169, in sample_points
+    return sample_points(self.points, n_points, deterministic=deterministic)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/mesh_ops.py", line 79, in sample_points
+    assert n_points <= points.shape[1]
+AssertionError
+0005 ERROR 
+AssertionError
+Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 140, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 313, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 680, in forward_coarse
+    images_crop, K_crop, boxes_rend, boxes_crop = self.crop_inputs(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 216, in crop_inputs
+    points = meshes.sample_points(2000, deterministic=True)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/rigid_mesh_database.py", line 169, in sample_points
+    return sample_points(self.points, n_points, deterministic=deterministic)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/mesh_ops.py", line 79, in sample_points
+    assert n_points <= points.shape[1]
+AssertionError
+0006 ERROR 
+AssertionError
+Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 140, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 313, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 680, in forward_coarse
+    images_crop, K_crop, boxes_rend, boxes_crop = self.crop_inputs(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 216, in crop_inputs
+    points = meshes.sample_points(2000, deterministic=True)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/rigid_mesh_database.py", line 169, in sample_points
+    return sample_points(self.points, n_points, deterministic=deterministic)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/mesh_ops.py", line 79, in sample_points
+    assert n_points <= points.shape[1]
+AssertionError
+0007 ERROR 
+AssertionError
+Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 140, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 313, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 680, in forward_coarse
+    images_crop, K_crop, boxes_rend, boxes_crop = self.crop_inputs(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 216, in crop_inputs
+    points = meshes.sample_points(2000, deterministic=True)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/rigid_mesh_database.py", line 169, in sample_points
+    return sample_points(self.points, n_points, deterministic=deterministic)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/mesh_ops.py", line 79, in sample_points
+    assert n_points <= points.shape[1]
+AssertionError
+0008 ERROR 
+AssertionError
+Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 140, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 313, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 680, in forward_coarse
+    images_crop, K_crop, boxes_rend, boxes_crop = self.crop_inputs(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 216, in crop_inputs
+    points = meshes.sample_points(2000, deterministic=True)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/rigid_mesh_database.py", line 169, in sample_points
+    return sample_points(self.points, n_points, deterministic=deterministic)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/mesh_ops.py", line 79, in sample_points
+    assert n_points <= points.shape[1]
+AssertionError
+0009 ERROR 
+AssertionError
+Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 140, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 313, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 680, in forward_coarse
+    images_crop, K_crop, boxes_rend, boxes_crop = self.crop_inputs(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 216, in crop_inputs
+    points = meshes.sample_points(2000, deterministic=True)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/rigid_mesh_database.py", line 169, in sample_points
+    return sample_points(self.points, n_points, deterministic=deterministic)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/mesh_ops.py", line 79, in sample_points
+    assert n_points <= points.shape[1]
+AssertionError
+0010 ERROR 
+AssertionError
+Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 140, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 313, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 680, in forward_coarse
+    images_crop, K_crop, boxes_rend, boxes_crop = self.crop_inputs(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 216, in crop_inputs
+    points = meshes.sample_points(2000, deterministic=True)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/rigid_mesh_database.py", line 169, in sample_points
+    return sample_points(self.points, n_points, deterministic=deterministic)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/mesh_ops.py", line 79, in sample_points
+    assert n_points <= points.shape[1]
+AssertionError
+0011 ERROR 
+AssertionError
+Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 140, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 313, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 680, in forward_coarse
+    images_crop, K_crop, boxes_rend, boxes_crop = self.crop_inputs(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 216, in crop_inputs
+    points = meshes.sample_points(2000, deterministic=True)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/rigid_mesh_database.py", line 169, in sample_points
+    return sample_points(self.points, n_points, deterministic=deterministic)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/mesh_ops.py", line 79, in sample_points
+    assert n_points <= points.shape[1]
+AssertionError
+0012 ERROR 
+AssertionError
+Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 140, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 313, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 680, in forward_coarse
+    images_crop, K_crop, boxes_rend, boxes_crop = self.crop_inputs(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 216, in crop_inputs
+    points = meshes.sample_points(2000, deterministic=True)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/rigid_mesh_database.py", line 169, in sample_points
+    return sample_points(self.points, n_points, deterministic=deterministic)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/mesh_ops.py", line 79, in sample_points
+    assert n_points <= points.shape[1]
+AssertionError
+0013 ERROR 
+AssertionError
+Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 140, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 313, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 680, in forward_coarse
+    images_crop, K_crop, boxes_rend, boxes_crop = self.crop_inputs(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 216, in crop_inputs
+    points = meshes.sample_points(2000, deterministic=True)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/rigid_mesh_database.py", line 169, in sample_points
+    return sample_points(self.points, n_points, deterministic=deterministic)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/mesh_ops.py", line 79, in sample_points
+    assert n_points <= points.shape[1]
+AssertionError
+0014 ERROR 
+AssertionError
+Traceback (most recent call last):
+  File "/home/abhi/dev/mpose_rt/rt_video.py", line 140, in main
+    pose = mpose.estimate(img)
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/mpose_rt/mpose_runner.py", line 313, in estimate
+    output, _ = self.pose_estimator.run_inference_pipeline(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 576, in run_inference_pipeline
+    data_TCO_coarse, coarse_extra_data = self.forward_coarse_model(
+  File "/home/abhi/miniconda3/envs/mpose/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/abhi/dev/megapose6d/src/megapose/inference/pose_estimator.py", line 413, in forward_coarse_model
+    out_ = coarse_model.forward_coarse(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 680, in forward_coarse
+    images_crop, K_crop, boxes_rend, boxes_crop = self.crop_inputs(
+  File "/home/abhi/dev/megapose6d/src/megapose/models/pose_rigid.py", line 216, in crop_inputs
+    points = meshes.sample_points(2000, deterministic=True)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/rigid_mesh_database.py", line 169, in sample_points
+    return sample_points(self.points, n_points, deterministic=deterministic)
+  File "/home/abhi/dev/megapose6d/src/megapose/lib3d/mesh_ops.py", line 79, in sample_points
+    assert n_points <= points.shape[1]
+AssertionError

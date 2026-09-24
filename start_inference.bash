@@ -1,12 +1,12 @@
 #! /bin/usr/env bash
 TAG="Pointer on real video"
 
-
+export PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:64
 echo "INFO: Running pose tracking on Video"
 python rt_video.py \
   --mesh BaselinePointer.obj \
   --cam_file zed_1080p_calib.json \
-  --video_file zed_capture_20260923_180917.mp4 \
+  --video_file zed_capture_20260923_184024.mp4 \
 
 
 # echo "INFO: Running pose tracking on camera"
