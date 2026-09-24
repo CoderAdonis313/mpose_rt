@@ -1,7 +1,7 @@
 # Folders
 __pycache__/
 .vscode/
-models/
+# models/
 images/
 
 # Files
