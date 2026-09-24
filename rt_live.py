@@ -21,11 +21,11 @@ import numpy as np
 
 def parse_args():
     parser = ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--project-root",
-        type=Path,
-        default=Path.home() / "dev/mpose_rt",
-    )
+    # parser.add_argument(
+    #     "--project-root",
+    #     type=Path,
+    #     default=Path.home() / "dev/mpose_rt",
+    # )
     parser.add_argument("--cam_source", default="0")
     parser.add_argument("--mesh", required=True)
     parser.add_argument("--cam_file", default="zed_1080p_raw_calib.json")
@@ -45,9 +45,9 @@ def parse_args():
     if not 1 <= args.udp_port <= 65535:
         parser.error("UDP port must be between 1 and 65535.")
 
-    args.project_root = args.project_root.expanduser().resolve()
-    if not (args.project_root / "mpose_runner.py").is_file():
-        parser.error("--project-root must contain mpose_runner.py.")
+    # args.project_root = args.project_root.expanduser().resolve()
+    # if not (args.project_root / "mpose_runner.py").is_file():
+    #     parser.error("--project-root must contain mpose_runner.py.")
 
     return args
 
@@ -217,7 +217,7 @@ def process_frame(mpose, detector, left_bgr, threshold):
 
 def main():
     args = parse_args()
-    root = args.project_root
+    root = Path.cwd()
 
     # This script can live in ros2_ws while reusing the inference project.
     sys.path.insert(0, str(root))
