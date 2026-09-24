@@ -1,13 +1,13 @@
 #! /bin/usr/env bash
 TAG="Pointer on real video"
 
-# VID_FILE=$(ls -t inputs/experiment_*/video.mp4 | head -1)
-# echo "INFO: Running pose tracking on Video"
-# echo "Video file used : $VID_FILE"
-# python rt_video.py \
-#   --mesh PointerActual.obj \
-#   --cam_file zed_1080p_calib.json \
-#   --video_file $VID_FILE \
+VID_FILE=$(ls -t inputs/experiment_*/video.mp4 | head -1)
+echo "INFO: Running pose tracking on Video"
+echo "Video file used : $VID_FILE"
+python rt_video.py \
+  --mesh PointerActual.obj \
+  --cam_file zed_1080p_calib.json \
+  --video_file $VID_FILE \
 
 
 # echo "INFO: Running pose tracking on camera"
