@@ -47,7 +47,7 @@ def main():
     mpose = MegaPoseRunner(mesh_path, 'fiducial', args.model, cam_file_path)
     detector = ContourRunner(COLOR_RANGES)
 
-    in_vid = cv2.VideoCapture(f'inputs/{args.video_file}')
+    in_vid = cv2.VideoCapture(f'{args.video_file}')
     VID_FPS = int(in_vid.get(cv2.CAP_PROP_FPS))
     FRAME_COUNT = int(in_vid.get(cv2.CAP_PROP_FRAME_COUNT))
     IOU_OVERLAP = 0.5

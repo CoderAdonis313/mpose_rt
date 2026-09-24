@@ -1,0 +1,165 @@
+{
+  "total_expected_frames": 447,
+  "valid_predictions": 447,
+  "failed_predictions": 0,
+  "pose_estimation_rate_percent": 100.0,
+  "metrics": {
+    "translation_error_m": {
+      "count": 447,
+      "mean": 3.420044303986297,
+      "median": 3.4157381342246675,
+      "variance": 0.06786642283314871,
+      "std_dev": 0.2605118477788462,
+      "min": 2.6987821826091514,
+      "max": 3.8108438786004113,
+      "p90": 3.7481731634472832
+    },
+    "geodesic_rotation_error_deg": {
+      "count": 447,
+      "mean": 128.66362473378086,
+      "median": 127.42354761078523,
+      "variance": 45.768430098926174,
+      "std_dev": 6.765236884169406,
+      "min": 120.26569073723553,
+      "max": 174.71524235660533,
+      "p90": 130.45044599308153
+    },
+    "roll_error_deg": {
+      "count": 447,
+      "mean": 68.79905798391069,
+      "median": 75.08020183250096,
+      "variance": 974.2380631802955,
+      "std_dev": 31.212786853792718,
+      "min": 0.7048218274558167,
+      "max": 179.60163834229607,
+      "p90": 98.18071141620422
+    },
+    "pitch_error_deg": {
+      "count": 447,
+      "mean": 58.781117183242074,
+      "median": 66.1831296524972,
+      "variance": 1089.4260195533986,
+      "std_dev": 33.00645421055401,
+      "min": 0.13195980651462946,
+      "max": 102.49214690022956,
+      "p90": 97.14625510125555
+    },
+    "yaw_error_deg": {
+      "count": 447,
+      "mean": 93.77748682434375,
+      "median": 91.90937372367105,
+      "variance": 199.99486624710198,
+      "std_dev": 14.141954116991823,
+      "min": 5.165136132789115,
+      "max": 175.20048796656408,
+      "p90": 101.45546198301722
+    },
+    "translation_loss": {
+      "count": 447,
+      "mean": 11.76456946406226,
+      "median": 11.667267001596613,
+      "variance": 3.1363796023923523,
+      "std_dev": 1.7709826657515177,
+      "min": 7.283425269168614,
+      "max": 14.522531067066227,
+      "p90": 14.04880206372352
+    },
+    "rotation_loss": {
+      "count": 447,
+      "mean": 1.1348988598867578,
+      "median": 1.114226078045227,
+      "variance": 0.012489793849448665,
+      "std_dev": 0.11175774626149484,
+      "min": 1.0040185984139642,
+      "max": 1.9077962715860954,
+      "p90": 1.1618951678619127
+    },
+    "weighted_pose_loss": {
+      "count": 447,
+      "mean": 11.878059350050936,
+      "median": 11.77582971793136,
+      "variance": 3.131021997010037,
+      "std_dev": 1.7694694111540998,
+      "min": 7.4612096056726775,
+      "max": 14.635239754034911,
+      "p90": 14.161427471583156
+    },
+    "inference_runtime_seconds": {
+      "count": 447,
+      "mean": 0.03996660304246017,
+      "median": 0.034531600002082996,
+      "variance": 0.012233000550400283,
+      "std_dev": 0.11060289575956085,
+      "min": 0.028913886002555955,
+      "max": 2.3751299349969486,
+      "p90": 0.03825322379852879
+    },
+    "viewing_angle_deg": {
+      "count": 447,
+      "mean": 49.79245065577662,
+      "median": 49.91230419143603,
+      "variance": 4.676978435221676,
+      "std_dev": 2.162632293114499,
+      "min": 46.03699261479496,
+      "max": 52.73161819004505,
+      "p90": 52.40405626638044
+    }
+  },
+  "threshold_success_rates": {
+    "translation_error_m": {
+      "le_0_01_m": {
+        "threshold_m": 0.01,
+        "count": 0,
+        "percent": 0.0
+      },
+      "le_0_1_m": {
+        "threshold_m": 0.1,
+        "count": 0,
+        "percent": 0.0
+      },
+      "le_0_25_m": {
+        "threshold_m": 0.25,
+        "count": 0,
+        "percent": 0.0
+      },
+      "le_0_5_m": {
+        "threshold_m": 0.5,
+        "count": 0,
+        "percent": 0.0
+      }
+    },
+    "geodesic_rotation_error_deg": {
+      "le_1_deg": {
+        "threshold_deg": 1.0,
+        "count": 0,
+        "percent": 0.0
+      },
+      "le_10_deg": {
+        "threshold_deg": 10.0,
+        "count": 0,
+        "percent": 0.0
+      },
+      "le_30_deg": {
+        "threshold_deg": 30.0,
+        "count": 0,
+        "percent": 0.0
+      },
+      "le_60_deg": {
+        "threshold_deg": 60.0,
+        "count": 0,
+        "percent": 0.0
+      }
+    }
+  },
+  "run_name": "Pointer on real video",
+  "beta": 0.1,
+  "normal_axis": "z",
+  "marker_normal_local": [
+    0.0,
+    0.0,
+    1.0
+  ],
+  "angle_unit": "deg",
+  "gt_file": "inputs/gt_poses_experiment_03_40_58.txt",
+  "est_file": "outputs/pose_track_1790236423.txt"
+}
