@@ -1,22 +1,13 @@
 #! /bin/usr/env bash
 TAG="Pointer on real video"
 
-VID_FILE=$(ls -t inputs/experiment_*/video.mp4 | head -1)
 echo "INFO: Running pose tracking on Video"
-echo "Video file used : $VID_FILE"
-python rt_video.py \
-  --mesh PointerActual.obj \
-  --cam_file zed_1080p_calib.json \
-  --video_file $VID_FILE \
+python rt_zed_cam.py \
+  --cam_source 0 \
+  --mesh BaselinePointer.obj \
+  --cam_file zed_1080p_raw_calib.json \
+  --fps 15
 
-
-# echo "INFO: Running pose tracking on camera"
-# python rt_cam.py \
-#   --mesh BaselinePointer.obj \
-#   --cam_source "http://192.168.1.107:8080/video" \
-#   --cam_file samsung1920_calib.json \
-
-exit 0
 
 echo "INFO: Calculating inference metrics"
 GT_FILE=$(ls -t inputs/experiment_*/gt_poses.txt | head -1)
