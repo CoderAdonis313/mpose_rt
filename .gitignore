@@ -6,3 +6,6 @@ images/
 
 # Files
 *.mp4
+*.json
+*.txt
+*.csv
