@@ -1,0 +1,39 @@
+{
+    "camera": "zed_720p",
+    "platform": "Linux-6.8.0-107-generic-x86_64-with-glibc2.35",
+    "avg_reprojection_error": null,
+    "camera_matrix": [
+        [
+            699.9199829101562,
+            0.0,
+            664.864990234375
+        ],
+        [
+            0.0,
+            699.9199829101562,
+            386.9670104980469
+        ],
+        [
+            0.0,
+            0.0,
+            1.0
+        ]
+    ],
+    "distortion_coefficients": [
+        -0.1729779988527298,
+        0.025250500068068504,
+        0.0,
+        0.0,
+        0.0
+    ],
+    "distortion_model": "rectilinear",
+    "img_size": [
+        1280,
+        720
+    ],
+    "calibration_time": "Sat, 13 Jun 2026 21:39:37 GMT",
+    "caveats": [
+        "factory_raw",
+        "export_time_not_factory_calibration_time"
+    ]
+}
