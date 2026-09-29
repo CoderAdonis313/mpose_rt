@@ -14,33 +14,25 @@ from datetime import datetime
 from pathlib import Path
 from time import perf_counter, time_ns
 from uuid import uuid4
-
 import cv2
 import numpy as np
+from configs.config import *
 
 
 def parse_args():
     parser = ArgumentParser(description=__doc__)
-    # parser.add_argument(
-    #     "--project-root",
-    #     type=Path,
-    #     default=Path.home() / "dev/mpose_rt",
-    # )
     parser.add_argument("--cam_source", default="0")
     parser.add_argument("--mesh", required=True)
     parser.add_argument("--cam_file", default="zed_1080p_raw_calib.json")
     parser.add_argument("--model", default="megapose-1.0-RGB")
-    parser.add_argument("--fps", type=int, default=15)
-    parser.add_argument("--megapose-batch-size", type=int, default=16)
-    parser.add_argument("--iou-threshold", type=float, default=0.5)
     parser.add_argument("--udp-port", type=int, default=5005)
     parser.add_argument("--frame-id", default="zed_left_camera_optical_frame")
 
     args = parser.parse_args()
 
-    if args.fps <= 0 or args.megapose_batch_size <= 0:
+    if FPS <= 0 or MPOSE_BATCH_SIZE <= 0:
         parser.error("FPS and batch size must be positive.")
-    if not 0 <= args.iou_threshold <= 1:
+    if not 0 <= IOU <= 1:
         parser.error("IoU threshold must be between 0 and 1.")
     if not 1 <= args.udp_port <= 65535:
         parser.error("UDP port must be between 1 and 65535.")
@@ -254,7 +246,8 @@ def main():
             "fiducial",
             args.model,
             camera_path,
-            batch_size=args.megapose_batch_size,
+            batch_size=MPOSE_BATCH_SIZE,
+            n_workers=N_WORKERS
         )
         detector = ContourRunner(COLOR_RANGES)
 
@@ -272,7 +265,7 @@ def main():
 
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, width * 2)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
-        cap.set(cv2.CAP_PROP_FPS, args.fps)
+        cap.set(cv2.CAP_PROP_FPS, FPS)
         cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)  # Backend-dependent, best effort.
 
         output_dir = root / "outputs"
@@ -283,8 +276,8 @@ def main():
 
         video = cv2.VideoWriter(
             str(video_path),
-            cv2.VideoWriter_fourcc(*"mp4v"),
-            float(args.fps),
+            cv2.VideoWriter_fourcc(*"mp4v"),    #type: ignore
+            float(FPS),
             size,
         )
         if not video.isOpened():
@@ -317,7 +310,7 @@ def main():
         print(f"Video: {video_path}\nPoses: {csv_path}")
         print("q/Escape: quit; r: reset tracking.")
         print("Timestamps are host read times, not hardware exposure times.")
-        print(f"Recorded MP4 playback uses fixed {args.fps} FPS.")
+        print(f"Recorded MP4 playback uses fixed {FPS} FPS.")
 
         previous_time = perf_counter()
 
@@ -336,7 +329,7 @@ def main():
                     mpose,
                     detector,
                     left_bgr,
-                    args.iou_threshold,
+                    IOU,
                 )
             except torch.cuda.OutOfMemoryError:
                 mpose.reset_tracking()

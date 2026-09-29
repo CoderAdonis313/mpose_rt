@@ -18,7 +18,7 @@ import trimesh
 
 
 class MegaPoseRunner:
-    def __init__(self, mesh_path: Path, label: str, model_name: str, K_path: Path, batch_size=16):
+    def __init__(self, mesh_path: Path, label: str, model_name: str, K_path: Path, n_workers=6, batch_size=16):
         self.label = label
         self.model_name = model_name
         self.model_info = NAMED_MODELS[model_name]
@@ -50,7 +50,7 @@ class MegaPoseRunner:
 
         # Heavy model loaded once.
         self.pose_estimator = load_named_model(
-            model_name, self.object_dataset, n_workers=6, bsz_images=self.megapose_batch_size
+            model_name, self.object_dataset, n_workers=n_workers, bsz_images=self.megapose_batch_size
         ).cuda()
         self.pose_estimator.eval()
         self.scene_renderer = Panda3dSceneRenderer(self.object_dataset)
