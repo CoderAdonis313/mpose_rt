@@ -10,3 +10,8 @@ COLOR_RANGES = {
     'arena_marker': ((100, 75, 0), (120, 255, 255),)
 }
 
+MESH_PATHS = {
+    'bot_marker': 'models/PointerActual.obj',
+    'arena_marker': 'models/BaselineArrow.obj'
+}
+

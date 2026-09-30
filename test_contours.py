@@ -5,7 +5,7 @@ from time import perf_counter
 import cv2
 
 from configs.config import COLOR_RANGES, OUT_RES
-from contour_runner_multi import ContourRunnerMulti
+from contour_runner import ContourRunnerMulti
 
 
 WINDOW_NAME = "ContourRunnerMulti Test"

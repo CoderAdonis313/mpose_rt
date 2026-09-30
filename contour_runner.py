@@ -1,158 +1,223 @@
-import cv2
 import json
 import time
-import numpy as np
 from pathlib import Path
-from configs.config import OUT_RES
+import cv2
+import numpy as np
 
 
-class ContourRunner:
-    def __init__(
-        self,
-        hsv_ranges,
-        min_area=400,
-        bbox_pad=0.10,
-        kernel_size=5,
-        debug_mask=False,
-    ):
-        """
-        hsv_ranges:
-            list of tuples like [((h1, s1, v1), (h2, s2, v2)), ...]
-            Use multiple ranges when hue wraps around, e.g. red/pink.
+class ContourRunnerMulti:
+    def __init__(self, hsv_ranges_dict, min_area=400, bbox_pad=0.10, kernel_size=5, debug_mask=False):
+        if not hsv_ranges_dict:
+            raise ValueError("At least one HSV range is required")
 
-        min_area:
-            reject tiny blobs
+        if min_area < 0:
+            raise ValueError("min_area must be non-negative")
 
-        bbox_pad:
-            fractional padding around contour bbox
+        if bbox_pad < 0:
+            raise ValueError("bbox_pad must be non-negative")
 
-        kernel_size:
-            morphology cleanup kernel
+        if kernel_size < 1:
+            raise ValueError("kernel_size must be positive")
 
-        debug_mask:
-            if True, saves/visualizes mask-like output
-        """
-        self.hsv_ranges = hsv_ranges
-        self.min_area = min_area
-        self.bbox_pad = bbox_pad
-        self.kernel_size = kernel_size
-        self.debug_mask = debug_mask
+        self.min_area = int(min_area)
+        self.bbox_pad = float(bbox_pad)
+        self.debug_mask = bool(debug_mask)
 
-        self.img = None
+        # Convert bounds once instead of doing it for every frame.
+        self.hsv_ranges = {}
+
+        for label, hsv_range in hsv_ranges_dict.items():
+            lower, upper = hsv_range
+            lower_array = np.asarray(lower, dtype=np.uint8)
+            upper_array = np.asarray(upper, dtype=np.uint8)
+
+            self.hsv_ranges[label] = (
+                lower_array,
+                upper_array,
+            )
+
+        # Build the morphology kernel once.
+        self.kernel = cv2.getStructuringElement(
+            cv2.MORPH_ELLIPSE,
+            (kernel_size, kernel_size),
+        )
+
         self.detections = []
 
 
-    def write_json(self):
-        if len(self.detections) == 0:
-            data = [{
-                "label": "fiducial",
-                "bbox_modal": [],
-                "detection": False
-            }]
-        else:
-            data = [{
-                "label": "fiducial",
-                "bbox_modal": self.detections[0],
-                "detection": True
-            }]
-
-        timestamp = int(time.time() * 1000)
-        pose_folder_path = Path("contour_poses")
-        pose_folder_path.mkdir(parents=True, exist_ok=True)
-        file_name = str(pose_folder_path / f"object_data_{timestamp}.json")
-
-        with open(file_name, "w", encoding="utf-8") as jfile:
-            json.dump(data, jfile)
-
-        return file_name
-
-
-    def _make_mask(self, img_rgb):
-        hsv = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2HSV)
-
-        mask = None
-        for lower, upper in self.hsv_ranges:
-            lower_np = np.array(lower, dtype=np.uint8)
-            upper_np = np.array(upper, dtype=np.uint8)
-            part = cv2.inRange(hsv, lower_np, upper_np)
-            mask = part if mask is None else cv2.bitwise_or(mask, part)
-
-        kernel = np.ones((self.kernel_size, self.kernel_size), np.uint8)
-        mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel) # type: ignore
-        mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
-
-        return mask
-
-
-    def _best_bbox_from_mask(self, mask):
-        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-        best = None
-        best_area = -1
-
-        for cnt in contours:
-            area = cv2.contourArea(cnt)
-            if area < self.min_area:
-                continue
-
-            x, y, w, h = cv2.boundingRect(cnt)
-
-            # optional extra filters
-            if w < 8 or h < 8:
-                continue
-
-            if area > best_area:
-                best_area = area
-                best = (x, y, w, h)
-
-        return best
-
-
-    def _pad_bbox(self, x, y, w, h, W, H):
-        pad_x = int(w * self.bbox_pad)
-        pad_y = int(h * self.bbox_pad)
+    def _pad_bbox(self, x, y, width, height, image_width, image_height):
+        pad_x = int(width * self.bbox_pad)
+        pad_y = int(height * self.bbox_pad)
 
         x1 = max(0, x - pad_x)
         y1 = max(0, y - pad_y)
-        x2 = min(W - 1, x + w + pad_x)
-        y2 = min(H - 1, y + h + pad_y)
+        x2 = min(image_width - 1, x + width + pad_x)
+        y2 = min(image_height - 1, y + height + pad_y)
 
-        return [int(x1), int(y1), int(x2), int(y2)]
+        return [int(x1), int(y1), int(x2), int(y2),]
 
 
-    def estimate(self, img: np.ndarray):
-        self.img = img.copy()
-        H, W = img.shape[:2]
+    def _detect_components(self, label, mask, image_width, image_height, ):
+        """
+        Find every connected component for one label.
 
-        mask = self._make_mask(img)
-        bbox = self._best_bbox_from_mask(mask)
+        Connected components directly provides bounding boxes and areas,
+        avoiding the additional contour-to-bounding-box conversion.
+        """
+        component_count, _, stats, _ = (
+            cv2.connectedComponentsWithStats(
+                mask,
+                connectivity=8,
+            )
+        )
 
-        vis = img.copy()
         detections = []
 
-        if bbox is not None:
-            x, y, w, h = bbox
-            bbox_xyxy = self._pad_bbox(x, y, w, h, W, H)
-            detections.append(bbox_xyxy)
+        # Component zero is the background.
+        for component_index in range(1, component_count):
+            x = int(stats[component_index, cv2.CC_STAT_LEFT,])
+            y = int(stats[component_index, cv2.CC_STAT_TOP,])
+            width = int(stats[component_index, cv2.CC_STAT_WIDTH,])
+            height = int(stats[component_index, cv2.CC_STAT_HEIGHT,])
+            area = int(stats[component_index, cv2.CC_STAT_AREA,])
 
-            x1, y1, x2, y2 = bbox_xyxy
-            cv2.rectangle(vis, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            if area < self.min_area:
+                continue
+
+            if width < 8 or height < 8:
+                continue
+
+            bbox = self._pad_bbox(x, y, width, height, image_width, image_height,)
+
+            detections.append({
+                "label": label,
+                "detection": bbox,
+            })
+        return detections
+
+
+    @staticmethod
+    def draw_detections(image, detections):
+        """
+        Draw labeled detections on an RGB image.
+        """
+        colors = {
+            "bot_marker": (0, 255, 0),
+            "arena_marker": (255, 255, 0),
+        }
+
+        for item in detections:
+            label = item["label"]
+            x1, y1, x2, y2 = item["detection"]
+
+            color = colors.get(label, (255, 0, 255),)
+
+            cv2.rectangle(image, (x1, y1), (x2, y2), color, 2,)
+
+
+    def estimate(self, img, draw=False):
+        """
+        Detect all configured marker colors.
+
+        Args:
+            img:
+                uint8 RGB image.
+
+            draw:
+                If True, return a copy with labeled bounding boxes.
+                Keep False for fastest inference.
+
+        Returns:
+            vis:
+                Annotated RGB image when draw=True.
+                None when draw=False and debug_mask=False.
+
+            detections:
+                List of labeled bounding-box dictionaries.
+        """
+        image_height, image_width = img.shape[:2]
+
+        # Perform RGB-to-HSV conversion once for all labels.
+        hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV,)
+        detections = []
+        combined_mask = None
+
+        if self.debug_mask:
+            combined_mask = np.zeros(
+                (image_height, image_width),
+                dtype=np.uint8,
+            )
+
+        for label, (lower, upper) in self.hsv_ranges.items():
+            mask = cv2.inRange(hsv, lower, upper)
+            mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.kernel,)
+            mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, self.kernel,)
+
+            label_detections = self._detect_components(label, mask, image_width, image_height,)
+            detections.extend(label_detections)
+
+            if combined_mask is not None:
+                cv2.bitwise_or(combined_mask, mask, dst=combined_mask,)
 
         self.detections = detections
 
-        if self.debug_mask:
-            mask_bgr = cv2.cvtColor(mask, cv2.COLOR_GRAY2RGB)
-            vis = np.hstack([vis, mask_bgr])
+        # Avoid allocating a display image during inference.
+        if not draw and not self.debug_mask:
+            return None, detections
+
+        vis = img.copy()
+
+        if draw:
+            self.draw_detections(
+                vis,
+                detections,
+            )
+
+        if combined_mask is not None:
+            mask_rgb = cv2.cvtColor(
+                combined_mask,
+                cv2.COLOR_GRAY2RGB,
+            )
+
+            vis = np.hstack([
+                vis,
+                mask_rgb,
+            ])
 
         return vis, detections
 
 
-    # def estimate_and_save(self, i_path: str, save_vis_path: str, resize_shape=OUT_RES):
-    #     vis_img, detections = self.estimate(i_path, resize_shape=resize_shape)
-    #     file_path = self.write_json()
+    def write_json(self):
+        data = [
+            {
+                "label": item["label"],
+                "bbox_modal": item["detection"],
+                "detection": True,
+            }
+            for item in self.detections
+        ]
 
-    #     if save_vis_path is not None:
-    #         cv2.imwrite(save_vis_path, vis_img)
-    #         print(f"Wrote image: {save_vis_path}")
+        timestamp = int(time.time() * 1000)
 
-    #     return file_path
+        output_folder = Path("contour_poses")
+        output_folder.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+
+        output_path = (
+            output_folder
+            / f"object_data_{timestamp}.json"
+        )
+
+        with output_path.open(
+            "w",
+            encoding="utf-8",
+        ) as json_file:
+            json.dump(
+                data,
+                json_file,
+                indent=2,
+            )
+
+        return str(output_path)
