@@ -9,6 +9,9 @@ from pathlib import Path
 import numpy as np
 
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+
 DEFAULT_BETA = 2.0
 NORMAL_AXES = {
     "x": np.array([1.0, 0.0, 0.0], dtype=float),
@@ -693,9 +696,9 @@ def write_summary_json(summary, output_dir, run_name):
 
 
 def resolve_inputs(args):
-    gt_path = Path(args.gt_file)
-    est_path = Path(args.est_file)
-    output_dir = Path(args.output_dir) if args.output_dir else Path("error_outputs")
+    gt_path = PROJECT_ROOT / args.gt_file
+    est_path = PROJECT_ROOT / args.est_file
+    output_dir = PROJECT_ROOT / args.output_dir
     return gt_path, est_path, output_dir
 
 

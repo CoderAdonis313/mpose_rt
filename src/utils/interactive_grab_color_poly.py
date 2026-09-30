@@ -18,7 +18,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-from configs.config import COLOR_RANGES, OUT_RES
+from configs.config_multi import COLOR_RANGES, OUT_RES
 
 
 PREVIEW_WINDOW = "HSV Tuner - Right Camera"

@@ -19,6 +19,9 @@ import numpy as np
 from configs.config import *
 
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+
 def parse_args():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("--cam_source", default="0")
@@ -27,6 +30,7 @@ def parse_args():
     parser.add_argument("--model", default="megapose-1.0-RGB")
     parser.add_argument("--udp-port", type=int, default=5005)
     parser.add_argument("--frame-id", default="zed_left_camera_optical_frame")
+    parser.add_argument("--out_dir", default='outputs')
 
     args = parser.parse_args()
 
@@ -37,19 +41,7 @@ def parse_args():
     if not 1 <= args.udp_port <= 65535:
         parser.error("UDP port must be between 1 and 65535.")
 
-    # args.project_root = args.project_root.expanduser().resolve()
-    # if not (args.project_root / "mpose_runner.py").is_file():
-    #     parser.error("--project-root must contain mpose_runner.py.")
-
     return args
-
-
-def resolve_input(value, root, folder):
-    path = Path(value).expanduser()
-    for candidate in (path, root / path, root / folder / path):
-        if candidate.is_file():
-            return candidate.resolve()
-    raise FileNotFoundError(f"Cannot locate {value!r} in {root / folder}")
 
 
 class PoseSender:
@@ -209,18 +201,19 @@ def process_frame(mpose, detector, left_bgr, threshold):
 
 def main():
     args = parse_args()
-    root = Path.cwd()
 
     # This script can live in ros2_ws while reusing the inference project.
-    sys.path.insert(0, str(root))
+    sys.path.insert(0, str(PROJECT_ROOT))
 
+    # Load imports
     import torch
     from configs.config import COLOR_RANGES, OUT_RES
-    from contour_runner import ContourRunner
-    from mpose_runner import MegaPoseRunner
+    from src.single.contour_runner import ContourRunner
+    from src.single.mpose_runner import MegaPoseRunner
 
-    mesh_path = resolve_input(args.mesh, root, "models")
-    camera_path = resolve_input(args.cam_file, root, "configs")
+
+    mesh_path = PROJECT_ROOT / args.mesh
+    camera_path = PROJECT_ROOT / args.cam_file
     size = tuple(json.loads(camera_path.read_text())["img_size"])
 
     if size != tuple(OUT_RES):
@@ -268,7 +261,7 @@ def main():
         cap.set(cv2.CAP_PROP_FPS, FPS)
         cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)  # Backend-dependent, best effort.
 
-        output_dir = root / "outputs"
+        output_dir = PROJECT_ROOT / args.out_dir
         output_dir.mkdir(parents=True, exist_ok=True)
         stem = "zed_pose_" + datetime.now().strftime("%Y%m%d_%H%M%S_%f")
         video_path = output_dir / f"{stem}.mp4"

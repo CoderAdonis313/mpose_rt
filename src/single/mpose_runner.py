@@ -10,7 +10,7 @@ from megapose.inference.types import ObservationTensor
 from megapose.inference.utils import make_detections_from_object_data
 from megapose.panda3d_renderer import Panda3dLightData
 from megapose.panda3d_renderer.panda3d_scene_renderer import Panda3dSceneRenderer
-from custom_load_model import NAMED_MODELS, load_named_model
+from src.single.custom_load_model import NAMED_MODELS, load_named_model
 from megapose.lib3d.transform import Transform
 from megapose.utils.conversion import convert_scene_observation_to_panda3d
 from configs.config import OUT_RES

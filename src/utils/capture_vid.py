@@ -25,6 +25,7 @@ args = parser.parse_args()
 CAM_ID = args.cam_id
 RES = tuple(args.res)
 OUTPUT_FOLDER = 'capture_videos'
+out = None
 
 cam = cv2.VideoCapture(CAM_ID)
 cam.set(cv2.CAP_PROP_FRAME_WIDTH, RES[0])
@@ -37,7 +38,7 @@ frame_height = int(cam.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
 # Define the codec and create VideoWriter object
 if args.save:
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')    #type: ignore
     tstamp = str(int(time() * 1000))
     fpath = Path.home() / OUTPUT_FOLDER
     fpath.mkdir(exist_ok=True, parents=True)
@@ -49,7 +50,7 @@ while True:
 
     # Write the frame to the output file
     if args.save:
-        out.write(frame)
+        out.write(frame)    #type: ignore
 
     # Display the captured frame
     cv2.imshow('Camera', frame)
@@ -61,5 +62,5 @@ while True:
 # Release the capture and writer objects
 cam.release()
 if args.save:
-    out.release()
+    out.release()   #type: ignore
 cv2.destroyAllWindows()

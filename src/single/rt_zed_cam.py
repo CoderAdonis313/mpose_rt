@@ -11,11 +11,11 @@ import cv2
 import numpy as np
 from configs.config import COLOR_RANGES, FPS, OUT_RES
 import torch
-from contour_runner import ContourRunner
-from mpose_runner import MegaPoseRunner
+from src.single.contour_runner import ContourRunner
+from src.single.mpose_runner import MegaPoseRunner
 
 
-ROOT = Path(__file__).resolve().parent
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
 def parse_args():
@@ -36,14 +36,6 @@ def parse_args():
     if not 0 <= args.iou_threshold <= 1:
         parser.error("IoU threshold must be between 0 and 1.")
     return args
-
-
-def resolve_input(value, folder):
-    path = Path(value).expanduser()
-    for candidate in (path, ROOT / path, ROOT / folder / path):
-        if candidate.is_file():
-            return candidate.resolve()
-    raise FileNotFoundError(f"Cannot find {value!r} in the current directory or {folder}/")
 
 
 def calculate_iou(a, b):
@@ -110,8 +102,8 @@ def process_frame(mpose, detector, left_bgr, iou_threshold):
 
 def main():
     args = parse_args()
-    mesh_path = resolve_input(args.mesh, "models")
-    camera_path = resolve_input(args.cam_file, "configs")
+    mesh_path = PROJECT_ROOT / args.mesh
+    camera_path = PROJECT_ROOT / args.cam_file
     calibration = json.loads(camera_path.read_text())
     size = tuple(calibration["img_size"])
     if size != tuple(OUT_RES):
@@ -149,13 +141,13 @@ def main():
             raise RuntimeError("Opened camera, but could not read its first frame.")
         extract_left(frame, size)  # Check actual dimensions, not just cap.get().
 
-        output_dir = ROOT / "outputs"
+        output_dir = PROJECT_ROOT / "outputs"
         output_dir.mkdir(parents=True, exist_ok=True)
         stem = "zed_pose_" + datetime.now().strftime("%Y%m%d_%H%M%S_%f")
         video_path = output_dir / f"{stem}.mp4"
         pose_path = output_dir / f"{stem}.csv"
         video = cv2.VideoWriter(
-            str(video_path), cv2.VideoWriter_fourcc(*"mp4v"),
+            str(video_path), cv2.VideoWriter_fourcc(*"mp4v"),   #type: ignore
             float(args.fps), size,
         )
         if not video.isOpened():

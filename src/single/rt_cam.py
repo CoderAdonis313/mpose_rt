@@ -3,18 +3,22 @@ import numpy as np
 from argparse import ArgumentParser
 from pathlib import Path
 from configs.config import FPS, COLOR_RANGES, OUT_RES
-from mpose_runner import MegaPoseRunner
-from contour_runner import ContourRunner
+from src.single.mpose_runner import MegaPoseRunner
+from src.single.contour_runner import ContourRunner
 from time import perf_counter, time
 from traceback import print_exc, format_exc
 
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+
 def parse_args():
     parser = ArgumentParser()
-    parser.add_argument('--cam_source', required=True, help='Enter camera Id or camera url for ip cam')
+    parser.add_argument('--cam_source', required=True, help='Enter camera Id or camera url for ip cam', type=int)
     parser.add_argument('--mesh', required=True, help='path of mesh file')
     parser.add_argument('--cam_file', required=True, help='path of the camera configuration file')
     parser.add_argument('--model', default='megapose-1.0-RGB')
+    parser.add_argument('--out_dir', default='outputs')
     return parser.parse_args()
 
 
@@ -41,8 +45,10 @@ def calculate_iou(A, B):
 
 def main():
     args = parse_args()
-    mesh_path = Path(f'models/{args.mesh}')
-    cam_file_path = Path(f'configs/{args.cam_file}')
+    mesh_path = PROJECT_ROOT / args.mesh
+    cam_file_path = PROJECT_ROOT / args.cam_file
+    output_dir = PROJECT_ROOT / args.out_dir
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     mpose = MegaPoseRunner(mesh_path, 'fiducial', args.model, cam_file_path)
     detector = ContourRunner(COLOR_RANGES)
@@ -68,11 +74,13 @@ def main():
     #Write video
     codec = cv2.VideoWriter_fourcc(*'mp4v') #type: ignore
     tstamp = int(time())
-    out_path = f'outputs/pose_track_{tstamp}.mp4'
+    
+    out_path = output_dir / f'pose_track_{tstamp}.mp4'
+    txt_path = output_dir / f'pose_track_{tstamp}.txt'
+
     out_vid = cv2.VideoWriter(out_path, codec, FPS, OUT_RES)
     s_time = perf_counter()
 
-    txt_path = f'outputs/pose_track_{tstamp}.txt'
     with open(txt_path, "w", encoding="utf-8") as f:
         f.write("timestamp x_robot y_robot z_robot roll_robot pitch_robot yaw_robot runtime\n")
         i = 0

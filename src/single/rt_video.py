@@ -4,10 +4,13 @@ import torch
 from argparse import ArgumentParser
 from pathlib import Path
 from configs.config import FPS, COLOR_RANGES, OUT_RES
-from mpose_runner import MegaPoseRunner
-from contour_runner import ContourRunner
+from src.single.mpose_runner import MegaPoseRunner
+from src.single.contour_runner import ContourRunner
 from time import perf_counter, time
 from traceback import print_exc, format_exc
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
 def parse_args():
@@ -22,6 +25,7 @@ def parse_args():
         default=16,
         help='Megapose batch size. Lower this to 8 or 4 if CUDA OOM continues.',
     )
+    parser.add_argument('--out_dir', default='outputs', help='path of the camera configuration file')
     return parser.parse_args()
 
 
@@ -57,8 +61,11 @@ def cleanup_cuda_after_oom(mpose):
 
 def main():
     args = parse_args()
-    mesh_path = Path(f'models/{args.mesh}')
-    cam_file_path = Path(f'configs/{args.cam_file}')
+    mesh_path = PROJECT_ROOT / args.mesh
+    cam_file_path = PROJECT_ROOT / args.cam_file
+    out_dir = PROJECT_ROOT / args.out_dir
+    out_dir.mkdir(parents=True, exist_ok=True)
+    video_path = PROJECT_ROOT / args.video_file
 
     mpose = MegaPoseRunner(
         mesh_path,
@@ -69,7 +76,7 @@ def main():
     )
     detector = ContourRunner(COLOR_RANGES)
 
-    in_vid = cv2.VideoCapture(f'{args.video_file}')
+    in_vid = cv2.VideoCapture(str(video_path))
     VID_FPS = int(in_vid.get(cv2.CAP_PROP_FPS))
     FRAME_COUNT = int(in_vid.get(cv2.CAP_PROP_FRAME_COUNT))
     IOU_OVERLAP = 0.5
@@ -90,15 +97,15 @@ def main():
     assert VID_FPS >= FPS
     wait_time = int(1000 / FPS) if FPS > 0 else 1
 
-    Path('outputs').mkdir(parents=True, exist_ok=True)
-
     codec = cv2.VideoWriter_fourcc(*'mp4v')  # type: ignore
     tstamp = int(time())
-    out_path = f'outputs/pose_track_{tstamp}.mp4'
+    
+    out_path = f'{out_dir}/pose_track_{tstamp}.mp4'
+    
     out_vid = cv2.VideoWriter(out_path, codec, FPS, OUT_RES)
     s_time = perf_counter()
 
-    txt_path = f'outputs/pose_track_{tstamp}.txt'
+    txt_path = f'{out_dir}/pose_track_{tstamp}.txt'
     with open(txt_path, 'w', encoding='utf-8') as f:
         f.write('timestamp x_robot y_robot z_robot roll_robot pitch_robot yaw_robot runtime\n')
 

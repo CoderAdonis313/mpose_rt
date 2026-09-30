@@ -5,13 +5,5 @@ IOU = 0.25
 MPOSE_BATCH_SIZE = 32
 N_WORKERS = 12
 
-COLOR_RANGES = {
-    'bot_marker': ((165, 80, 70), (179, 255, 255)),
-    'arena_marker': ((100, 75, 0), (120, 255, 255),)
-}
-
-MESH_PATHS = {
-    'bot_marker': 'models/PointerActual.obj',
-    'arena_marker': 'models/BaselineArrow.obj'
-}
+COLOR_RANGES = [((140, 70, 70), (179, 255, 255))]
 

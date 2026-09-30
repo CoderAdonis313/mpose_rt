@@ -4,8 +4,8 @@ from time import perf_counter
 
 import cv2
 
-from configs.config import COLOR_RANGES, OUT_RES
-from contour_runner import ContourRunnerMulti
+from configs.config_multi import COLOR_RANGES, OUT_RES
+from src.multi.contour_runner_multi import ContourRunnerMulti
 
 
 WINDOW_NAME = "ContourRunnerMulti Test"
@@ -324,7 +324,7 @@ def main():
             ]
 
             # Detector visualization is RGB.
-            vis_bgr = cv2.cvtColor(vis_rgb, cv2.COLOR_RGB2BGR,)
+            vis_bgr = cv2.cvtColor(vis_rgb, cv2.COLOR_RGB2BGR)  #type: ignore
 
             draw_information(
                 vis_bgr,

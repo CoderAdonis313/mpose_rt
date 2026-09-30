@@ -1,10 +1,21 @@
-#! /bin/usr/env bash
-TAG="Pointer on real video"
+#!/bin/usr/env bash
+################################################################ Optimized ##############################################################
+# This is single marker demo
 
-echo "INFO: Running pose tracking on Video"
-python rt_live.py \
+echo "INFO: Running pose tracking live and sending pose on port 5005"
+echo "INFO: Check with utils/check_udp.py"
+
+python -m src.single.rt_live \
   --cam_source 2 \
-  --mesh PointerActual.obj \
-  --cam_file zed_1080p_raw_calib.json \
+  --mesh models/PointerActual.obj \
+  --cam_file configs/zed_1080p_raw_calib.json \
   --udp-port 5005
-  # --project-root /home/abhi/Dev/mpose_rt \
+
+
+################################################################ Slightly optimized ##############################################################
+# echo "INFO: Running pose tracking live on zed cam"
+
+# python -m src.single.rt_zed_cam \
+#   --cam_source 2 \
+#   --mesh models/PointerActual.obj \
+#   --cam_file configs/zed_1080p_raw_calib.json \
