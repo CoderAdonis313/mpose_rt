@@ -1,8 +1,11 @@
 import json
 import time
 from pathlib import Path
-import cv2
 import numpy as np
+
+import cv2
+cv2.ocl.setUseOpenCL(False)
+cv2.setNumThreads(1)
 
 
 class ContourRunnerMulti:

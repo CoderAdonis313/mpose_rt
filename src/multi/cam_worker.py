@@ -1,11 +1,13 @@
 """Threaded OpenCV capture using latest-frame semantics."""
-
 from dataclasses import dataclass
 import threading
 from time import monotonic, time_ns
 from typing import Optional, Tuple, Union
-import cv2
 import numpy as np
+
+import cv2
+cv2.ocl.setUseOpenCL(False)
+cv2.setNumThreads(1)
 
 
 @dataclass(frozen=True)
@@ -149,6 +151,23 @@ class LatestFrameCamera:
                     raise TimeoutError("Timed out waiting for a camera frame")
 
                 self._condition.wait(remaining)
+            return self._latest
+
+
+    def latest(self):
+        """Return the newest captured frame immediately, or None."""
+
+        if not self._started:
+            raise RuntimeError(
+                "Camera must be started before reading frames"
+            )
+
+        with self._condition:
+            if self._error is not None:
+                raise RuntimeError(
+                    "Camera capture failed"
+                ) from self._error
+
             return self._latest
 
 

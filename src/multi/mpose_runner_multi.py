@@ -1,6 +1,5 @@
 from pathlib import Path
 import numpy as np
-import cv2
 import json
 import torch
 
@@ -253,18 +252,18 @@ class MegaPoseRunnerMulti:
         self.detection = make_detections_from_object_data(object_data).cuda()
 
 
-    def draw_mesh_overlay(self):
-        if not hasattr(self, "img"):
-            raise RuntimeError("No image loaded. Run estimate() first.")
+    # def draw_mesh_overlay(self):
+    #     if not hasattr(self, "img"):
+    #         raise RuntimeError("No image loaded. Run estimate() first.")
 
-        rgb_rendered = self._render_mesh_rgb()
-        mask = np.any(rgb_rendered > 0, axis=-1)
+    #     rgb_rendered = self._render_mesh_rgb()
+    #     mask = np.any(rgb_rendered > 0, axis=-1)
 
-        rgb_overlay = np.zeros_like(self.img, dtype=np.float32)
-        rgb_overlay[~mask] = self.img[~mask] * 0.6 + 255 * 0.4
-        rgb_overlay[mask] = rgb_rendered[mask] * 0.8 + 255 * 0.2
-        rgb_overlay = rgb_overlay.astype(np.uint8)
-        return cv2.cvtColor(rgb_overlay, cv2.COLOR_RGB2BGR)
+    #     rgb_overlay = np.zeros_like(self.img, dtype=np.float32)
+    #     rgb_overlay[~mask] = self.img[~mask] * 0.6 + 255 * 0.4
+    #     rgb_overlay[mask] = rgb_rendered[mask] * 0.8 + 255 * 0.2
+    #     rgb_overlay = rgb_overlay.astype(np.uint8)
+    #     return cv2.cvtColor(rgb_overlay, cv2.COLOR_RGB2BGR)
 
 
     @torch.no_grad()
@@ -329,18 +328,18 @@ class MegaPoseRunnerMulti:
         return poses_list
 
 
-    def draw_triaxis(self):
-        if self.poses is None:
-            raise RuntimeError("No pose prediction available. Run estimate() first.")
+    # def draw_triaxis(self):
+    #     if self.poses is None:
+    #         raise RuntimeError("No pose prediction available. Run estimate() first.")
 
-        R = self.poses[:3, :3].astype(float)
-        t = self.poses[:3, 3].astype(float)
+    #     R = self.poses[:3, :3].astype(float)
+    #     t = self.poses[:3, 3].astype(float)
 
-        rvec, _ = cv2.Rodrigues(R)
-        tvec = t.reshape(3, 1)
-        dist = np.zeros((5, 1), dtype=float)
-        axis_length = 0.1
+    #     rvec, _ = cv2.Rodrigues(R)
+    #     tvec = t.reshape(3, 1)
+    #     dist = np.zeros((5, 1), dtype=float)
+    #     axis_length = 0.1
 
-        img_bgr = cv2.cvtColor(self.img, cv2.COLOR_RGB2BGR)
-        cv2.drawFrameAxes(img_bgr, self.K, dist, rvec, tvec, axis_length) #type: ignore
-        return img_bgr
+    #     img_bgr = cv2.cvtColor(self.img, cv2.COLOR_RGB2BGR)
+    #     cv2.drawFrameAxes(img_bgr, self.K, dist, rvec, tvec, axis_length) #type: ignore
+    #     return img_bgr

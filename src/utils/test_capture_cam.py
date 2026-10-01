@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Run with the mpose Python environment. No ROS or ZED SDK imports.
+Run with the pose_detector Python environment. No ROS or ZED SDK imports.
 Images are raw left-camera frames; no undistortion is performed.
 """
 
@@ -12,7 +12,6 @@ from datetime import datetime
 from pathlib import Path
 from time import perf_counter, time_ns
 from uuid import uuid4
-# import cv2
 import numpy as np
 from configs.config import *
 # Load imports
@@ -20,7 +19,12 @@ import torch
 from configs.config import COLOR_RANGES, OUT_RES
 from src.single.contour_runner import ContourRunner
 from src.multi.mpose_runner_multi import MegaPoseRunnerMulti
-from src.multi.capture_cam import LatestFrameCamera
+from src.multi.pose_worker import LatestPoseInference
+from src.multi.cam_worker import LatestFrameCamera
+
+import cv2
+cv2.ocl.setUseOpenCL(False)
+cv2.setNumThreads(1)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -44,29 +48,6 @@ def parse_args():
     return args
 
 
-def calculate_iou(a, b):
-    if a is None or b is None:
-        return 0.0
-
-    a = np.asarray(a, dtype=float)
-    b = np.asarray(b, dtype=float)
-
-    if a.shape != (4,) or b.shape != (4,):
-        return 0.0
-    if not np.isfinite(a).all() or not np.isfinite(b).all():
-        return 0.0
-
-    intersection = np.maximum(
-        0.0,
-        np.minimum(a[2:], b[2:]) - np.maximum(a[:2], b[:2]),
-    )
-    overlap = float(np.prod(intersection))
-    area_a = float(np.prod(np.maximum(0.0, a[2:] - a[:2])))
-    area_b = float(np.prod(np.maximum(0.0, b[2:] - b[:2])))
-    union = area_a + area_b - overlap
-    return overlap / union if union > 0 else 0.0
-
-
 def extract_left(frame, size):
     width, height = size
     expected = (height, width * 2, 3)
@@ -79,67 +60,47 @@ def extract_left(frame, size):
     return frame[:, :width].copy()
 
 
-def process_frame(mpose, detector, left_bgr, threshold):
-    rgb = cv2.cvtColor(left_bgr, cv2.COLOR_BGR2RGB)
-    _, boxes = detector.estimate(rgb)
+def draw_triaxis(image_bgr, camera_matrix, pose_matrix, axis_length=0.1,):
+    rotation = pose_matrix[:3, :3].astype(float)
+    translation = pose_matrix[:3, 3].astype(float)
 
-    if boxes is None or len(boxes) == 0:
-        mpose.reset_tracking()
-        return left_bgr.copy(), None, "NO_TARGET"
+    rotation_vector, _ = cv2.Rodrigues(rotation)
+    translation_vector = translation.reshape(3, 1)
+    distortion = np.zeros((5, 1), dtype=float)
 
-    bbox = boxes[0]
-
-    if mpose.tracking_active:
-        try:
-            predicted = mpose.mpose_bboxes()
-        except ValueError:
-            predicted = []
-
-        if calculate_iou(bbox, predicted) < threshold:
-            mpose.reset_tracking()
-
-    if not mpose.tracking_active:
-        mpose.load_detection(bbox)
-
-    pose = mpose.estimate(rgb)
-
-    if pose is None:
-        mpose.reset_tracking()
-        display, status = left_bgr.copy(), "NO_POSE"
-    else:
-        display, status = mpose.draw_triaxis(), "TRACKING"
-
-    x1, y1, x2, y2 = map(int, bbox)
-    cv2.rectangle(display, (x1, y1), (x2, y2), (0, 255, 0), 2)
-    return display, pose, status
+    cv2.drawFrameAxes(
+        image_bgr,
+        camera_matrix,
+        distortion,
+        rotation_vector,
+        translation_vector,
+        axis_length,
+    )
 
 
 def main():
     args = parse_args()
-
     # This script can live in ros2_ws while reusing the inference project.
     sys.path.insert(0, str(PROJECT_ROOT))
-
 
     mesh_path = PROJECT_ROOT / args.mesh
     camera_path = PROJECT_ROOT / args.cam_file
     size = tuple(json.loads(camera_path.read_text())["img_size"])
 
     if size != tuple(OUT_RES):
-        raise ValueError(
-            f"Calibration {size} must match OUT_RES={OUT_RES}."
-        )
+        raise ValueError(f"Calibration {size} must match OUT_RES={OUT_RES}.")
 
     width, height = size
-
-    cap = video = pose_file = None
+    cam_worker = pose_worker = None
     window_created = False
     frame_index = 0
     processed = 0
+    POSE_HOLD_NS = 300_000_000
+    last_frame_idx = -1
     started = perf_counter()
 
     try:
-        mpose = MegaPoseRunnerMulti(
+        pose_detector = MegaPoseRunnerMulti(
             mesh_path,
             "fiducial",
             args.model,
@@ -147,16 +108,19 @@ def main():
             batch_size=MPOSE_BATCH_SIZE,
             n_workers=N_WORKERS
         )
-        detector = ContourRunner(COLOR_RANGES)
+        bbox_detector = ContourRunner(COLOR_RANGES)
+        camera_matrix = np.asarray(pose_detector.K, dtype=float).copy()
 
-        cap = LatestFrameCamera(
+        pose_worker = LatestPoseInference(pose_detector, IOU)
+        cam_worker = LatestFrameCamera(
             source=args.cam_source,
             frame_size=(width * 2, height),
             backend=cv2.CAP_V4L2,
             fps=FPS
         )
 
-        cap.start()
+        cam_worker.start()
+        pose_worker.start()
 
         cv2.namedWindow("ZED MegaPose", cv2.WINDOW_NORMAL)
         window_created = True
@@ -168,88 +132,138 @@ def main():
 
         previous_time = perf_counter()
 
+        last_frame_idx = -1
+        latest_left_bgr = None
+        latest_bbox = None
+
         while True:
-            frame_data = cap.read_latest()
-            image_time_ns = frame_data.image_time_ns
-            frame = frame_data.image
+            # This never waits for the camera thread.
+            frame_data = cam_worker.latest()
 
-            left_bgr = extract_left(frame, size)
-            inference_start = perf_counter()
+            if (
+                frame_data is not None
+                and frame_data.index != last_frame_idx
+            ):
+                last_frame_idx = frame_data.index
 
-            try:
-                display, pose, status = process_frame(
-                    mpose,
-                    detector,
-                    left_bgr,
-                    IOU,
-                )
-            except torch.cuda.OutOfMemoryError:
-                mpose.reset_tracking()
-                torch.cuda.empty_cache()
-                raise RuntimeError(
-                    "CUDA out of memory; retry --megapose-batch-size 4."
-                ) from None
-
-            inference_seconds = perf_counter() - inference_start
-            result_time_ns = time_ns()
-
-            # Never reuse a previous pose when this frame has no estimate.
-            transform = mpose.poses if pose is not None else None
-            print('POSE', transform)
-
-            now = perf_counter()
-            loop_fps = 1.0 / max(now - previous_time, 1e-6)
-            previous_time = now
-
-            lines = [f"{status} | processed FPS: {loop_fps:.1f}"]
-            if pose is not None:
-                lines.append(
-                    f"x={pose[0]:.3f} y={pose[1]:.3f} "
-                    f"z={pose[2]:.3f} m"
+                latest_left_bgr = extract_left(
+                    frame_data.image,
+                    size,
                 )
 
-            for index, line in enumerate(lines):
+                img_rgb = cv2.cvtColor(
+                    latest_left_bgr,
+                    cv2.COLOR_BGR2RGB,
+                )
+
+                _, bboxs = bbox_detector.estimate(
+                    img_rgb,
+                )
+
+                latest_bbox = None
+
+                if bboxs is not None and len(bboxs) > 0:
+                    latest_bbox = np.asarray(
+                        bboxs[0],
+                        dtype=float,
+                    )
+
+                # This only replaces the pending job; it does not wait for MegaPose.
+                pose_worker.submit(
+                    frame_index=frame_data.index,
+                    image_time_ns=frame_data.image_time_ns,
+                    image_rgb=img_rgb,
+                    bbox=latest_bbox,
+                )
+
+                processed += 1
+
+            if latest_left_bgr is not None:
+                display = latest_left_bgr.copy()
+
+                if latest_bbox is not None:
+                    x1, y1, x2, y2 = map(
+                        int,
+                        latest_bbox,
+                    )
+
+                    cv2.rectangle(
+                        display,
+                        (x1, y1),
+                        (x2, y2),
+                        (0, 255, 0),
+                        2,
+                    )
+
+                # This also returns immediately.
+                pose_result = pose_worker.latest()
+
+                pose_is_fresh = (
+                    pose_result is not None
+                    and pose_result.pose_matrix is not None
+                    and time_ns() - pose_result.result_time_ns
+                    <= POSE_HOLD_NS
+                )
+
+                if pose_is_fresh:
+                    draw_triaxis(
+                        display,
+                        camera_matrix,
+                        pose_result.pose_matrix,    #type: ignore
+                    )
+
+                status = (
+                    pose_result.status
+                    if pose_result is not None
+                    else "POSE_PENDING"
+                )
+
                 cv2.putText(
                     display,
-                    line,
-                    (20, 35 + 30 * index),
+                    status,
+                    (20, 35),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     0.8,
                     (0, 255, 0),
                     2,
+                    cv2.LINE_AA,
                 )
 
-            cv2.imshow("ZED MegaPose", display)
-            processed += 1
-            frame_index += 1
+                cv2.imshow(
+                    "ZED MegaPose",
+                    display,
+                )
 
+            # GUI events are now processed even when no new camera frame arrives.
             key = cv2.waitKey(1) & 0xFF
 
             if key in (ord("q"), 27):
                 break
+
             if key == ord("r"):
-                mpose.reset_tracking()
+                pose_worker.request_reset()
+
             if cv2.getWindowProperty(
-                "ZED MegaPose", cv2.WND_PROP_VISIBLE
+                "ZED MegaPose",
+                cv2.WND_PROP_VISIBLE,
             ) < 1:
                 break
 
     except KeyboardInterrupt:
-        print("\nStopped.")
+        print("\nStopped by keyboard")
+
     except Exception as e:
         print('ERROR: ', e)
         raise
-    finally:
-        if cap is not None:
-            cap.close()
     
+    finally:
+        if pose_worker is not None:
+            pose_worker.close()
+        if cam_worker is not None:
+            cam_worker.close()
         if window_created:
             cv2.destroyAllWindows()
-
-        print(
-            f"Processed {processed} frames "
-            f"in {perf_counter() - started:.1f}s."
-        )
+        print(f"Processed {processed} frames in {perf_counter() - started:.1f}s.")
 
 
 if __name__ == "__main__":
