@@ -20,7 +20,7 @@ def parse_args():
     )
 
     parser.add_argument(
-        "--cam-id",
+        "--cam_id",
         default="2",
         help="Camera index or video path",
     )
@@ -42,7 +42,7 @@ def parse_args():
         help="Requested camera frame rate",
     )
     parser.add_argument(
-        "--min-area",
+        "--min_area",
         type=int,
         default=400,
         help="Minimum connected-component area",

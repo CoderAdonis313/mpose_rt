@@ -4,8 +4,8 @@ import cv2
 from time import monotonic
 import numpy as np
 
-RES_HEIGHT = 1080
-RES_WIDTH = 2 * 1920
+RES_HEIGHT = 720
+RES_WIDTH = 2 * 1280
 
 latest_frame = np.zeros((RES_HEIGHT, RES_WIDTH, 3), dtype=np.uint8) 
 latest_result = np.zeros((RES_HEIGHT, RES_WIDTH, 3), dtype=np.uint8) 
@@ -19,7 +19,7 @@ frame_lock = threading.Lock()
 
 
 def read_cam():
-    cam = cv2.VideoCapture(2)
+    cam = cv2.VideoCapture(0)
     cam.set(cv2.CAP_PROP_FRAME_WIDTH, RES_WIDTH)
     cam.set(cv2.CAP_PROP_FRAME_HEIGHT, RES_HEIGHT)
 
@@ -36,7 +36,7 @@ def read_cam():
     global latest_frame
     global stop_event
 
-    while monotonic() - start_time < 100:
+    while monotonic() - start_time < 1000:
         ret, frame = cam.read()
         display_result = frame
         display_vis = frame
