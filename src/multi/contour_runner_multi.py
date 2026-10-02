@@ -47,6 +47,14 @@ class ContourRunnerMulti:
 
         self.detections = []
 
+        label_colors = {}
+        keys = list(hsv_ranges_dict.keys())
+        n_colors = len(keys)
+        incr = 255 / n_colors
+        for i in range(n_colors):
+            label_colors[keys[i]] = (int(255 - i * incr), int(i * incr), 124)
+        self.label_colors = label_colors
+
 
     def _pad_bbox(self, x, y, width, height, image_width, image_height):
         pad_x = int(width * self.bbox_pad)
@@ -99,23 +107,18 @@ class ContourRunnerMulti:
         return detections
 
 
-    @staticmethod
-    def draw_detections(image, detections):
+    def draw_detections(self, image, detections):
         """
         Draw labeled detections on an RGB image.
         """
-        colors = {
-            "bot_marker": (0, 255, 0),
-            "arena_marker": (255, 255, 0),
-        }
 
         for item in detections:
             label = item["label"]
             x1, y1, x2, y2 = item["detection"]
-
-            color = colors.get(label, (255, 0, 255),)
+            color = self.label_colors.get(label, (255, 0, 255),)
 
             cv2.rectangle(image, (x1, y1), (x2, y2), color, 2,)
+            cv2.putText(image, label, (x1-10, y1-10), cv2.FONT_HERSHEY_SIMPLEX, 1.0, color, 2)
 
 
     def estimate(self, img, draw=False):
