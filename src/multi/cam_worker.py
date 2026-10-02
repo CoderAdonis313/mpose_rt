@@ -115,45 +115,6 @@ class LatestFrameCamera:
                 self._condition.notify_all()
 
 
-    def read_latest(
-        self,
-        after_index: int = -1,
-        timeout: Optional[float] = None,
-    ) -> CapturedFrame:
-        """Return the newest frame newer than ``after_index``.
-
-        Waiting only happens when inference has caught up with capture.
-        """
-
-        if not self._started:
-            raise RuntimeError("Camera must be started before reading frames")
-
-        if timeout is not None and timeout <= 0:
-            raise ValueError("timeout must be positive or None")
-
-        deadline = None if timeout is None else monotonic() + timeout
-
-        with self._condition:
-            while self._latest is None or self._latest.index <= after_index:
-                if self._error is not None:
-                    raise RuntimeError("Camera capture failed") from self._error
-
-                if self._stop_event.is_set() or not self._thread.is_alive():
-                    raise RuntimeError("Camera capture stopped")
-
-                remaining = (
-                    None
-                    if deadline is None
-                    else deadline - monotonic()
-                )
-
-                if remaining is not None and remaining <= 0:
-                    raise TimeoutError("Timed out waiting for a camera frame")
-
-                self._condition.wait(remaining)
-            return self._latest
-
-
     def latest(self):
         """Return the newest captured frame immediately, or None."""
 
