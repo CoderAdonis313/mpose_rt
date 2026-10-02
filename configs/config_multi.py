@@ -9,12 +9,14 @@ N_POINTS = 1000
 COLOR_RANGES = {
     'bot1_marker': ((165, 80, 70), (179, 255, 255)),
     'bot2_marker': ((25, 135, 0), (35, 255, 255),),
-    'arena_marker': ((103, 133, 0), (115, 255, 255)),
+    'bot3_marker': ((103, 133, 0), (115, 255, 255)),
+    'arena_marker': ((4, 135, 0), (16, 255, 255)),
 }
 
 MESH_PATHS = {
     'bot1_marker': 'models/PointerActual.obj',
     'bot2_marker': 'models/PointerActual.obj',
-    'arena_marker': 'models/BaselineArrow.obj'
+    'bot3_marker': 'models/PointerActual.obj',
+    'arena_marker': 'models/ArenaMarker.obj'
 }
 

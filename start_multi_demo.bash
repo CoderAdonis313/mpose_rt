@@ -7,7 +7,7 @@ echo "INFO: Check with utils/check_udp.py"
 
 python -m src.utils.test_capture_cam \
   --cam_source 2 \
-  --mesh models/PointerActual.obj \
+  --mesh models/ArenaMarker.obj \
   --cam_file configs/zed_1080p_raw_calib.json \
 
 
