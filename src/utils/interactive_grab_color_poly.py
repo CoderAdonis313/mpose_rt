@@ -348,13 +348,13 @@ class HSVTuner:
     def show(self, frame_bgr, paused):
         # Keep an independent stable frame for mouse sampling.
         self.current_frame = frame_bgr.copy()
+        preview = frame_bgr.copy()
 
         mask = self.make_mask(
             frame_bgr,
         )
 
         # Show the original image instead of flashing accepted pixels.
-        preview = frame_bgr.copy()
 
         detection_count = self.draw_components(
             preview,
@@ -538,7 +538,7 @@ def parse_args():
     )
 
     parser.add_argument(
-        "--cam-id",
+        "--cam_id",
         default="2",
         help="Camera index",
     )
