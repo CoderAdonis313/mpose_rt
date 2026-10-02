@@ -18,9 +18,9 @@ from configs.config import *
 import torch
 from configs.config import COLOR_RANGES, OUT_RES
 from src.single.contour_runner import ContourRunner
-from src.multi.mpose_runner_multi import MegaPoseRunnerMulti
-from src.multi.pose_worker import LatestPoseInference
-from src.multi.cam_worker import LatestFrameCamera
+from src.single.mpose_runner import MegaPoseRunner
+from src.single.pose_worker import LatestPoseInference
+from src.single.cam_worker import LatestFrameCamera
 
 import cv2
 cv2.ocl.setUseOpenCL(False)
@@ -100,7 +100,7 @@ def main():
     started = perf_counter()
 
     try:
-        pose_detector = MegaPoseRunnerMulti(
+        pose_detector = MegaPoseRunner(
             mesh_path,
             "fiducial",
             args.model,
@@ -111,7 +111,7 @@ def main():
         bbox_detector = ContourRunner(COLOR_RANGES)
         camera_matrix = np.asarray(pose_detector.K, dtype=float).copy()
 
-        pose_worker = LatestPoseInference(pose_detector, IOU)
+        pose_worker = LatestPoseInference(pose_detector, iou_threshold=IOU)
         cam_worker = LatestFrameCamera(
             source=args.cam_source,
             frame_size=(width * 2, height),
