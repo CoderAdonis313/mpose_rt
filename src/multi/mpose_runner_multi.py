@@ -1,345 +1,912 @@
-from pathlib import Path
-import numpy as np
-import json
-import torch
+"""Multi-marker MegaPose inference with label-based tracking."""
 
-from megapose.datasets.object_dataset import RigidObject, RigidObjectDataset
-from megapose.datasets.scene_dataset import ObjectData, CameraData
-from megapose.inference.types import ObservationTensor
-from megapose.inference.utils import make_detections_from_object_data
-from megapose.panda3d_renderer import Panda3dLightData
-from megapose.panda3d_renderer.panda3d_scene_renderer import Panda3dSceneRenderer
-from src.single.custom_load_model import NAMED_MODELS, load_named_model
-from megapose.lib3d.transform import Transform
-from megapose.utils.conversion import convert_scene_observation_to_panda3d
-from configs.config import OUT_RES
+from collections.abc import Mapping, Sequence
+from dataclasses import dataclass
+import json
+from pathlib import Path
+from typing import Dict, Optional, Tuple
+
+import numpy as np
+import pandas as pd
+import torch
 import trimesh
+
+from megapose.datasets.object_dataset import (
+    RigidObject,
+    RigidObjectDataset,
+)
+from megapose.datasets.scene_dataset import (
+    CameraData,
+    ObjectData,
+)
+from megapose.inference.types import (
+    ObservationTensor,
+    PoseEstimatesType,
+)
+from megapose.inference.utils import (
+    make_detections_from_object_data,
+)
+from megapose.utils.tensor_collection import (
+    PandasTensorCollection,
+    concatenate,
+)
+
+from src.multi.custom_load_model import (
+    NAMED_MODELS,
+    load_named_model,
+)
+
+
+@dataclass(frozen=True)
+class MarkerPose:
+    """Accepted pose for one uniquely labeled marker."""
+
+    label: str
+    pose_matrix: np.ndarray
+    # translation_m: Tuple[float, float, float]
+    # euler_xyz_deg: Tuple[float, float, float]
+    detection_bbox: np.ndarray
+    projected_bbox: Optional[np.ndarray]
+
+    # @property
+    # def pose_values(self):
+    #     """Return the legacy x, y, z, roll, pitch, yaw tuple."""
+
+    #     return (
+    #         *self.translation_m,
+    #         *self.euler_xyz_deg,
+    #     )
 
 
 class MegaPoseRunnerMulti:
-    def __init__(self, mesh_path: Path, label: str, model_name: str, K_path: Path, n_workers=6, batch_size=16):
-        self.label = label
+    """Estimate and track any number of uniquely labeled markers.
+
+    Each marker label must appear exactly once in ``mesh_paths``. Contour
+    detections must use those same labels.
+
+    A marker's previous pose is refined while its projected bbox agrees with
+    the current contour bbox. Otherwise that marker is independently
+    reinitialized from its contour bbox.
+    """
+
+    def __init__(
+        self,
+        mesh_paths: dict,
+        model_name: str,
+        K_path: Path,
+        n_workers: int = 6,
+        batch_size: int = 16,
+        iou_threshold: float = 0.25,
+        mesh_units: str = "m",
+        min_mesh_points: int = 1000,
+
+    ):
+        if not mesh_paths:
+            raise ValueError("At least one marker mesh must be configured")
+
+        if not 0.0 <= iou_threshold <= 1.0:
+            raise ValueError("iou_threshold must be between zero and one")
+
         self.model_name = model_name
         self.model_info = NAMED_MODELS[model_name]
-        self.megapose_batch_size = batch_size
+        self.megapose_batch_size = int(batch_size)
+        self.iou_threshold = float(iou_threshold)
+        self._closed = False
 
-        if not mesh_path.exists():
-            raise Exception('Input mesh file missing')
-        
-        obj = RigidObject(label=label, mesh_path=mesh_path, mesh_units="m")
-        self.object_dataset = RigidObjectDataset([obj])
+        self.mesh_paths = {}
+        self.mesh_points = {}
+        rigid_objects = []
 
-        if not K_path.exists():
-            raise Exception('Camera calibration file missing')
+        for label, mesh_path in mesh_paths.items():
+            mesh_path = Path(mesh_path)
+            mesh = trimesh.load(
+                str(mesh_path),
+                force="mesh",
+                process=False,
+            )
 
-        K_json = json.loads(K_path.read_text(encoding='utf-8'))
-        img_res = K_json['img_size']
-        assert img_res == list(OUT_RES)
+            if not isinstance(mesh, trimesh.Trimesh):
+                raise TypeError(
+                    f"Expected a triangle mesh for {label!r}; "
+                    f"got {type(mesh).__name__}"
+                )
 
-        mpose_format = {
-            "K": K_json["camera_matrix"],
-            "resolution": list(reversed(img_res))
+            vertices = np.asarray(
+                mesh.vertices,
+                dtype=np.float32,
+            )
+
+            if vertices is not None and len(vertices) < min_mesh_points:
+                raise ValueError(
+                    f"Mesh for {label!r} must contain {min_mesh_points} finite vertices"
+                )
+
+            self.mesh_paths[label] = mesh_path
+            self.mesh_points[label] = vertices
+
+            rigid_objects.append(
+                RigidObject(
+                    label=label,
+                    mesh_path=mesh_path,
+                    mesh_units=mesh_units,
+                )
+            )
+
+        self.labels = tuple(self.mesh_paths)
+        self.object_dataset = RigidObjectDataset(
+            rigid_objects
+        )
+
+        K_path = Path(K_path)
+
+        if not K_path.is_file():
+            raise FileNotFoundError(
+                f"Camera calibration does not exist: {K_path}"
+            )
+
+        calibration = json.loads(
+            K_path.read_text(encoding="utf-8")
+        )
+
+        image_size = calibration.get("img_size")
+        camera_matrix = calibration.get(
+            "camera_matrix"
+        )
+
+        if (
+            not isinstance(image_size, list)
+            or len(image_size) != 2
+        ):
+            raise ValueError(
+                "Calibration img_size must be [width, height]"
+            )
+
+        if (
+            int(image_size[0]) <= 0
+            or int(image_size[1]) <= 0
+        ):
+            raise ValueError(
+                "Calibration image dimensions must be positive"
+            )
+
+        mpose_camera = {
+            "K": camera_matrix,
+            "resolution": list(
+                reversed(image_size)
+            ),
         }
-        K_data = json.dumps(mpose_format, indent=2)
 
-        cam_data = CameraData.from_json(K_data)
-        self.K = cam_data.K
-        self.resolution = cam_data.resolution
-        self.camera_data = cam_data
+        camera_data = CameraData.from_json(
+            json.dumps(mpose_camera)
+        )
 
-        # Heavy model loaded once.
+        self.K = np.asarray(
+            camera_data.K,
+            dtype=float,
+        )
+        self.resolution = tuple(
+            int(value)
+            for value in camera_data.resolution
+        )
+        self.camera_data = camera_data
+
+        # Load one model and one mesh database containing every marker.
         self.pose_estimator = load_named_model(
-            model_name, self.object_dataset, n_workers=n_workers, bsz_images=self.megapose_batch_size
+            model_name,
+            self.object_dataset,
+            n_workers=n_workers,
+            bsz_images=self.megapose_batch_size,
         ).cuda()
         self.pose_estimator.eval()
-        self.scene_renderer = Panda3dSceneRenderer(self.object_dataset)
-        mesh = trimesh.load(
-            str(mesh_path),
-            force="mesh",
-            process=False,
+
+        # One normalized GPU pose collection per marker.
+        self.previous_pose_estimates: Dict[
+            str,
+            PoseEstimatesType,
+        ] = {}
+
+        # One current CPU 4x4 pose matrix per marker.
+        self.poses: Dict[str, np.ndarray] = {}
+
+        self.last_detections: Dict[
+            str,
+            np.ndarray,
+        ] = {}
+
+
+    @property
+    def tracking_labels(self):
+        return frozenset(
+            self.previous_pose_estimates
         )
 
-        # force="mesh" requests scene conversion; narrow the type explicitly
-        # before accessing vertices (also resolves static type-checker errors).
-        if not isinstance(mesh, trimesh.Trimesh):
-            raise TypeError(f"Expected a triangle mesh, got {type(mesh).__name__}")
-        self.mesh_points = np.asarray(mesh.vertices, dtype=np.float32)
-        if self.mesh_points.size == 0 or not np.isfinite(self.mesh_points).all():
-            raise ValueError("Mesh must contain finite, nonempty vertices")
 
-        # Stage II: keep the full GPU collection separately from display poses.
-        self.reset_tracking()
+    @property
+    def tracking_active(self):
+        """True when at least one marker is being tracked."""
+
+        return bool(self.previous_pose_estimates)
 
 
-    ######################### PRIVATE FUNCTIONS ##########################
-    def _make_observation(self):
+    def is_tracking(self, label):
+        return label in self.previous_pose_estimates
+
+
+    def _validate_image(self, image_rgb):
+        if (
+            not isinstance(image_rgb, np.ndarray)
+            or image_rgb.ndim != 3
+            or image_rgb.shape[2] != 3
+            or image_rgb.dtype != np.uint8
+        ):
+            raise ValueError(
+                "Expected a uint8 RGB image with three channels"
+            )
+
+        if image_rgb.shape[:2] != self.resolution:
+            raise ValueError(
+                f"Image dimensions {image_rgb.shape[:2]} "
+                f"must match calibration {self.resolution}"
+            )
+
+
+    def _parse_detections(
+        self,
+        detections,
+    ):
+        """Convert ContourRunnerMulti output into label -> bbox."""
+
+        if detections is None:
+            return {}
+
+        if not isinstance(detections, Sequence):
+            raise TypeError(
+                "detections must be a sequence of dictionaries"
+            )
+
+        image_height, image_width = self.resolution
+        parsed = {}
+
+        for index, item in enumerate(detections):
+            if not isinstance(item, Mapping):
+                raise TypeError(
+                    f"Detection {index} must be a dictionary"
+                )
+
+            label = item.get("label")
+
+            if label not in self.mesh_paths:
+                raise KeyError(
+                    f"Detection label {label!r} has no configured mesh"
+                )
+
+            # if label in parsed:
+            #     raise ValueError(
+            #         f"Multiple detections use label {label!r}. "
+            #         "The unique-marker design requires one detection "
+            #         "per label."
+            #     )
+
+            bbox_value = item.get("detection")
+
+            if bbox_value is None:
+                bbox_value = item.get("bbox_modal")
+
+            bbox = np.asarray(
+                bbox_value,
+                dtype=float,
+            )
+
+            # if (
+            #     bbox.shape != (4,)
+            #     or not np.isfinite(bbox).all()
+            #     or bbox[2] <= bbox[0]
+            #     or bbox[3] <= bbox[1]
+            # ):
+            #     raise ValueError(
+            #         f"Detection {index} for {label!r} has "
+            #         "an invalid xyxy bbox"
+            #     )
+
+
+            # if (
+            #     bbox[0] < 0
+            #     or bbox[1] < 0
+            #     or bbox[2] > image_width
+            #     or bbox[3] > image_height
+            # ):
+            #     raise ValueError(
+            #         f"Detection bbox for {label!r} is outside "
+            #         f"the image: {bbox.tolist()}"
+            #     )
+
+            parsed[label] = bbox.copy()
+        return parsed
+
+
+    def _make_observation(self, image_rgb):
         return ObservationTensor.from_numpy(
-            rgb=self.img,
+            rgb=image_rgb,
             depth=None,
-            K=self.K
+            K=self.K,
         ).cuda()
 
 
-    def _make_full_frame_detection(self):
-        height, width = self.img.shape[:2]
+    def _make_detections(self, labels, bbox_by_label):
         object_data = [
             ObjectData(
-                label=self.label,
-                bbox_modal=np.array([0, 0, width, height], dtype=float),
+                label=label,
+                bbox_modal=bbox_by_label[
+                    label
+                ],
             )
-        ]
-        return make_detections_from_object_data(object_data).cuda()
-
-
-    def _current_pose_transform(self):
-        if self.poses is None:
-            raise RuntimeError("No pose prediction available. Run estimate() first.")
-        # self.poses is a single (4, 4) TCO matrix, not a JSON list.
-        return Transform(self.poses)
-
-
-    def _render_mesh_rgb(self):
-        pose_transform = self._current_pose_transform()
-
-        camera_data = CameraData(
-            K=self.K,
-            resolution=self.resolution,
-            TWC=Transform(np.eye(4)),
-        )
-        object_datas = [ObjectData(label=self.label, TWO=pose_transform)]
-        panda_camera_data, panda_object_datas = convert_scene_observation_to_panda3d(
-            camera_data,
-            object_datas,
-        )
-
-        light_datas = [
-            Panda3dLightData(
-                light_type="ambient",
-                color=(1.0, 1.0, 1.0, 1.0),
-            ),
+            for label in labels
         ]
 
-        renderings = self.scene_renderer.render_scene(
-            panda_object_datas,
-            [panda_camera_data],
-            light_datas,
-            render_depth=False,
-            render_binary_mask=False,
-            render_normals=False,
-            copy_arrays=True,
-        )[0]
-        return renderings.rgb
+        return (make_detections_from_object_data(object_data).cuda())
 
 
-    def _transform_mesh_points(self, mesh_points, pose):
-        """mesh_points: (N, 3), pose: (4, 4) TCO; output: (N, 3)."""
-        points = np.asarray(mesh_points, dtype=float)
-        pose = np.asarray(pose, dtype=float)
-        if points.ndim != 2 or points.shape[1] != 3 or len(points) == 0:
-            raise ValueError("mesh_points must be a nonempty (N, 3) array")
+    @staticmethod
+    def calculate_iou(a, b):
+        if a is None or b is None:
+            return 0.0
+
+        a = np.asarray(a, dtype=float)
+        b = np.asarray(b, dtype=float)
+
+        if a.shape != (4,) or b.shape != (4,):
+            return 0.0
+
+        if (
+            not np.isfinite(a).all()
+            or not np.isfinite(b).all()
+        ):
+            return 0.0
+
+        intersection = np.maximum(
+            0.0,
+            np.minimum(a[2:], b[2:])
+            - np.maximum(a[:2], b[:2]),
+        )
+
+        overlap = float(
+            np.prod(intersection)
+        )
+        area_a = float(
+            np.prod(
+                np.maximum(
+                    0.0,
+                    a[2:] - a[:2],
+                )
+            )
+        )
+        area_b = float(
+            np.prod(
+                np.maximum(
+                    0.0,
+                    b[2:] - b[:2],
+                )
+            )
+        )
+        union = area_a + area_b - overlap
+
+        return (
+            overlap / union
+            if union > 0
+            else 0.0
+        )
+
+
+    def _project_bbox(
+        self,
+        label,
+        pose_matrix,
+    ):
+        points = self.mesh_points[label]
+        pose = np.asarray(
+            pose_matrix,
+            dtype=float,
+        )
+
         if pose.shape != (4, 4):
-            raise ValueError("pose must be a (4, 4) object-to-camera matrix")
-        if not np.isfinite(points).all() or not np.isfinite(pose).all():
-            raise ValueError("Mesh and pose must contain finite values")
-        R = pose[:3, :3]
-        t = pose[:3, 3]
-        return points @ R.T + t
+            raise ValueError(
+                "pose_matrix must have shape (4, 4)"
+            )
 
+        if not np.isfinite(pose).all():
+            raise ValueError(
+                "pose_matrix contains non-finite values"
+            )
 
-    def _project_points(self, mesh_points_camera, K):
-        """Project (N, 3) camera points to (N, 2) undistorted pixels."""
-        points = np.asarray(mesh_points_camera, dtype=float)
-        K = np.asarray(K, dtype=float)
-        if points.ndim != 2 or points.shape[1] != 3 or len(points) == 0:
-            raise ValueError("Camera points must be a nonempty (N, 3) array")
-        if K.shape != (3, 3):
-            raise ValueError("K must have shape (3, 3)")
-        if not np.isfinite(points).all() or not np.isfinite(K).all():
-            raise ValueError("Camera points and K must contain finite values")
-        if np.any(points[:, 2] <= 1e-6):
-            raise ValueError("Mesh reaches or crosses the camera plane")
-        pixels_h = points @ K.T
-        if np.any(np.abs(pixels_h[:, 2]) <= 1e-12):
-            raise ValueError("Invalid homogeneous projection denominator")
-        pixels = pixels_h[:, :2] / pixels_h[:, 2:3]
+        rotation = pose[:3, :3]
+        translation = pose[:3, 3]
+
+        camera_points = (
+            points @ rotation.T
+            + translation
+        )
+
+        if np.any(
+            camera_points[:, 2] <= 1e-6
+        ):
+            raise ValueError(
+                f"Mesh {label!r} reaches or crosses "
+                "the camera plane"
+            )
+
+        homogeneous_pixels = (
+            camera_points @ self.K.T
+        )
+
+        pixels = (
+            homogeneous_pixels[:, :2]
+            / homogeneous_pixels[:, 2:3]
+        )
+
         if not np.isfinite(pixels).all():
-            raise ValueError("Projection produced nonfinite pixels")
-        return pixels
+            raise ValueError(
+                f"Projection for {label!r} is non-finite"
+            )
+
+        return np.concatenate(
+            (
+                pixels.min(axis=0),
+                pixels.max(axis=0),
+            )
+        )
 
 
-    def _bounding_rectangle(self, projected_pixels):
-        """Return unclipped float [left, top, right, bottom]."""
-        pixels = np.asarray(projected_pixels, dtype=float)
-        if pixels.ndim != 2 or pixels.shape[1] != 2 or len(pixels) == 0:
-            raise ValueError("Pixels must be a nonempty (N, 2) array")
-        if not np.isfinite(pixels).all():
-            raise ValueError("Pixels must contain finite values")
-        return np.concatenate((pixels.min(axis=0), pixels.max(axis=0)))
+    @staticmethod
+    def _pose_values(
+        pose_matrix,
+    ):
+        rotation = pose_matrix[:3, :3].astype(
+            float
+        )
+        translation = pose_matrix[:3, 3].astype(
+            float
+        )
 
-
-    def _process_estimates(self, pose_estimates):
-        """Store one CPU TCO matrix; return meters and Euler angles in degrees."""
-        self.poses = pose_estimates.poses[0].detach().cpu().numpy().copy()
-        H = self.poses
-        R = H[:3, :3].astype(float)
-        t = H[:3, 3].astype(float)
-
-        x = float(t[0])
-        y = float(t[1])
-        z = float(t[2])
-
-        sy = np.sqrt(R[0, 0] * R[0, 0] + R[1, 0] * R[1, 0])
+        sy = np.sqrt(
+            rotation[0, 0] ** 2
+            + rotation[1, 0] ** 2
+        )
         singular = sy < 1e-6
 
         if not singular:
-            roll = np.arctan2(R[2, 1], R[2, 2])
-            pitch = np.arctan2(-R[2, 0], sy)
-            yaw = np.arctan2(R[1, 0], R[0, 0])
+            roll = np.arctan2(
+                rotation[2, 1],
+                rotation[2, 2],
+            )
+            pitch = np.arctan2(
+                -rotation[2, 0],
+                sy,
+            )
+            yaw = np.arctan2(
+                rotation[1, 0],
+                rotation[0, 0],
+            )
         else:
-            roll = np.arctan2(-R[1, 2], R[1, 1])
-            pitch = np.arctan2(-R[2, 0], sy)
+            roll = np.arctan2(
+                -rotation[1, 2],
+                rotation[1, 1],
+            )
+            pitch = np.arctan2(
+                -rotation[2, 0],
+                sy,
+            )
             yaw = 0.0
 
-        roll = float(np.degrees(roll))
-        pitch = float(np.degrees(pitch))
-        yaw = float(np.degrees(yaw))
-        return x, y, z, roll, pitch, yaw
+        translation_m = tuple(
+            float(value)
+            for value in translation
+        )
+
+        euler_xyz_deg = tuple(
+            float(value)
+            for value in np.degrees(
+                [roll, pitch, yaw]
+            )
+        )
+
+        return (
+            translation_m,
+            euler_xyz_deg,
+        )
 
 
-    ############################# PUBLIC METHODS #########################
-    def mpose_bboxes(self):
-        """Return [left, top, right, bottom] pixels, or [] if unavailable.
-
-        Before estimate(): projects the last accepted pose.
-        After estimate(): projects the newly estimated pose.
-        The box is not clipped to image bounds. Assumes undistorted RGB.
-        """
-        if self.poses is None:
-            return []
-
-        # Projection is undefined if the mesh crosses the camera plane.
-        # Report no usable box rather than interrupting the video loop.
-        mesh_points_camera = self._transform_mesh_points(self.mesh_points, self.poses)
-        projected_pixels = self._project_points(mesh_points_camera, self.K)
-        bboxs = self._bounding_rectangle(projected_pixels)
-        return bboxs
+    @staticmethod
+    def _normalized_pose_state(label, pose_tensor):
+        """Keep only data needed for the next refinement pass."""
+        infos = pd.DataFrame([
+            {
+                "label": label,
+                "batch_im_id": 0,
+                "instance_id": 0,
+            }
+        ])
+        return PandasTensorCollection(infos=infos, poses=pose_tensor.detach().clone())
 
 
-    def reset_tracking(self):
-        """Call before loading a fresh detection to restart initialization."""
-        self.previous_pose_estimates = None
-        self.tracking_active = False
-        self.detection = None
-        self.poses = None  # Single CPU (4, 4) TCO matrix, when available.
+    def _drop_tracking(
+        self,
+        label,
+    ):
+        self.previous_pose_estimates.pop(
+            label,
+            None,
+        )
+        self.poses.pop(
+            label,
+            None,
+        )
 
 
-    def load_detection(self, detection):
-        """Load one current-frame box: left, top, right, bottom."""
-        if detection is None or len(detection) == 0:
-            self.detection = None  # Missing/invalid input must not retain an old box.
+    def _consume_output(
+        self,
+        output,
+        expected_labels,
+        bbox_by_label,
+    ):
+        """Validate and store one output per expected label."""
+
+        results = {}
+        accepted_labels = set()
+
+        if output is None or len(output) == 0:
+            for label in expected_labels:
+                self._drop_tracking(label)
+
+            return results, accepted_labels
+
+        output_labels = (
+            output.infos["label"]
+            .astype(str)
+            .to_numpy()
+        )
+
+        for label in expected_labels:
+            indices = np.flatnonzero(
+                output_labels == label
+            )
+
+            if len(indices) != 1:
+                self._drop_tracking(label)
+                continue
+
+            output_index = int(indices[0])
+
+            pose_tensor = output.poses[
+                output_index:output_index + 1
+            ]
+
+            pose_is_valid = (
+                torch.isfinite(
+                    pose_tensor
+                ).all().item()
+                and float(
+                    pose_tensor[0, 2, 3].item()
+                ) > 0.0
+            )
+
+            if not pose_is_valid:
+                self._drop_tracking(label)
+                continue
+
+            pose_matrix = (
+                pose_tensor[0]
+                .detach()
+                .cpu()
+                .numpy()
+                .copy()
+            )
+
+            self.previous_pose_estimates[label] = (
+                self._normalized_pose_state(
+                    label,
+                    pose_tensor,
+                )
+            )
+            self.poses[label] = pose_matrix
+            accepted_labels.add(label)
+
+            try:
+                projected_bbox = (
+                    self._project_bbox(
+                        label,
+                        pose_matrix,
+                    )
+                )
+            except ValueError:
+                projected_bbox = None
+
+            # (
+            #     translation_m,
+            #     euler_xyz_deg,
+            # ) = self._pose_values(
+            #     pose_matrix
+            # )
+
+            results[label] = MarkerPose(
+                label=label,
+                pose_matrix=pose_matrix,
+                # translation_m=translation_m,
+                # euler_xyz_deg=euler_xyz_deg,
+                detection_bbox=(
+                    bbox_by_label[label].copy()
+                ),
+                projected_bbox=projected_bbox,
+            )
+        return results, accepted_labels
+
+
+    def reset_tracking(
+        self,
+        label=None,
+    ):
+        """Reset one marker, or all markers when label is None."""
+
+        if label is None:
+            self.previous_pose_estimates.clear()
+            self.poses.clear()
+            self.last_detections.clear()
             return
 
-        bbox = np.asarray(detection, dtype=float)
-        if (
-            bbox.shape != (4,)
-            or not np.isfinite(bbox).all()
-            or bbox[2] <= bbox[0]
-            or bbox[3] <= bbox[1]
-        ):
-            raise ValueError('Expected a valid [left, top, right, bottom] bbox')
+        if label not in self.mesh_paths:
+            raise KeyError(
+                f"Unknown marker label {label!r}"
+            )
 
-        object_data = [ObjectData(label=self.label, bbox_modal=bbox)]
-        self.detection = make_detections_from_object_data(object_data).cuda()
+        self._drop_tracking(label)
+        self.last_detections.pop(
+            label,
+            None,
+        )
 
 
-    # def draw_mesh_overlay(self):
-    #     if not hasattr(self, "img"):
-    #         raise RuntimeError("No image loaded. Run estimate() first.")
+    def mpose_bboxes(self):
+        """Return projected bboxes for all current poses."""
+        projected = {}
 
-    #     rgb_rendered = self._render_mesh_rgb()
-    #     mask = np.any(rgb_rendered > 0, axis=-1)
-
-    #     rgb_overlay = np.zeros_like(self.img, dtype=np.float32)
-    #     rgb_overlay[~mask] = self.img[~mask] * 0.6 + 255 * 0.4
-    #     rgb_overlay[mask] = rgb_rendered[mask] * 0.8 + 255 * 0.2
-    #     rgb_overlay = rgb_overlay.astype(np.uint8)
-    #     return cv2.cvtColor(rgb_overlay, cv2.COLOR_RGB2BGR)
+        for label, pose_matrix in self.poses.items():
+            try:
+                projected[label] = (
+                    self._project_bbox(
+                        label,
+                        pose_matrix,
+                    )
+                )
+            except ValueError:
+                continue
+        return projected
 
 
     @torch.no_grad()
-    def estimate(self, img: np.ndarray):
-        """Accept calibrated-size uint8 RGB; return pose tuple or None.
+    def estimate(
+        self,
+        image_rgb,
+        detections,
+    ):
+        """Estimate every detected configured marker.
 
-        Initialization needs a detection from this frame. Tracking uses the
-        previous GPU pose and one refinement iteration, without fresh scoring.
-        Basic validity checks do not establish that tracking is accurate.
+        Args:
+            image_rgb:
+                Current calibrated uint8 RGB image.
+
+            detections:
+                Current ContourRunnerMulti output, for example::
+
+                    [
+                        {
+                            "label": "bot_marker",
+                            "detection": [x1, y1, x2, y2],
+                        },
+                        {
+                            "label": "arena_marker",
+                            "detection": [x1, y1, x2, y2],
+                        },
+                    ]
+
+        Returns:
+            Dictionary mapping marker label to MarkerPose.
+
+            Only markers with a valid pose in this frame are returned.
         """
-        # Consume once so a box cannot accidentally initialize a later frame.
-        detections = self.detection
-        self.detection = None
-        self.poses = None
 
-        if (
-            not isinstance(img, np.ndarray)
-            or img.ndim != 3
-            or img.shape[2] != 3
-            or img.dtype != np.uint8
+        if self._closed:
+            raise RuntimeError(
+                "MegaPoseRunnerMulti is closed"
+            )
+
+        self._validate_image(image_rgb)
+
+        bbox_by_label = self._parse_detections(
+            detections
+        )
+
+        self.last_detections = {
+            label: bbox.copy()
+            for label, bbox in bbox_by_label.items()
+        }
+
+        # Under the unique-color design, losing a labeled contour means
+        # that marker's tracking state is no longer trusted.
+        for label in list(
+            self.previous_pose_estimates
         ):
-            raise ValueError('Expected a uint8 RGB image with three channels')
-        if img.shape[:2] != tuple(self.resolution):             #type: ignore
-            raise ValueError(
-                f'Image dimensions {img.shape[:2]} must match '
-                f'calibration {tuple(self.resolution)} (height, width)' #type: ignore
+            if label not in bbox_by_label:
+                self._drop_tracking(label)
+
+        if not bbox_by_label:
+            return {}
+
+        tracked_labels = []
+        initialization_labels = []
+
+        for label, bbox in bbox_by_label.items():
+            previous_pose = self.poses.get(
+                label
             )
 
-        self.img = img
-        if not self.tracking_active and detections is None:
-            return None
+            if previous_pose is None:
+                initialization_labels.append(
+                    label
+                )
+                continue
 
-        observation = self._make_observation()
-        if self.tracking_active:
-            predictions, _ = self.pose_estimator.forward_refiner(
-                observation,
-                data_TCO_input=self.previous_pose_estimates,    #type: ignore
-                n_iterations=1,
-                keep_all_outputs=False,
+            try:
+                predicted_bbox = (
+                    self._project_bbox(
+                        label,
+                        previous_pose,
+                    )
+                )
+            except ValueError:
+                predicted_bbox = None
+
+            if (
+                self.calculate_iou(
+                    bbox,
+                    predicted_bbox,
+                )
+                >= self.iou_threshold
+            ):
+                tracked_labels.append(label)
+            else:
+                self._drop_tracking(label)
+                initialization_labels.append(
+                    label
+                )
+
+        observation = self._make_observation(
+            image_rgb
+        )
+        results = {}
+
+        # Refine all still-valid tracks in one MegaPose batch.
+        if tracked_labels:
+            tracked_input = concatenate([
+                self.previous_pose_estimates[
+                    label
+                ]
+                for label in tracked_labels
+            ])
+
+            predictions, _ = (
+                self.pose_estimator.forward_refiner(
+                    observation,
+                    data_TCO_input=tracked_input,
+                    n_iterations=1,
+                    keep_all_outputs=False,
+                )
             )
-            output = predictions["iteration=1"]
-        else:
-            parameters = dict(self.model_info["inference_parameters"])
-            parameters["run_depth_refiner"] = False  # Monocular RGB only.
-            parameters['bsz_images'] = self.megapose_batch_size
-            output, _ = self.pose_estimator.run_inference_pipeline(
-                observation, detections=detections, **parameters
+
+            tracked_output = predictions[
+                "iteration=1"
+            ]
+
+            (
+                tracked_results,
+                accepted_tracked,
+            ) = self._consume_output(
+                tracked_output,
+                tracked_labels,
+                bbox_by_label,
             )
 
-        # This runner supports exactly one object and one retained pose.
-        if output is None or output.poses.shape != (1, 4, 4):
-            self.reset_tracking()
-            return None
-        valid = torch.isfinite(output.poses).all() & (output.poses[:, 2, 3] > 0).all()
-        if not valid.item():
-            self.reset_tracking()
-            return None
+            results.update(
+                tracked_results
+            )
 
-        self.previous_pose_estimates = output
-        self.tracking_active = True
-        poses_list = self._process_estimates(output)
-        return poses_list
+            # If refinement failed for a marker, attempt current-frame
+            # reinitialization from its contour bbox.
+            for label in tracked_labels:
+                if label not in accepted_tracked:
+                    initialization_labels.append(
+                        label
+                    )
+
+        # Remove duplicates while preserving detection order.
+        initialization_labels = list(
+            dict.fromkeys(
+                initialization_labels
+            )
+        )
+
+        # Initialize all new/lost markers together in one coarse pass.
+        if initialization_labels:
+            megapose_detections = (
+                self._make_detections(
+                    initialization_labels,
+                    bbox_by_label,
+                )
+            )
+
+            parameters = dict(
+                self.model_info[
+                    "inference_parameters"
+                ]
+            )
+            parameters["run_depth_refiner"] = False
+            parameters["bsz_images"] = (
+                self.megapose_batch_size
+            )
+
+            initialized_output, _ = (
+                self.pose_estimator.run_inference_pipeline(
+                    observation,
+                    detections=megapose_detections,
+                    **parameters,
+                )
+            )
+
+            (
+                initialized_results,
+                _,
+            ) = self._consume_output(
+                initialized_output,
+                initialization_labels,
+                bbox_by_label,
+            )
+
+            results.update(
+                initialized_results
+            )
+
+        return results
 
 
-    # def draw_triaxis(self):
-    #     if self.poses is None:
-    #         raise RuntimeError("No pose prediction available. Run estimate() first.")
+    def close(self):
+        """Stop MegaPose's renderer worker processes."""
 
-    #     R = self.poses[:3, :3].astype(float)
-    #     t = self.poses[:3, 3].astype(float)
+        if self._closed:
+            return
 
-    #     rvec, _ = cv2.Rodrigues(R)
-    #     tvec = t.reshape(3, 1)
-    #     dist = np.zeros((5, 1), dtype=float)
-    #     axis_length = 0.1
+        self._closed = True
+        self.reset_tracking()
 
-    #     img_bgr = cv2.cvtColor(self.img, cv2.COLOR_RGB2BGR)
-    #     cv2.drawFrameAxes(img_bgr, self.K, dist, rvec, tvec, axis_length) #type: ignore
-    #     return img_bgr
+        seen = set()
+
+        for model_name in (
+            "coarse_model",
+            "refiner_model",
+        ):
+            model = getattr(
+                self.pose_estimator,
+                model_name,
+                None,
+            )
+            renderer = getattr(
+                model,
+                "renderer",
+                None,
+            )
+
+            if (
+                renderer is None
+                or id(renderer) in seen
+            ):
+                continue
+
+            seen.add(id(renderer))
+            renderer.stop()

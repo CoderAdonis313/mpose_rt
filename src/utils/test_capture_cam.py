@@ -4,18 +4,15 @@ Run with the pose_detector Python environment. No ROS or ZED SDK imports.
 Images are raw left-camera frames; no undistortion is performed.
 """
 
-import csv
 import json
 import sys
 from argparse import ArgumentParser
-from datetime import datetime
 from pathlib import Path
 from time import perf_counter, time_ns
 from uuid import uuid4
 import numpy as np
 from configs.config import *
 # Load imports
-import torch
 from configs.config import COLOR_RANGES, OUT_RES
 from src.single.contour_runner import ContourRunner
 from src.single.mpose_runner import MegaPoseRunner

@@ -83,6 +83,7 @@ class ContourRunnerMulti:
         )
 
         detections = []
+        id = 0
 
         # Component zero is the background.
         for component_index in range(1, component_count):
@@ -99,11 +100,13 @@ class ContourRunnerMulti:
                 continue
 
             bbox = self._pad_bbox(x, y, width, height, image_width, image_height,)
-
             detections.append({
                 "label": label,
                 "detection": bbox,
+                'id': id,
             })
+            id += 1
+
         return detections
 
 

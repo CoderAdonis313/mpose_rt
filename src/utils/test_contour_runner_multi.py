@@ -299,6 +299,8 @@ def main():
                 draw=True,
             )
 
+            print('DEBUG', detections)
+
             inference_seconds = (
                 perf_counter() - inference_start
             )
