@@ -33,7 +33,7 @@ def parse_args():
     )
 
     parser.add_argument(
-        "--cam_source",
+        "--cam_id",
         default=0,
         type=int,
     )
@@ -262,7 +262,7 @@ def main():
         )
 
         cam_worker = LatestFrameCamera(
-            source=args.cam_source,
+            source=args.cam_id,
             frame_size=(
                 width * 2,
                 height,

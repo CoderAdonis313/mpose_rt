@@ -24,7 +24,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 def parse_args():
     parser = ArgumentParser(description=__doc__)
-    parser.add_argument("--cam_source", default="0")
+    parser.add_argument("--cam_id", default="0")
     parser.add_argument("--mesh", required=True)
     parser.add_argument("--cam_file", default="zed_1080p_raw_calib.json")
     parser.add_argument("--model", default="megapose-1.0-RGB")
@@ -245,15 +245,15 @@ def main():
         detector = ContourRunner(COLOR_RANGES)
 
         source = (
-            int(args.cam_source)
-            if args.cam_source.isdecimal()
-            else args.cam_source
+            int(args.cam_id)
+            if args.cam_id.isdecimal()
+            else args.cam_id
         )
         cap = cv2.VideoCapture(source, cv2.CAP_V4L2)
 
         if not cap.isOpened():
             raise RuntimeError(
-                f"Cannot open ZED device {args.cam_source}."
+                f"Cannot open ZED device {args.cam_id}."
             )
 
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, width * 2)

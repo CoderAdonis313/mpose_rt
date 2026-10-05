@@ -20,7 +20,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 def parse_args():
     parser = ArgumentParser(description=__doc__)
-    parser.add_argument("--cam_source", default="0",
+    parser.add_argument("--cam_id", default="0",
                         help="ZED device index or path, e.g. 0 or /dev/video2")
     parser.add_argument("--mesh", required=True,
                         help="Mesh path or filename inside models/")
@@ -117,7 +117,7 @@ def main():
         batch_size=args.megapose_batch_size,
     )
     detector = ContourRunner(COLOR_RANGES)
-    source = int(args.cam_source) if args.cam_source.isdecimal() else args.cam_source
+    source = int(args.cam_id) if args.cam_id.isdecimal() else args.cam_id
     cap = cv2.VideoCapture(source, cv2.CAP_V4L2)
     video = None
     pose_file = None
@@ -127,7 +127,7 @@ def main():
 
     try:
         if not cap.isOpened():
-            raise RuntimeError(f"Cannot open ZED camera: {args.cam_source}")
+            raise RuntimeError(f"Cannot open ZED camera: {args.cam_id}")
 
         # ZED UVC output contains both eyes side by side.
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, width * 2)

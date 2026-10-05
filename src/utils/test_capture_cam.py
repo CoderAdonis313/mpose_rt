@@ -29,7 +29,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 def parse_args():
     parser = ArgumentParser(description=__doc__)
-    parser.add_argument("--cam_source", default="0", type=int)
+    parser.add_argument("--cam_id", default="0", type=int)
     parser.add_argument("--mesh", required=True)
     parser.add_argument("--cam_file", required=True)
     parser.add_argument("--model", default="megapose-1.0-RGB")
@@ -110,7 +110,7 @@ def main():
 
         pose_worker = LatestPoseInference(pose_detector, iou_threshold=IOU)
         cam_worker = LatestFrameCamera(
-            source=args.cam_source,
+            source=args.cam_id,
             frame_size=(width * 2, height),
             backend=cv2.CAP_V4L2,
             fps=FPS

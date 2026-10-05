@@ -28,7 +28,7 @@ python -m src.single.metrics_postprocess \
 
 # echo "INFO: Running pose tracking on Video"
 # python -m src.single.rt_cam \
-#   --cam_source 2 \
+#   --cam_id 2 \
 #   --mesh models/BaselinePointer.obj \
 #   --cam_file configs/zed_1080p_raw_calib.json \
 

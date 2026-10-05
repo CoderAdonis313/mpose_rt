@@ -14,7 +14,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 def parse_args():
     parser = ArgumentParser()
-    parser.add_argument('--cam_source', required=True, help='Enter camera Id or camera url for ip cam', type=int)
+    parser.add_argument('--cam_id', required=True, help='Enter camera Id or camera url for ip cam', type=int)
     parser.add_argument('--mesh', required=True, help='path of mesh file')
     parser.add_argument('--cam_file', required=True, help='path of the camera configuration file')
     parser.add_argument('--model', default='megapose-1.0-RGB')
@@ -53,7 +53,7 @@ def main():
     mpose = MegaPoseRunner(mesh_path, 'fiducial', args.model, cam_file_path)
     detector = ContourRunner(COLOR_RANGES)
 
-    in_vid = cv2.VideoCapture(args.cam_source)
+    in_vid = cv2.VideoCapture(args.cam_id)
     VID_FPS = int(in_vid.get(cv2.CAP_PROP_FPS))
     IOU_OVERLAP = 0.5
 

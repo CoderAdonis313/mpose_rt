@@ -1,5 +1,5 @@
 # rt_live configs
-OUT_RES = (1920, 1080)
+OUT_RES = (1280, 720)
 FPS = 15
 IOU = 0.25
 MPOSE_BATCH_SIZE = 32
@@ -11,7 +11,7 @@ COLOR_RANGES = {
     # 'bot2_marker': ((25, 135, 0), (35, 255, 255),),
     # 'bot3_marker': ((103, 133, 0), (115, 255, 255)),
     'arena_marker': ((2, 135, 0), (14, 255, 255)),
-    'new_arena_marker': ((70, 135, 0), (82, 255, 255)),
+    # 'new_arena_marker': ((70, 135, 0), (82, 255, 255)),
 }
 
 MESH_PATHS = {
@@ -19,6 +19,6 @@ MESH_PATHS = {
     # 'bot2_marker': 'models/PointerActual.obj',
     # 'bot3_marker': 'models/PointerActual.obj',
     'arena_marker': 'models/ArenaMarker.obj',
-    'new_arena_marker': 'models/ArenaMarker.obj'
+    # 'new_arena_marker': 'models/ArenaMarker.obj'
 }
 
