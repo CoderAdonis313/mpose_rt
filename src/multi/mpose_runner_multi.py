@@ -115,6 +115,7 @@ class MegaPoseRunnerMulti:
                 mesh.vertices,
                 dtype=np.float32,
             )
+            print('INFO: No. of points in vertices', len(vertices))
 
             if vertices is not None and len(vertices) < min_mesh_points:
                 raise ValueError(
@@ -186,7 +187,7 @@ class MegaPoseRunnerMulti:
         )
         self.resolution = tuple(
             int(value)
-            for value in camera_data.resolution
+            for value in camera_data.resolution # type: ignore
         )
         self.camera_data = camera_data
 
