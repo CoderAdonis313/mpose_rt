@@ -6,7 +6,7 @@
 
 # python -m src.single.rt_live \
 #   --cam_id 0 \
-#   --mesh models/PointerActual.obj \
+#   --mesh models/PointerMarker.obj \
 #   --cam_file configs/zed_1080p_raw_calib.json \
 #   --udp-port 5005
 
@@ -16,7 +16,7 @@
 
 # python -m src.single.rt_zed_cam \
 #   --cam_id 2 \
-#   --mesh models/PointerActual.obj \
+#   --mesh models/PointerMarker.obj \
 #   --cam_file configs/zed_1080p_raw_calib.json \
 
 
@@ -25,5 +25,5 @@
 echo "INFO: Running pose tracking live and with camera thread"
 python -m src.utils.test_capture_cam \
   --cam_id 2 \
-  --mesh models/PointerActual.obj \
+  --mesh models/PointerMarker.obj \
   --cam_file configs/zed_1080p_raw_calib.json \

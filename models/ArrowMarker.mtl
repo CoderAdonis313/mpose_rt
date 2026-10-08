@@ -1,10 +1,10 @@
-# Blender 5.1.2 MTL File: 'OptDesignsCheck.blend'
+# Blender 5.2.2 LTS MTL File: 'markers.blend'
 # www.blender.org
 
-newmtl StandardPink
+newmtl StandardPink.001
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
-Kd 1.000000 0.000000 0.690196
+Kd 0.603824 0.347282 0.000000
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000

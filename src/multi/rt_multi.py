@@ -149,7 +149,7 @@ def main():
     sender = PoseSender(
         port=args.udp_port,
         frame_id=args.frame_id,
-        send_hz=30.0,
+        send_hz=SEND_RATE,
         max_pose_age_ns=POSE_HOLD_NS,
     )
     terminal_status = "STOPPED"
@@ -169,6 +169,7 @@ def main():
 
         bbox_detector = ContourRunnerMulti(
             COLOR_RANGES,
+            bbox_pad=BBOX_PAD
         )
 
         camera_matrix = np.asarray(
