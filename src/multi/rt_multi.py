@@ -9,14 +9,16 @@ contour detection, draws the latest available results, and handles the GUI.
 import json
 from argparse import ArgumentParser
 from pathlib import Path
-from time import perf_counter, time_ns
+from time import perf_counter, time_ns, time
 import numpy as np
 from configs.config_multi import *
 from src.multi.cam_worker import LatestFrameCamera
 from src.multi.contour_runner_multi import ContourRunnerMulti
 from src.multi.mpose_runner_multi import MegaPoseRunnerMulti
-from src.multi.pose_worker import LatestPoseInference, CapturedPoses
+from src.multi.pose_worker import LatestPoseInference
 from src.multi.multi_utils import PoseSender
+from src.multi.writer_worker import VideoWriterWorker
+
 
 import cv2
 cv2.ocl.setUseOpenCL(False)
@@ -35,6 +37,7 @@ def parse_args():
     parser.add_argument("--model", default="megapose-1.0-RGB",)
     parser.add_argument("--udp-port", type=int, default=5005)
     parser.add_argument('--frame_id', default="zed_left_cam")
+    parser.add_argument('--out_dir', default='outputs/live')
     args = parser.parse_args()
     return args
 
@@ -83,7 +86,7 @@ def draw_triaxis(image_bgr, camera_matrix, pose_matrix, axis_length=0.1):
 def draw_detections(
     image_bgr,
     detections,
-    detector,
+    label_colors,
 ):
     """Draw the current contour detections on a BGR image."""
 
@@ -92,7 +95,7 @@ def draw_detections(
         x1, y1, x2, y2 = map(int, item["detection"],)
 
         # ContourRunnerMulti stores display colors for an RGB image.
-        color_bgr = detector.label_colors.get(label, (255, 0, 255),)
+        color_bgr = label_colors.get(label, (255, 0, 255),)
         cv2.rectangle(
             image_bgr,
             (x1, y1),
@@ -119,11 +122,9 @@ def draw_detections(
 def main():
     args = parse_args()
     cam_path = PROJECT_ROOT / args.cam_file
+    out_path = PROJECT_ROOT / args.out_dir / f'rt_live_{time()}.mp4'
 
-    calibration = json.loads(
-        cam_path.read_text(encoding="utf-8")
-    )
-
+    calibration = json.loads(cam_path.read_text(encoding="utf-8"))
     size = tuple(calibration["img_size"])
 
     if size != tuple(OUT_RES):
@@ -142,6 +143,7 @@ def main():
     bbox_detector = None
     pose_worker = None
     cam_worker = None
+    writer_worker = None
     window_created = False
 
     processed_frames = 0
@@ -183,35 +185,30 @@ def main():
 
         cam_worker = LatestFrameCamera(
             source=args.cam_id,
-            frame_size=(
-                width * 2,
-                height,
-            ),
+            frame_size=(width * 2, height,),
             backend=cv2.CAP_V4L2,
             fps=FPS,
         )
 
+        writer_worker = VideoWriterWorker(
+            out_path=str(out_path),
+            frame_size=OUT_RES,
+            fps=FPS,
+            buffer_size=BUFFER_SIZE
+        )
+
         pose_worker.start()
         cam_worker.start()
+        writer_worker.start()
 
-        cv2.namedWindow(
-            WINDOW_NAME,
-            cv2.WINDOW_NORMAL,
-        )
-
+        cv2.namedWindow(WINDOW_NAME, cv2.WINDOW_NORMAL,)
+        cv2.resizeWindow(WINDOW_NAME, 1280, 720,)
         window_created = True
 
-        cv2.resizeWindow(
-            WINDOW_NAME,
-            1280,
-            720,
-        )
-
-        print(
-            "q/Escape: quit; r: reset all tracking"
-        )
+        print("q/Escape: quit; r: reset all tracking")
 
         last_frame_index = -1
+        last_written_frame_index = -1
         latest_left_bgr = None
         latest_detections = []
 
@@ -224,20 +221,10 @@ def main():
                 and frame_data.index
                 != last_frame_index
             ):
-                last_frame_index = (
-                    frame_data.index
-                )
+                last_frame_index = (frame_data.index)
+                latest_left_bgr = extract_left(frame_data.image, size,)
 
-                latest_left_bgr = extract_left(
-                    frame_data.image,
-                    size,
-                )
-
-                image_rgb = cv2.cvtColor(
-                    latest_left_bgr,
-                    cv2.COLOR_BGR2RGB,
-                )
-
+                image_rgb = cv2.cvtColor(latest_left_bgr, cv2.COLOR_BGR2RGB,)
                 # Contour detection is currently synchronous,
                 # but it does not wait for MegaPose.
                 _, latest_detections = (
@@ -261,15 +248,8 @@ def main():
                 processed_frames += 1
 
             if latest_left_bgr is not None:
-                display = (
-                    latest_left_bgr.copy()
-                )
-
-                draw_detections(
-                    display,
-                    latest_detections,
-                    bbox_detector,
-                )
+                display = (latest_left_bgr.copy())
+                draw_detections(display, latest_detections, bbox_detector.label_colors,)
 
                 # Returns immediately with the last completed
                 # MegaPose result.
@@ -300,13 +280,8 @@ def main():
                     inference_ms = 0.0
                 else:
                     status = pose_packet.status
-                    pose_count = len(
-                        pose_packet.poses
-                    )
-                    inference_ms = (
-                        pose_packet.inference_seconds
-                        * 1000.0
-                    )
+                    pose_count = len(pose_packet.poses)
+                    inference_ms = (pose_packet.inference_seconds* 1000.0)
 
                 status_text = (
                     f"{status} | "
@@ -332,6 +307,10 @@ def main():
                     cv2.LINE_AA,
                 )
 
+                if last_frame_index != last_written_frame_index:
+                    writer_worker.submit(frame_index=last_frame_index, frame=display)
+                    last_written_frame_index = last_frame_index
+
                 cv2.imshow(
                     WINDOW_NAME,
                     display,
@@ -347,14 +326,7 @@ def main():
                 pose_worker.request_reset()
                 sender.send('RESET', force=True)
 
-            if (
-                window_created
-                and cv2.getWindowProperty(
-                    WINDOW_NAME,
-                    cv2.WND_PROP_VISIBLE,
-                )
-                < 1
-            ):
+            if (window_created and cv2.getWindowProperty(WINDOW_NAME, cv2.WND_PROP_VISIBLE,) < 1):
                 break
 
     except KeyboardInterrupt:
@@ -372,7 +344,6 @@ def main():
         finally:
             sender.close()
 
-
         if pose_worker is not None:
             pose_worker.close()
 
@@ -382,15 +353,19 @@ def main():
         if pose_detector is not None:
             pose_detector.close()
 
+        if writer_worker is not None:
+            writer_worker.close()
+
         if window_created:
             cv2.destroyAllWindows()
 
         elapsed = perf_counter() - started
-
         print(
             f"Submitted {processed_frames} frames "
             f"in {elapsed:.1f} seconds"
         )
+        print(f'Wrote output file to: {out_path}')
+        print(f"Video writer wrote {writer_worker.written_frames} frames and dropped {writer_worker.dropped_frames} frames") #type: ignore
 
         if pose_worker is not None:
             print(

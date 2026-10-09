@@ -7,6 +7,8 @@ N_WORKERS = 12
 N_POINTS = 1000
 BBOX_PAD = 0.1
 SEND_RATE = 30.0
+BUFFER_SIZE = 10
+
 
 COLOR_RANGES = {
     'bot1_marker': ((165, 80, 70), (179, 255, 255)),        # Pink 
