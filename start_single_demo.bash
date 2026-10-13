@@ -1,4 +1,4 @@
-#!/bin/usr/env bash
+#!/usr/bin/env bash
 ################################################################ Optimized ##############################################################
 # This is single marker demo
 # echo "INFO: Running pose tracking live and sending pose on port 5005"

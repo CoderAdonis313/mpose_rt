@@ -10,17 +10,22 @@ SEND_RATE = 30.0
 BUFFER_SIZE = 10
 
 
-COLOR_RANGES = {
+COLOR_RANGES_ZED = {
     'bot1_marker': ((165, 80, 70), (179, 255, 255)),        # Pink 
-    # 'bot2_marker': ((20, 135, 55), (32, 255, 255),),      # Yellow
-    # 'bot3_marker': ((103, 133, 0), (115, 255, 255)),
-    # 'arena1_marker': ((5, 100, 65), (17, 255, 255)),
+    'bot2_marker': ((18, 135, 0), (30, 255, 255),),      # Yellow
     'arena1_marker': ((65, 139, 0), (89, 255, 255)),
 }
 
+COLOR_RANGES_SEE = {
+    "bot1_marker": ((140, 92, 65), (179, 255, 255)),  # Pink
+    "bot2_marker": ((20, 135, 55), (32, 255, 255)),  # YellowI
+    "arena1_marker": ((55, 55, 66), (117, 255, 255)),
+}
+
+
 MESH_PATHS = {
     'bot1_marker': 'models/PointerMarker.obj',              # Pink
-    # 'bot2_marker': 'models/ArrowMarker.obj',              # Yellow
+    'bot2_marker': 'models/ArrowMarker.obj',              # Yellow
     # 'bot3_marker': 'models/PointerMarker.obj',
     # 'arena1_marker': 'models/ArenaMarker.obj',
     'arena1_marker': 'models/ArenaMarker.obj'
@@ -52,4 +57,3 @@ MESH_PATHS = {
 #     # 'arena1_marker': 'models/ArenaMarker.obj',
 #     'arena1_marker': 'models/ArenaMarker.obj'
 # }
-

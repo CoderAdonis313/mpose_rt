@@ -21,53 +21,53 @@ from src.multi.writer_worker import VideoWriterWorker
 
 
 import cv2
+
 cv2.ocl.setUseOpenCL(False)
 cv2.setNumThreads(1)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-WINDOW_NAME = "ZED Multi-Marker MegaPose"
+WINDOW_NAME = "Multi-Marker MegaPose"
 POSE_HOLD_NS = 1_000_000_000
 
 
 def parse_args():
-    parser = ArgumentParser(description=__doc__,)
-    parser.add_argument("--cam_id",default=0, type=int)
+    parser = ArgumentParser(
+        description=__doc__,
+    )
+    parser.add_argument("--cam_id", default=0, type=int)
     parser.add_argument("--cam_file", required=True, type=str)
-    parser.add_argument("--model", default="megapose-1.0-RGB",)
+    parser.add_argument(
+        "--model",
+        default="megapose-1.0-RGB",
+    )
     parser.add_argument("--udp-port", type=int, default=5005)
-    parser.add_argument('--frame_id', default="zed_left_cam")
-    parser.add_argument('--out_dir', default='outputs/live')
+    parser.add_argument("--out_dir", default="outputs/live")
+    parser.add_argument("--stereo", action="store_true", help="Specify if you are using zed stereo or see cam mono camera")
     args = parser.parse_args()
     return args
 
 
-def extract_left(stereo_frame, size):
+def extract_right(stereo_frame, size):
     width, height = size
     expected_shape = (height, width * 2, 3)
+    actual_shape = None if stereo_frame is None else stereo_frame.shape
 
-    if (
-        stereo_frame is None
-        or stereo_frame.shape != expected_shape
-        or stereo_frame.dtype != np.uint8
-    ):
-        actual_shape = (
-            None
-            if stereo_frame is None
-            else stereo_frame.shape
-        )
+    if actual_shape != expected_shape or stereo_frame.dtype != np.uint8: # type: ignore
+        raise RuntimeError(f"Expected stereo frame {expected_shape}; received {actual_shape}")
 
-        raise RuntimeError(
-            f"Expected ZED stereo frame {expected_shape}; "
-            f"received {actual_shape}"
-        )
-    
-    return stereo_frame[:, :width].copy()
+    return stereo_frame[:, width : width * 2].copy() # type: ignore
 
 
 def draw_triaxis(image_bgr, camera_matrix, pose_matrix, axis_length=0.1):
-    rotation = np.asarray(pose_matrix[:3, :3],dtype=float,)
-    translation = np.asarray(pose_matrix[:3, 3],dtype=float,).reshape(3, 1)
+    rotation = np.asarray(
+        pose_matrix[:3, :3],
+        dtype=float,
+    )
+    translation = np.asarray(
+        pose_matrix[:3, 3],
+        dtype=float,
+    ).reshape(3, 1)
 
     rotation_vector, _ = cv2.Rodrigues(rotation)
     distortion = np.zeros((5, 1), dtype=float)
@@ -92,10 +92,16 @@ def draw_detections(
 
     for item in detections:
         label = item["label"]
-        x1, y1, x2, y2 = map(int, item["detection"],)
+        x1, y1, x2, y2 = map(
+            int,
+            item["detection"],
+        )
 
         # ContourRunnerMulti stores display colors for an RGB image.
-        color_bgr = label_colors.get(label, (255, 0, 255),)
+        color_bgr = label_colors.get(
+            label,
+            (255, 0, 255),
+        )
         cv2.rectangle(
             image_bgr,
             (x1, y1),
@@ -122,7 +128,8 @@ def draw_detections(
 def main():
     args = parse_args()
     cam_path = PROJECT_ROOT / args.cam_file
-    out_path = PROJECT_ROOT / args.out_dir / f'rt_live_{time()}.mp4'
+    TSTAMP = int(time())
+    out_path = PROJECT_ROOT / args.out_dir / f"rt_live_{int(TSTAMP)}.mp4"
 
     calibration = json.loads(cam_path.read_text(encoding="utf-8"))
     size = tuple(calibration["img_size"])
@@ -133,10 +140,7 @@ def main():
     if not 1 <= args.udp_port <= 65535:
         raise ValueError("UDP port must be between 1 and 65535")
 
-    mesh_paths = {
-        label: PROJECT_ROOT / mesh_path
-        for label, mesh_path in MESH_PATHS.items()
-    }
+    mesh_paths = {label: PROJECT_ROOT / mesh_path for label, mesh_path in MESH_PATHS.items()}
 
     width, height = size
     pose_detector = None
@@ -145,19 +149,20 @@ def main():
     cam_worker = None
     writer_worker = None
     window_created = False
+    frame_id = f'zed_right_cam_{int(TSTAMP)}' if args.stereo else f'see_cam_{int(TSTAMP)}'
 
     processed_frames = 0
     started = perf_counter()
     sender = PoseSender(
         port=args.udp_port,
-        frame_id=args.frame_id,
+        frame_id=frame_id,
         send_hz=SEND_RATE,
         max_pose_age_ns=POSE_HOLD_NS,
     )
     terminal_status = "STOPPED"
 
     try:
-        sender.send('STARTING', force=True)
+        sender.send("STARTING", force=True)
 
         pose_detector = MegaPoseRunnerMulti(
             mesh_paths=mesh_paths,
@@ -169,97 +174,99 @@ def main():
             min_mesh_points=N_POINTS,
         )
 
-        bbox_detector = ContourRunnerMulti(
-            COLOR_RANGES,
-            bbox_pad=BBOX_PAD
-        )
+        bbox_detector = ContourRunnerMulti(COLOR_RANGES_SEE, bbox_pad=BBOX_PAD)
 
         camera_matrix = np.asarray(
             pose_detector.K,
             dtype=float,
         ).copy()
 
-        pose_worker = LatestPoseInference(
-            pose_detector
-        )
+        pose_worker = LatestPoseInference(pose_detector)
 
+        capture_width = width * 2 if args.stereo else width
         cam_worker = LatestFrameCamera(
             source=args.cam_id,
-            frame_size=(width * 2, height,),
+            frame_size=(capture_width, height),
             backend=cv2.CAP_V4L2,
             fps=FPS,
         )
 
-        writer_worker = VideoWriterWorker(
-            out_path=str(out_path),
-            frame_size=OUT_RES,
-            fps=FPS,
-            buffer_size=BUFFER_SIZE
-        )
+        writer_worker = VideoWriterWorker(out_path=str(out_path), frame_size=OUT_RES, fps=FPS, buffer_size=BUFFER_SIZE)
 
         pose_worker.start()
         cam_worker.start()
         writer_worker.start()
 
-        cv2.namedWindow(WINDOW_NAME, cv2.WINDOW_NORMAL,)
-        cv2.resizeWindow(WINDOW_NAME, 1280, 720,)
+        cv2.namedWindow(
+            WINDOW_NAME,
+            cv2.WINDOW_NORMAL,
+        )
+        cv2.resizeWindow(
+            WINDOW_NAME,
+            1280,
+            720,
+        )
         window_created = True
 
         print("q/Escape: quit; r: reset all tracking")
 
         last_frame_index = -1
         last_written_frame_index = -1
-        latest_left_bgr = None
+        latest_frame = None
         latest_detections = []
 
         while True:
             # Returns immediately with the newest camera frame.
             frame_data = cam_worker.latest()
 
-            if (
-                frame_data is not None
-                and frame_data.index
-                != last_frame_index
-            ):
-                last_frame_index = (frame_data.index)
-                latest_left_bgr = extract_left(frame_data.image, size,)
+            if frame_data is not None and frame_data.index != last_frame_index:
+                last_frame_index = frame_data.index
 
-                image_rgb = cv2.cvtColor(latest_left_bgr, cv2.COLOR_BGR2RGB,)
+                if args.stereo:
+                    latest_frame = extract_right(
+                        frame_data.image,
+                        size,
+                    )
+                else:
+                    latest_frame = frame_data.image
+
+                image_rgb = cv2.cvtColor(
+                    latest_frame,
+                    cv2.COLOR_BGR2RGB,
+                )
                 # Contour detection is currently synchronous,
                 # but it does not wait for MegaPose.
-                _, latest_detections = (
-                    bbox_detector.estimate(
-                        image_rgb,
-                        draw=False,
-                    )
+                _, latest_detections = bbox_detector.estimate(
+                    image_rgb,
+                    draw=False,
                 )
 
                 # This returns immediately. If MegaPose is busy,
                 # the newest pending job replaces the older one.
                 pose_worker.submit(
                     frame_index=frame_data.index,
-                    image_time_ns=(
-                        frame_data.image_time_ns
-                    ),
+                    image_time_ns=(frame_data.image_time_ns),
                     image_rgb=image_rgb,
                     detections=latest_detections,
                 )
 
                 processed_frames += 1
 
-            if latest_left_bgr is not None:
-                display = (latest_left_bgr.copy())
-                draw_detections(display, latest_detections, bbox_detector.label_colors,)
+            if latest_frame is not None:
+                display = latest_frame.copy()
+                draw_detections(
+                    display,
+                    latest_detections,
+                    bbox_detector.label_colors,
+                )
 
                 # Returns immediately with the last completed
                 # MegaPose result.
-                pose_packet = (
-                    pose_worker.latest()
-                )
+                pose_packet = pose_worker.latest()
 
                 pose_is_fresh = (
                     pose_packet is not None
-                    and (time_ns() - pose_packet.image_time_ns) <= POSE_HOLD_NS 
+                    and (time_ns() - pose_packet.image_time_ns) <= POSE_HOLD_NS
                     # Tells is the original image captured time and now time is too old, then this packet is stale
                 )
 
@@ -267,7 +274,7 @@ def main():
                     for (
                         label,
                         marker_pose,
-                    ) in pose_packet.poses.items(): #type: ignore
+                    ) in pose_packet.poses.items():  # type: ignore
                         draw_triaxis(
                             display,
                             camera_matrix,
@@ -281,20 +288,11 @@ def main():
                 else:
                     status = pose_packet.status
                     pose_count = len(pose_packet.poses)
-                    inference_ms = (pose_packet.inference_seconds* 1000.0)
+                    inference_ms = pose_packet.inference_seconds * 1000.0
 
-                status_text = (
-                    f"{status} | "
-                    f"detections={len(latest_detections)} | "
-                    f"poses={pose_count} | "
-                    f"inference={inference_ms:.1f} ms | "
-                    f"dropped={pose_worker.dropped_inputs}"
-                )
+                status_text = f"{status} | " f"detections={len(latest_detections)} | " f"poses={pose_count} | " f"inference={inference_ms:.1f} ms | " f"dropped={pose_worker.dropped_inputs}"
 
-                sender.send(
-                    status,
-                    pose_packet
-                )
+                sender.send(status, pose_packet)
 
                 cv2.putText(
                     display,
@@ -324,9 +322,16 @@ def main():
 
             if key == ord("r"):
                 pose_worker.request_reset()
-                sender.send('RESET', force=True)
+                sender.send("RESET", force=True)
 
-            if (window_created and cv2.getWindowProperty(WINDOW_NAME, cv2.WND_PROP_VISIBLE,) < 1):
+            if (
+                window_created
+                and cv2.getWindowProperty(
+                    WINDOW_NAME,
+                    cv2.WND_PROP_VISIBLE,
+                )
+                < 1
+            ):
                 break
 
     except KeyboardInterrupt:
@@ -334,7 +339,7 @@ def main():
 
     except Exception as error:
         print(f"ERROR: {error}")
-        terminal_status = 'ERROR'
+        terminal_status = "ERROR"
         raise
 
     finally:
@@ -360,20 +365,12 @@ def main():
             cv2.destroyAllWindows()
 
         elapsed = perf_counter() - started
-        print(
-            f"Submitted {processed_frames} frames "
-            f"in {elapsed:.1f} seconds"
-        )
-        print(f'Wrote output file to: {out_path}')
-        print(f"Video writer wrote {writer_worker.written_frames} frames and dropped {writer_worker.dropped_frames} frames") #type: ignore
+        print(f"Submitted {processed_frames} frames " f"in {elapsed:.1f} seconds")
+        print(f"Wrote output file to: {out_path}")
+        print(f"Video writer wrote {writer_worker.written_frames} frames and dropped {writer_worker.dropped_frames} frames")  # type: ignore
 
         if pose_worker is not None:
-            print(
-                f"MegaPose processed "
-                f"{pose_worker.processed_inputs} jobs; "
-                f"dropped "
-                f"{pose_worker.dropped_inputs} pending jobs"
-            )
+            print(f"MegaPose processed " f"{pose_worker.processed_inputs} jobs; " f"dropped " f"{pose_worker.dropped_inputs} pending jobs")
 
 
 if __name__ == "__main__":

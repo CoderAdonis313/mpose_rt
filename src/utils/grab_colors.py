@@ -18,8 +18,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-from configs.config_multi import COLOR_RANGES, OUT_RES
-
+from configs.config_multi import *
 
 PREVIEW_WINDOW = "HSV Tuner - Right Camera"
 MASK_WINDOW = "HSV Mask"
@@ -43,9 +42,7 @@ class HSVTuner:
         display_scale=0.5,
     ):
         if not initial_ranges:
-            raise ValueError(
-                "COLOR_RANGES must contain at least one label"
-            )
+            raise ValueError("COLOR_RANGES must contain at least one label")
 
         self.labels = list(initial_ranges)
         self.selected_index = 0
@@ -105,20 +102,17 @@ class HSVTuner:
 
         self._load_selected_range()
 
+
     @property
     def selected_label(self):
         return self.labels[self.selected_index]
 
+
     def _on_trackbar(self, unused_value):
-        if (
-            not self.trackbars_ready
-            or self.syncing_trackbars
-        ):
+        if not self.trackbars_ready or self.syncing_trackbars:
             return
 
-        values = self.ranges[
-            self.selected_label
-        ]
+        values = self.ranges[self.selected_label]
 
         for name, _ in TRACKBARS:
             values[name] = cv2.getTrackbarPos(
@@ -126,12 +120,11 @@ class HSVTuner:
                 PREVIEW_WINDOW,
             )
 
+
     def _load_selected_range(self):
         self.syncing_trackbars = True
 
-        values = self.ranges[
-            self.selected_label
-        ]
+        values = self.ranges[self.selected_label]
 
         for name, _ in TRACKBARS:
             cv2.setTrackbarPos(
@@ -142,9 +135,8 @@ class HSVTuner:
 
         self.syncing_trackbars = False
 
-        print(
-            f"Selected: {self.selected_label}"
-        )
+        print(f"Selected: {self.selected_label}")
+
 
     def _on_mouse(
         self,
@@ -154,22 +146,13 @@ class HSVTuner:
         flags,
         parameter,
     ):
-        if (
-            event != cv2.EVENT_LBUTTONDOWN
-            or self.current_frame is None
-        ):
+        if event != cv2.EVENT_LBUTTONDOWN or self.current_frame is None:
             return
 
-        frame_height, frame_width = (
-            self.current_frame.shape[:2]
-        )
+        frame_height, frame_width = self.current_frame.shape[:2]
 
-        image_x = int(
-            display_x / self.display_scale
-        )
-        image_y = int(
-            display_y / self.display_scale
-        )
+        image_x = int(display_x / self.display_scale)
+        image_y = int(display_y / self.display_scale)
 
         image_x = int(
             np.clip(
@@ -219,29 +202,24 @@ class HSVTuner:
         saturation = int(median_hsv[1])
         value = int(median_hsv[2])
 
-        values = self.ranges[
-            self.selected_label
-        ]
+        values = self.ranges[self.selected_label]
 
         # Hue is kept narrow. Saturation and value receive wider
         # margins to accommodate reflections and shadows.
-        values.update({
-            "H min": max(0, hue - 6),
-            "H max": min(179, hue + 6),
-            "S min": max(0, saturation - 120),
-            "S max": 255,
-            "V min": max(0, value - 190),
-            "V max": 255,
-        })
-
-        self._load_selected_range()
-
-        print(
-            f"Clicked {self.selected_label}: "
-            f"HSV=({hue}, {saturation}, {value})"
+        values.update(
+            {
+                "H min": max(0, hue - 6),
+                "H max": min(179, hue + 6),
+                "S min": max(0, saturation - 120),
+                "S max": 255,
+                "V min": max(0, value - 190),
+                "V max": 255,
+            }
         )
-
+        self._load_selected_range()
+        print(f"Clicked {self.selected_label}: " f"HSV=({hue}, {saturation}, {value})")
         self.print_selected_range()
+
 
     def get_bounds(self, label):
         values = self.ranges[label]
@@ -263,8 +241,8 @@ class HSVTuner:
             ],
             dtype=np.uint8,
         )
-
         return lower, upper
+
 
     def make_mask(self, frame_bgr):
         hsv = cv2.cvtColor(
@@ -272,9 +250,7 @@ class HSVTuner:
             cv2.COLOR_BGR2HSV,
         )
 
-        lower, upper = self.get_bounds(
-            self.selected_label
-        )
+        lower, upper = self.get_bounds(self.selected_label)
 
         mask = cv2.inRange(
             hsv,
@@ -299,39 +275,27 @@ class HSVTuner:
             cv2.MORPH_CLOSE,
             self.kernel,
         )
-
         return mask
 
+
     def draw_components(self, preview, mask):
-        component_count, _, stats, _ = (
-            cv2.connectedComponentsWithStats(
-                mask,
-                connectivity=8,
-            )
+        component_count, _, stats, _ = cv2.connectedComponentsWithStats(
+            mask,
+            connectivity=8,
         )
 
         detection_count = 0
 
         for index in range(1, component_count):
-            area = int(
-                stats[index, cv2.CC_STAT_AREA]
-            )
+            area = int(stats[index, cv2.CC_STAT_AREA])
 
             if area < self.min_area:
                 continue
 
-            x = int(
-                stats[index, cv2.CC_STAT_LEFT]
-            )
-            y = int(
-                stats[index, cv2.CC_STAT_TOP]
-            )
-            width = int(
-                stats[index, cv2.CC_STAT_WIDTH]
-            )
-            height = int(
-                stats[index, cv2.CC_STAT_HEIGHT]
-            )
+            x = int(stats[index, cv2.CC_STAT_LEFT])
+            y = int(stats[index, cv2.CC_STAT_TOP])
+            width = int(stats[index, cv2.CC_STAT_WIDTH])
+            height = int(stats[index, cv2.CC_STAT_HEIGHT])
 
             detection_count += 1
 
@@ -342,8 +306,8 @@ class HSVTuner:
                 (0, 255, 0),
                 3,
             )
-
         return detection_count
+
 
     def show(self, frame_bgr, paused):
         # Keep an independent stable frame for mouse sampling.
@@ -361,26 +325,14 @@ class HSVTuner:
             mask,
         )
 
-        lower, upper = self.get_bounds(
-            self.selected_label
-        )
+        lower, upper = self.get_bounds(self.selected_label)
 
-        state = (
-            "PAUSED"
-            if paused
-            else "LIVE"
-        )
+        state = "PAUSED" if paused else "LIVE"
 
         lines = [
             f"{self.selected_label} | {state}",
-            (
-                f"Lower: "
-                f"({lower[0]}, {lower[1]}, {lower[2]})"
-            ),
-            (
-                f"Upper: "
-                f"({upper[0]}, {upper[1]}, {upper[2]})"
-            ),
+            (f"Lower: " f"({lower[0]}, {lower[1]}, {lower[2]})"),
+            (f"Upper: " f"({upper[0]}, {upper[1]}, {upper[2]})"),
             f"Components: {detection_count}",
             "1-9 label | click sample | Space freeze",
             "p print | s save | r reset | q quit",
@@ -416,17 +368,11 @@ class HSVTuner:
 
         display_width = max(
             1,
-            int(
-                preview.shape[1]
-                * self.display_scale
-            ),
+            int(preview.shape[1] * self.display_scale),
         )
         display_height = max(
             1,
-            int(
-                preview.shape[0]
-                * self.display_scale
-            ),
+            int(preview.shape[0] * self.display_scale),
         )
 
         display_size = (
@@ -455,36 +401,26 @@ class HSVTuner:
             mask_small,
         )
 
+
     def select_label(self, index):
         if 0 <= index < len(self.labels):
             self.selected_index = index
             self._load_selected_range()
 
+
     def reset_selected(self):
         label = self.selected_label
 
-        self.ranges[label] = (
-            self.initial_ranges[label].copy()
-        )
+        self.ranges[label] = self.initial_ranges[label].copy()
 
         self._load_selected_range()
-
         print(f"Reset {label}")
 
-    def print_selected_range(self):
-        lower, upper = self.get_bounds(
-            self.selected_label
-        )
 
-        print(
-            f'"{self.selected_label}": '
-            f"(({int(lower[0])}, "
-            f"{int(lower[1])}, "
-            f"{int(lower[2])}), "
-            f"({int(upper[0])}, "
-            f"{int(upper[1])}, "
-            f"{int(upper[2])})),"
-        )
+    def print_selected_range(self):
+        lower, upper = self.get_bounds(self.selected_label)
+        print(f'"{self.selected_label}": ' f"(({int(lower[0])}, " f"{int(lower[1])}, " f"{int(lower[2])}), " f"({int(upper[0])}, " f"{int(upper[1])}, " f"{int(upper[2])})),")
+
 
     def print_ranges(self):
         print("\nCOLOR_RANGES = {")
@@ -492,17 +428,9 @@ class HSVTuner:
         for label in self.labels:
             lower, upper = self.get_bounds(label)
 
-            print(
-                f'    "{label}": '
-                f"(({int(lower[0])}, "
-                f"{int(lower[1])}, "
-                f"{int(lower[2])}), "
-                f"({int(upper[0])}, "
-                f"{int(upper[1])}, "
-                f"{int(upper[2])})),"
-            )
-
+            print(f'    "{label}": ' f"(({int(lower[0])}, " f"{int(lower[1])}, " f"{int(lower[2])}), " f"({int(upper[0])}, " f"{int(upper[1])}, " f"{int(upper[2])})),")
         print("}\n")
+
 
     def save_ranges(self):
         output = {}
@@ -523,19 +451,14 @@ class HSVTuner:
             encoding="utf-8",
         )
 
-        print(
-            f"Saved ranges to {self.output_path}"
-        )
-
+        print(f"Saved ranges to {self.output_path}")
         self.print_ranges()
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(
-        description=(
-            "Tune HSV ranges using the right ZED camera"
-        )
-    )
+    parser = argparse.ArgumentParser(description=("Tune HSV ranges using the right ZED camera"))
+
+    parser.add_argument("--stereo", action="store_true", help="If you are using a stereo camera like zed, then code splits images into halves")
 
     parser.add_argument(
         "--cam_id",
@@ -548,7 +471,7 @@ def parse_args():
         type=int,
         metavar=("WIDTH", "HEIGHT"),
         default=list(OUT_RES),
-        help="Resolution of one ZED camera image",
+        help="Requested Resolution of image, for stereo resolution is duplicated & right image is selected",
     )
     parser.add_argument(
         "--fps",
@@ -583,9 +506,7 @@ def parse_args():
         parser.error("FPS must be positive")
 
     if args.display_scale <= 0:
-        parser.error(
-            "Display scale must be positive"
-        )
+        parser.error("Display scale must be positive")
 
     return args
 
@@ -594,80 +515,42 @@ def open_camera(args):
     camera_id = int(args.cam_id)
     width, height = args.res
 
-    capture = cv2.VideoCapture(
-        camera_id,
-        cv2.CAP_V4L2,
-    )
+    capture = cv2.VideoCapture(camera_id, cv2.CAP_V4L2)
 
     if not capture.isOpened():
-        raise RuntimeError(
-            f"Could not open camera {camera_id}"
+        raise RuntimeError(f"Could not open camera {camera_id}")
+
+    if args.stereo:
+        # Stereo UVC output contains left and right images.
+        capture.set(
+            cv2.CAP_PROP_FRAME_WIDTH,
+            width * 2,
         )
+    else:
+        capture.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 
-    # ZED UVC output contains left and right images.
-    capture.set(
-        cv2.CAP_PROP_FRAME_WIDTH,
-        width * 2,
-    )
-    capture.set(
-        cv2.CAP_PROP_FRAME_HEIGHT,
-        height,
-    )
-    capture.set(
-        cv2.CAP_PROP_FPS,
-        args.fps,
-    )
-    capture.set(
-        cv2.CAP_PROP_BUFFERSIZE,
-        1,
-    )
+    capture.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+    capture.set(cv2.CAP_PROP_FPS, args.fps)
+    capture.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
-    actual_width = int(
-        capture.get(cv2.CAP_PROP_FRAME_WIDTH)
-    )
-    actual_height = int(
-        capture.get(cv2.CAP_PROP_FRAME_HEIGHT)
-    )
-    actual_fps = capture.get(
-        cv2.CAP_PROP_FPS
-    )
+    actual_width = int(capture.get(cv2.CAP_PROP_FRAME_WIDTH))
+    actual_height = int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    actual_fps = capture.get(cv2.CAP_PROP_FPS)
 
-    print(
-        f"Requested stereo capture: "
-        f"{width * 2}x{height} at {args.fps} FPS"
-    )
-    print(
-        f"Reported capture: "
-        f"{actual_width}x{actual_height} "
-        f"at {actual_fps:.1f} FPS"
-    )
-
+    mode = "stereo" if args.stereo else "mono"
+    requested_width = width * 2 if args.stereo else width
+    print(f"Requested {mode} capture: {requested_width}x{height} at {args.fps} FPS")    
+    print(f"Reported capture: " f"{actual_width}x{actual_height} " f"at {actual_fps:.1f} FPS")
     return capture
 
 
-def extract_right_image(
-    stereo_frame,
-    resolution,
-):
+def extract_right_image(stereo_frame, resolution):
     width, height = resolution
-
-    expected_shape = (
-        height,
-        width * 2,
-        3,
-    )
+    expected_shape = (height, width * 2, 3)
 
     if stereo_frame.shape != expected_shape:
-        raise RuntimeError(
-            f"Expected stereo frame {expected_shape}; "
-            f"received {stereo_frame.shape}. "
-            "The camera may not support the requested mode."
-        )
-
-    return stereo_frame[
-        :,
-        width:width * 2,
-    ].copy()
+        raise RuntimeError(f"Expected stereo frame {expected_shape}; " f"received {stereo_frame.shape}. " "The camera may not support the requested mode.")
+    return stereo_frame[:, width : width * 2].copy()
 
 
 def main():
@@ -677,14 +560,14 @@ def main():
     capture = open_camera(args)
 
     tuner = HSVTuner(
-        initial_ranges=COLOR_RANGES,
+        initial_ranges=COLOR_RANGES_SEE,
         output_path=args.output,
         min_area=args.min_area,
         display_scale=args.display_scale,
     )
 
     paused = False
-    right_frame = None
+    cam_frame = None
 
     print("\nControls:")
 
@@ -700,23 +583,16 @@ def main():
 
     try:
         while True:
-            if not paused or right_frame is None:
-                success, stereo_frame = capture.read()
+            if not paused or cam_frame is None:
+                success, cam_frame = capture.read()
 
                 if not success:
-                    raise RuntimeError(
-                        "Camera stopped returning frames"
-                    )
+                    raise RuntimeError("Camera stopped returning frames")
 
-                right_frame = extract_right_image(
-                    stereo_frame,
-                    resolution,
-                )
+                if args.stereo:
+                    cam_frame = extract_right_image(cam_frame, resolution)
 
-            tuner.show(
-                right_frame,
-                paused,
-            )
+            tuner.show(cam_frame, paused)
 
             key = cv2.waitKey(1) & 0xFF
 
@@ -724,18 +600,12 @@ def main():
                 break
 
             if ord("1") <= key <= ord("9"):
-                tuner.select_label(
-                    key - ord("1")
-                )
+                tuner.select_label(key - ord("1"))
 
             elif key == ord(" "):
                 paused = not paused
 
-                print(
-                    "Frame frozen"
-                    if paused
-                    else "Live camera resumed"
-                )
+                print("Frame frozen" if paused else "Live camera resumed")
 
             elif key == ord("p"):
                 tuner.print_ranges()
